@@ -1,0 +1,983 @@
+.is-hidden {
+  display: none !important;
+}
+
+.dropdown {
+  background-color: white;
+  border-top: 1px solid #dddddd;
+  max-height: calc((100vh - 48px) / 100 * 70);
+  overflow-y: auto;
+}
+
+.dropdown-panel {
+  display: block;
+}
+
+.dropdown-shell {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 0 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+}
+
+/* ---------------- SALDI ---------------- */
+
+.saldi-sidebar {
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.saldi-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 16px;
+    text-decoration: none;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: white;
+    transition: background-color 0.2s ease;
+}
+
+.saldi-link:hover,
+.saldi-link.active {
+    background-color: #f3f3f3;
+}
+
+.saldi-link-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.saldi-link-arrow {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+    color: #111111;
+}
+
+.saldi-main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.saldi-card {
+    width: 188px;
+    background-color: #f5f5f5;
+    text-decoration: none;
+    color: #111111;
+    display: block;
+}
+
+.saldi-card-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.saldi-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.saldi-card-body {
+    padding: 12px 14px 14px;
+    text-align: center;
+}
+
+.saldi-card-body h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    line-height: 1.35;
+    font-weight: 700;
+    color: #111111;
+}
+
+.saldi-card-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.35;
+    color: #555555;
+}
+
+/* ---------------- STAMPANTI ---------------- */
+
+.stampanti-sidebar {
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stampanti-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    background-color: white;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.stampanti-link:hover,
+.stampanti-link.active {
+    background-color: #f3f3f3;
+}
+
+.stampanti-link-arrow {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+    color: #111111;
+}
+
+.stampanti-main {
+    flex: 1;
+}
+
+.stampanti-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.stampanti-card {
+    position: relative;
+    min-height: 126px;
+    background-color: #f7f7f7;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: #111111;
+    border: 1px solid #eeeeee;
+}
+
+.stampanti-card-image {
+    width: 92px;
+    height: 92px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stampanti-card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.stampanti-card-body h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #111111;
+}
+
+.stampanti-card-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: #555555;
+    max-width: 250px;
+}
+
+.stampanti-card-badge {
+    padding-top: 28px;
+}
+
+.stampanti-badge {
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    background-color: #10c85a;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+/* ---------------- AMS ---------------- */
+
+.ams-sidebar {
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ams-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 52px;
+    padding: 0 14px;
+    background-color: white;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.ams-link:hover,
+.ams-link.active {
+    background-color: #f3f3f3;
+}
+
+.ams-link-arrow {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+    color: #111111;
+}
+
+.ams-main {
+    flex: 1;
+}
+
+.ams-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.ams-card {
+    min-height: 126px;
+    background-color: #f7f7f7;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: #111111;
+    border: 1px solid #eeeeee;
+}
+
+.ams-card-image {
+    width: 92px;
+    height: 92px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ams-card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.ams-card-body h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #111111;
+}
+
+.ams-card-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+    color: #555555;
+    max-width: 260px;
+}
+
+/* ---------------- FILAMENTI ---------------- */
+
+.filamenti-sidebar {
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filamenti-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    background-color: white;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.filamenti-link:hover,
+.filamenti-link.active {
+    background-color: #f3f3f3;
+}
+
+.filamenti-link-arrow {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+    color: #111111;
+}
+
+.filamenti-main {
+    flex: 1;
+}
+
+.filamenti-group {
+    width: 100%;
+}
+
+.filamenti-group + .filamenti-group {
+    margin-top: 20px;
+}
+
+.filamenti-group-divider {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 18px;
+}
+
+.filamenti-group-title {
+    margin: 0 0 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222222;
+}
+
+.filamenti-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.filamenti-card {
+    position: relative;
+    min-height: 126px;
+    background-color: #f7f7f7;
+    border: 1px solid #eeeeee;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 20px 0 0;
+    text-decoration: none;
+    color: #111111;
+}
+
+.filamenti-card-image {
+    width: 126px;
+    height: 126px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.filamenti-card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.filamenti-card-body h3 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #111111;
+}
+
+.filamenti-card-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #666666;
+    max-width: 260px;
+}
+
+.filamenti-badge {
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+.filamenti-badge-pink {
+    background-color: #ff2b6a;
+}
+
+.filamenti-badge-green {
+    background-color: #12c95a;
+}
+
+.filamenti-badge-orange {
+    background-color: #ff8a24;
+}
+
+/* ---------------- ACCESSORI ---------------- */
+
+.accessori-sidebar {
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.accessori-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    background-color: white;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.accessori-link:hover,
+.accessori-link.active {
+    background-color: #f3f3f3;
+}
+
+.accessori-link-arrow {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+    color: #111111;
+}
+
+.accessori-main {
+    flex: 1;
+}
+
+.accessori-main-title {
+    margin: 0 0 12px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #222222;
+}
+
+.accessori-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.accessori-card {
+    position: relative;
+    min-height: 240px;
+    background-color: #f7f7f7;
+    border: 1px solid #eeeeee;
+    text-decoration: none;
+    color: #111111;
+    display: flex;
+    flex-direction: column;
+}
+
+.accessori-card-image {
+    width: 100%;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.accessori-card-image img {
+    max-width: 90%;
+    max-height: 90%;
+    display: block;
+    object-fit: contain;
+}
+
+.accessori-card-body {
+    padding: 14px 12px 16px;
+    text-align: center;
+}
+
+.accessori-card-body h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #111111;
+}
+
+.accessori-badge {
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    background-color: #12c95a;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+.accessori-card-promo {
+    background-color: #f4ecd3;
+}
+
+.accessori-card-promo .accessori-card-image {
+    background-color: #f4ecd3;
+}
+
+/* ---------------- MATERIALE ---------------- */
+
+.materiale-sidebar {
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.materiale-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    background-color: white;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.materiale-link:hover,
+.materiale-link.active {
+    background-color: #f3f3f3;
+}
+
+.materiale-link-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.materiale-link-arrow {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+    color: #111111;
+}
+
+.materiale-main {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+}
+
+.materiale-card {
+    width: 395px;
+    min-height: 126px;
+    background-color: #f7f7f7;
+    padding: 0 20px 0 0;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: #111111;
+    border: 1px solid #eeeeee;
+}
+
+.materiale-card-image {
+    width: 126px;
+    height: 126px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.materiale-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.materiale-card-body h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    line-height: 1.35;
+    font-weight: 700;
+    color: #111111;
+}
+
+.materiale-card-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #666666;
+    max-width: 250px;
+}
+
+/* ---------------- GENERICO ---------------- */
+
+.dropdown-panel h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    gap: 12px;
+}
+
+.dropdown a {
+    text-decoration: none;
+    color: #111111;
+}
+
+/* ---------------- RICAMBI ---------------- */
+
+.ricambi-sidebar {
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ricambi-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    background-color: white;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.ricambi-link:hover,
+.ricambi-link.active {
+    background-color: #f3f3f3;
+}
+
+.ricambi-link-arrow {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+    color: #111111;
+}
+
+.ricambi-main {
+    flex: 1;
+}
+
+.ricambi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(170px, 1fr));
+    gap: 18px 20px;
+}
+
+.ricambi-card {
+    min-height: 54px;
+    background-color: #f7f7f7;
+    border: 1px solid #eeeeee;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #111111;
+}
+
+.ricambi-card-image {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.ricambi-card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.ricambi-card-body h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #111111;
+}
+
+/* ---------------- MAKER SUPPLY ---------------- */
+
+.makersupply-sidebar {
+    width: 255px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.makersupply-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    background-color: white;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.makersupply-link:hover,
+.makersupply-link.active {
+    background-color: #f3f3f3;
+}
+
+.makersupply-link-arrow {
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+    color: #111111;
+}
+
+.makersupply-main {
+    flex: 1;
+}
+
+.makersupply-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.makersupply-card {
+    position: relative;
+    min-height: 278px;
+    background-color: #f7f7f7;
+    border: 1px solid #eeeeee;
+    text-decoration: none;
+    color: #111111;
+    display: flex;
+    flex-direction: column;
+}
+
+.makersupply-card-image {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f5f5f5;
+}
+
+.makersupply-card-image img {
+    max-width: 92%;
+    max-height: 92%;
+    display: block;
+    object-fit: contain;
+}
+
+.makersupply-card-photo .makersupply-card-image img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: cover;
+}
+
+.makersupply-card-body {
+    padding: 14px 14px 18px;
+    text-align: center;
+}
+
+.makersupply-card-body h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #111111;
+}
+
+.makersupply-card-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #666666;
+}
+
+.makersupply-badge {
+    position: absolute;
+    top: -6px;
+    right: 12px;
+    background-color: #12c95a;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+/* ---------------- SUPPORTO ---------------- */
+
+.navbar,
+.navbar-inner,
+.navbar-menu,
+.navbar-menu ul {
+    overflow: visible;
+}
+
+.supporto-dropdown {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    height: 48px;
+}
+
+.supporto-trigger {
+    height: 48px;
+    padding: 0 2px;
+    border: 0;
+    background: transparent;
+    color: #111111;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+}
+
+.supporto-dropdown.open .supporto-trigger {
+    border-bottom-color: #00c853;
+}
+
+.supporto-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 210px;
+  background-color: #ffffff;
+  border: 1px solid #e7e7e7;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  padding: 10px 0;
+  z-index: 2000;
+}
+
+.supporto-menu a {
+    display: block;
+    padding: 11px 16px;
+    text-decoration: none;
+    color: #111111;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.25;
+    background-color: #ffffff;
+}
+
+.supporto-menu a:hover {
+    background-color: #f5f5f5;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media (max-width: 1025px) {
+    .dropdown-shell {
+        flex-direction: column;
+        padding: 18px 16px 20px;
+    }
+
+    .saldi-sidebar,
+    .stampanti-sidebar,
+    .ams-sidebar,
+    .filamenti-sidebar,
+    .accessori-sidebar,
+    .materiale-sidebar,
+    .ricambi-sidebar,
+    .makersupply-sidebar {
+        width: 100%;
+    }
+
+    .saldi-main,
+    .stampanti-main,
+    .ams-main,
+    .filamenti-main,
+    .accessori-main,
+    .materiale-main,
+    .ricambi-main,
+    .makersupply-main {
+        width: 100%;
+    }
+
+    .stampanti-grid,
+    .ams-grid,
+    .filamenti-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .accessori-grid {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+    }
+
+    .materiale-card {
+        width: 100%;
+    }
+
+    .ricambi-grid {
+        grid-template-columns: repeat(2, minmax(170px, 1fr));
+    }
+
+    .makersupply-grid {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+    }
+}
