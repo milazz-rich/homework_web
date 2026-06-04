@@ -1,0 +1,334 @@
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 80px;
+}
+
+section .section-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+section .section-title h2 {
+  flex: 1;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+section .section-title .seeother {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #333;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+section .section-title .seeother svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+section .card-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: rgb(245, 245, 245);
+  color: #333;
+  text-decoration: none;
+}
+
+.card:hover {
+  color: #333;
+}
+
+.card-image {
+  overflow: hidden;
+}
+
+.card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-body {
+  padding: 0 16px;
+}
+
+.card-title {
+  width: 100%;
+  text-align: center;
+  color: rgb(51, 51, 51);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.card-subtitle {
+  width: 100%;
+  margin-top: 4px;
+  text-align: center;
+  color: rgb(51, 51, 51);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.banner-wrap {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+  height: 450px;
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(248, 248, 248);
+  box-sizing: border-box;
+  padding: 20px;
+  text-decoration: none;
+  color: rgb(51, 51, 51);
+  overflow: hidden;
+  height: 100%;
+}
+
+.banner:hover {
+  color: rgb(51, 51, 51);
+}
+
+.banner1 {
+  grid-column: span 7;
+}
+
+.banner2 {
+  grid-column: span 5;
+}
+
+.banner-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.banner-title {
+  width: 100%;
+  max-width: 339px;
+  margin: 0;
+  color: rgb(51, 51, 51);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.banner-subtitle {
+  width: 100%;
+  max-width: 339px;
+  color: rgb(51, 51, 51);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.banner-price-row {
+  width: 100%;
+  max-width: 339px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.banner-discount {
+  color: rgb(255, 0, 0);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.banner-button {
+  width: fit-content;
+  margin-top: 4px;
+  padding: 10px 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid rgb(51, 51, 51);
+  border-radius: 4px;
+  background-color: transparent;
+  color: rgb(51, 51, 51);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.banner-button svg {
+  display: inline-block;
+  margin-bottom: 2px;
+  flex-shrink: 0;
+}
+
+.banner-media {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.banner-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+@media (min-width: 501px) {
+  /* M */
+}
+
+@media (min-width: 768px) {
+  /* L */
+
+  section .section-title {
+    margin-bottom: 24px;
+  }
+
+  section .section-title h2 {
+    text-align: left;
+  }
+
+  section .section-title .seeother {
+    display: flex;
+  }
+}
+
+@media (min-width: 1025px) {
+  /* XL */
+
+  .section-margin {
+    margin-top: 120px;
+  }
+
+  section .section-title {
+    margin-bottom: 36px;
+  }
+
+  section .section-title h2 {
+    font-size: 34px;
+  }
+
+  section .section-title .seeother {
+    font-size: 18px;
+  }
+
+  section .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .card-body {
+    padding: 20px 30px;
+  }
+
+  .banner-wrap {
+    gap: 24px;
+    height: 400px;
+  }
+
+  .banner {
+    flex-direction: row;
+    align-items: stretch;
+    padding: 20px 30px;
+    gap: 24px;
+  }
+
+  .banner-content {
+    flex: 0 0 252px;
+    align-items: flex-start;
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  .banner-pretitle {
+    margin: 0;
+  }
+
+  .banner-title {
+    max-width: 252px;
+  }
+
+  .banner-subtitle {
+    max-width: 252px;
+    font-size: 16px;
+  }
+
+  .banner-price-row {
+    max-width: 252px;
+    justify-content: flex-start;
+  }
+
+  .banner-discount {
+    font-size: 18px;
+  }
+
+  .banner-button {
+    font-size: 16px;
+  }
+
+  .banner-media {
+    flex: 1;
+    align-items: end;
+    justify-content: center;
+  }
+
+  .banner-image {
+    max-height: 100%;
+  }
+}
+
+@media (min-width: 1440px) {
+  /* XXL */
+
+  .section-margin {
+    margin-top: 80px;
+  }
+}
