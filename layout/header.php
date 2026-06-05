@@ -9,11 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="https://eu.store.bambulab.com/favicon.ico">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/notice.css">
-  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/footer.css">
-  <link rel="stylesheet" href="css/dropdown.css">
-  <script src="js/dropdown.js" defer></script>
+  <script src="js/header.js" defer></script>
   <?php if (!empty($pageStyles ?? [])): ?>
     <?php foreach ($pageStyles as $style): ?>
       <link rel="stylesheet" href="<?= htmlspecialchars($style, ENT_QUOTES) ?>">

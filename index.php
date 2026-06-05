@@ -1,20 +1,11 @@
 <?php
 $pageStyles = [
   'css/home.css',
-  'css/carosel.css',
-  'css/section.css',
-  'css/product-categories.css',
-  'css/featured-products.css',
-  'css/printers-catalog.css',
-  'css/store-benefits.css',
-  'css/newsletter-signup.css',
-  'css/currency-converter.css',
 ];
 
 $pageScripts = [
   'js/script.js',
-  'js/carosel.js',
-  'js/slider.js',
+  'js/home.js',
 ];
 
 include __DIR__ . '/layout/header.php';
