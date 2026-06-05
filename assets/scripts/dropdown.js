@@ -1,46 +1,94 @@
-function createDropdown(triggerElement, dropdownHTML) {
-  if (!triggerElement) return null;
+const DROPDOWNS = {
+  // Dropdown full: occupa tutta la larghezza della navbar.
+  saldi: {
+    trigger: '[data-dropdown-trigger="saldi"]',
+    container: '[data-dropdown-menu="saldi"]',
+    mode: "full"
+  },
+  // Dropdown simple: pannello piccolo sotto al trigger.
+  supporto: {
+    trigger: '[data-dropdown-trigger="supporto"]',
+    container: '[data-dropdown-menu="supporto"]',
+    mode: "simple"
+  },
+  user: {
+    trigger: '[data-dropdown-trigger="user"]',
+    container: '[data-dropdown-menu="user"]',
+    mode: "simple"
+  }
+};
 
-  const dropdown = document.createElement("div");
-  dropdown.className = "dropdown-menu";
-  dropdown.innerHTML = dropdownHTML;
-  dropdown.hidden = true;
-
-  const parent = triggerElement.parentElement;
-  if (!parent) return null;
-
-  parent.appendChild(dropdown);
-
-  triggerElement.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    dropdown.hidden = !dropdown.hidden;
-  });
-
-  document.addEventListener("click", (event) => {
-    if (!dropdown.contains(event.target) && event.target !== triggerElement) {
-      dropdown.hidden = true;
-    }
-  });
-
-  return dropdown;
+function closeDropdown(dropdown) {
+  dropdown.container.classList.add("hidden");
 }
 
-function initSupportDropdown() {
-  const supportLinks = document.querySelectorAll('[data-menu="supporto"]');
-
-  supportLinks.forEach((link) => {
-    if (link.dataset.dropdownReady === "true") return;
-    link.dataset.dropdownReady = "true";
-
-    createDropdown(
-      link,
-      '<div class="dropdown-menu-title">Supporto</div>' +
-        '<a href="#">FAQ</a>' +
-        '<a href="#">Contattaci</a>' +
-        '<a href="#">Stato ordine</a>'
-    );
-  });
+function openDropdown(dropdown) {
+  dropdown.container.classList.remove("hidden");
 }
 
-initSupportDropdown();
+// Evita la chiusura quando il mouse passa tra trigger e menu.
+function staysInsideDropdown(dropdown, relatedTarget) {
+  return (
+    relatedTarget &&
+    (dropdown.trigger.contains(relatedTarget) || dropdown.container.contains(relatedTarget))
+  );
+}
+
+Object.values(DROPDOWNS).forEach((dropdown) => {
+  // Recupera trigger e container configurati nel markup.
+  dropdown.trigger = document.querySelector(dropdown.trigger);
+  dropdown.container = document.querySelector(dropdown.container);
+
+  if (!dropdown.trigger || !dropdown.container) return;
+
+  dropdown.container.classList.add("dropdown-menu--" + dropdown.mode);
+  dropdown.trigger.classList.add("dropdown-trigger");
+
+  if (dropdown.mode === "simple") {
+    // I dropdown simple usano un wrapper dedicato per il posizionamento.
+    const parent = dropdown.trigger.parentElement;
+    const root = document.createElement("div");
+    root.className = "dropdown-root dropdown-root--simple";
+
+    parent.insertBefore(root, dropdown.trigger);
+    root.appendChild(dropdown.trigger);
+    root.appendChild(dropdown.container);
+
+    dropdown.root = root;
+
+    dropdown.root.addEventListener("mouseenter", () => {
+      openDropdown(dropdown);
+    });
+
+    dropdown.root.addEventListener("mouseleave", () => {
+      closeDropdown(dropdown);
+    });
+  } else {
+    // I dropdown full si aprono e si chiudono direttamente sul trigger e sul pannello.
+    dropdown.trigger.addEventListener("mouseenter", () => {
+      openDropdown(dropdown);
+    });
+
+    dropdown.container.addEventListener("mouseenter", () => {
+      openDropdown(dropdown);
+    });
+
+    dropdown.trigger.addEventListener("mouseleave", (event) => {
+      if (staysInsideDropdown(dropdown, event.relatedTarget)) return;
+      closeDropdown(dropdown);
+    });
+
+    dropdown.container.addEventListener("mouseleave", (event) => {
+      if (staysInsideDropdown(dropdown, event.relatedTarget)) return;
+      closeDropdown(dropdown);
+    });
+  }
+
+  if (dropdown.mode === "simple") {
+    // Il click sui dropdown simple non deve navigare.
+    dropdown.trigger.addEventListener("click", (event) => {
+      event.preventDefault();
+      dropdown.trigger.blur();
+    });
+  }
+});

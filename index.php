@@ -24,7 +24,7 @@
   <script src="assets/scripts/script.js" defer></script>
   <script src="assets/scripts/carosel.js" defer></script>
   <script src="assets/scripts/slider.js" defer></script>
-  <!-- <script src="assets/scripts/dropdown.js" defer></script> -->
+  <script src="assets/scripts/dropdown.js" defer></script>
   <title>Acquisti stampanti 3D, filamenti e accessori | Bambu Lab EU store</title>
 </head>
 
@@ -128,7 +128,7 @@
 
       <nav class="navbar-menu no-scrollbar" aria-label="Navigazione principale">
         <ul>
-          <li><a href="#" data-menu="saldi">🔥Saldi</a></li>
+          <li><a href="/it/collections/sale" data-dropdown-trigger="saldi">🔥Saldi</a></li>
           <li><a href="#" data-menu="stampanti">Stampanti</a></li>
           <li><a href="#" data-menu="ams">AMS</a></li>
           <li><a href="#" data-menu="filamenti">Filamenti</a></li>
@@ -136,7 +136,21 @@
           <li><a href="#" data-menu="materiale">Materiale</a></li>
           <li><a href="#" data-menu="ricambi">Pezzi di ricambio</a></li>
           <li><a href="#" data-menu="makersupply">Maker's Supply</a></li>
-          <li><a href="#" data-menu="supporto">Supporto</a></li>
+          <li>
+            <a href="#" data-dropdown-trigger="supporto">Supporto</a>
+            <div class="dropdown-menu hidden" data-dropdown-menu="supporto">
+              <a href="#">Tracciamento Ordine</a>
+              <a href="#">Centro di supporto</a>
+              <a href="#">Account aziendale</a>
+              <a href="#">FAQ</a>
+              <a href="#">Pezzi di ricambio</a>
+              <a href="#">Wiki ufficiale</a>
+              <a href="#">Politica di spedizione</a>
+              <a href="#">Resi e rimborsi</a>
+              <a href="#">Termini di garanzia</a>
+              <a href="#">Aiuto sui pagamenti</a>
+            </div>
+          </li>
         </ul>
       </nav>
 
@@ -167,7 +181,7 @@
           </svg>
         </a>
 
-        <button class="user" type="button">
+        <button class="user" type="button" data-dropdown-trigger="user">
           <svg width="32" height="32" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="16" cy="16.5" r="12" stroke="#1A1A1A" stroke-width="1.5"></circle>
             <circle cx="16" cy="12.5" r="4" stroke="#1A1A1A" stroke-width="1.5"></circle>
@@ -175,9 +189,32 @@
               stroke="#1A1A1A" stroke-width="1.5"></path>
           </svg>
         </button>
+        <div class="dropdown-menu hidden" data-dropdown-menu="user">
+          <a href="#">Registrati</a>
+          <a href="#">Login</a>
+        </div>
       </div>
     </div>
-  </nav>
+
+      <!-- DROPDOWN MENU SALDI -->
+      <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="saldi">
+        <div class="dropdown-menu-full-inner">
+          <div class="dropdown-menu-full-links">
+            <a href="#">Vendita filamenti <span>›</span></a>
+            <a href="#">Vendita accessori <span>›</span></a>
+            <a href="#">Maker's Supply Sale <span>›</span></a>
+            <a href="#">Material Sale <span>›</span></a>
+          </div>
+
+          <a class="dropdown-menu-full-card" href="#">
+            <img src="./assets/img/filamenti.png" alt="Vendita all'ingrosso di filamenti base">
+            <strong>Vendita all'ingrosso di filamenti base</strong>
+            <span>A partire da 11,50€ a rotolo.</span>
+          </a>
+        </div>
+      </div>
+
+    </nav>
 
   <!-- CAROSELLO -->
   <div class="carosel">

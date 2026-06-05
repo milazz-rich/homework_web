@@ -18,15 +18,14 @@ function updateSection2Slider() {
   const slideWidth = section2Slides[0].offsetWidth;
   const maxIndex   = Math.max(0, section2Slides.length - 2);
 
-  section2Index = Math.max(0, Math.min(section2Index, maxIndex));
+  if (section2Index > maxIndex) section2Index = 0;
+  if (section2Index < 0) section2Index = maxIndex;
   section2Track.style.transform = `translateX(-${section2Index * (slideWidth + GAP)}px)`;
-
-  if (section2Prev) section2Prev.disabled = section2Index === 0;
-  if (section2Next) section2Next.disabled = section2Index === maxIndex;
 }
 
 function advanceSection2Slider() {
-  section2Index++;
+  const maxIndex = Math.max(0, section2Slides.length - 2);
+  section2Index = section2Index >= maxIndex ? 0 : section2Index + 1;
   updateSection2Slider();
 }
 

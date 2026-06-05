@@ -150,7 +150,7 @@
   flex: 1 1 auto;
   height: 100%;
   align-items: center;
-  overflow: auto;
+  overflow: visible;
   min-width: 0;
   justify-content: center;
 }
@@ -182,7 +182,7 @@
   position: relative;
 }
 
-.navbar-menu ul li a {
+.navbar-menu ul li > a {
   display: flex;
   height: 100%;
   align-items: center;
@@ -195,8 +195,8 @@
   transition: color 0.2s ease;
 }
 
-.navbar-menu ul li a:hover,
-.navbar-menu ul li a:active {
+.navbar-menu ul li > a:hover,
+.navbar-menu ul li > a:active {
   color: #1a1a1a;
 }
 
