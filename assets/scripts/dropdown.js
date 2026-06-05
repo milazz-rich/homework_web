@@ -23,6 +23,11 @@ function closeDropdown(dropdown) {
 }
 
 function openDropdown(dropdown) {
+  if (dropdown.closeTimer) {
+    clearTimeout(dropdown.closeTimer);
+    dropdown.closeTimer = null;
+  }
+
   dropdown.container.classList.remove("hidden");
 }
 
@@ -61,7 +66,7 @@ Object.values(DROPDOWNS).forEach((dropdown) => {
     });
 
     dropdown.root.addEventListener("mouseleave", () => {
-      closeDropdown(dropdown);
+      dropdown.closeTimer = setTimeout(() => closeDropdown(dropdown), 50);
     });
   } else {
     // I dropdown full si aprono e si chiudono direttamente sul trigger e sul pannello.
@@ -75,12 +80,12 @@ Object.values(DROPDOWNS).forEach((dropdown) => {
 
     dropdown.trigger.addEventListener("mouseleave", (event) => {
       if (staysInsideDropdown(dropdown, event.relatedTarget)) return;
-      closeDropdown(dropdown);
+      dropdown.closeTimer = setTimeout(() => closeDropdown(dropdownf), 50);
     });
 
     dropdown.container.addEventListener("mouseleave", (event) => {
       if (staysInsideDropdown(dropdown, event.relatedTarget)) return;
-      closeDropdown(dropdown);
+      dropdown.closeTimer = setTimeout(() => closeDropdown(dropdown), 50);
     });
   }
 
