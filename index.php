@@ -20,9 +20,11 @@
   <link rel="stylesheet" href="assets/styles/newsletter-signup.css">
   <link rel="stylesheet" href="assets/styles/currency-converter.css">
   <link rel="stylesheet" href="assets/styles/footer.css">
+  <link rel="stylesheet" href="assets/styles/dropdown.css">
   <script src="assets/scripts/script.js" defer></script>
   <script src="assets/scripts/carosel.js" defer></script>
   <script src="assets/scripts/slider.js" defer></script>
+  <!-- <script src="assets/scripts/dropdown.js" defer></script> -->
   <title>Acquisti stampanti 3D, filamenti e accessori | Bambu Lab EU store</title>
 </head>
 
@@ -134,7 +136,7 @@
           <li><a href="#" data-menu="materiale">Materiale</a></li>
           <li><a href="#" data-menu="ricambi">Pezzi di ricambio</a></li>
           <li><a href="#" data-menu="makersupply">Maker's Supply</a></li>
-          <li><a href="#" data-menu="makersupply">Supporto</a></li>
+          <li><a href="#" data-menu="supporto">Supporto</a></li>
         </ul>
       </nav>
 

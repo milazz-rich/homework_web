@@ -25,7 +25,18 @@ function updateSection2Slider() {
   if (section2Next) section2Next.disabled = section2Index === maxIndex;
 }
 
+function advanceSection2Slider() {
+  section2Index++;
+  updateSection2Slider();
+}
+
 // ─── Event listeners ────────────────────────────────────────────────────────
 
 section2Prev?.addEventListener("click", () => { section2Index--; updateSection2Slider(); });
 section2Next?.addEventListener("click", () => { section2Index++; updateSection2Slider(); });
+
+window.addEventListener("load", () => {
+  updateSection2Slider();
+  setInterval(advanceSection2Slider, 3000);
+});
+

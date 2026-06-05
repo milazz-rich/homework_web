@@ -8,15 +8,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="https://eu.store.bambulab.com/favicon.ico">
-  <link rel="stylesheet" href="./cart.css">
+  <link rel="stylesheet" href="./3d-printer.css">
   <link rel="stylesheet" href="../../assets/styles/notice.css">
   <link rel="stylesheet" href="../../assets/styles/navbar.css">
   <link rel="stylesheet" href="../../assets/styles/footer.css">
+  <script src="../../assets/scripts/dropdown.js" defer></script>
   <title>Acquisti stampanti 3D, filamenti e accessori | Bambu Lab EU store</title>
 </head>
 
 <body>
-
   <!-- NAVBAR -->
   <div>
     <!-- NOTICE -->
@@ -58,8 +58,7 @@
       <div class="navbar-mobile-inner">
         <div class="navbar-mobile-left">
           <button class="navbar-mobile-toggle" type="button" aria-label="Apri il menu" aria-expanded="false">
-            <svg class="navbar-mobile-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              aria-hidden="true">
+            <svg class="navbar-mobile-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M7.50024 5H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
               <path d="M7.50024 12H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
               <path d="M7.50024 19H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -112,8 +111,8 @@
       <div class="navbar-inner">
         <div class="navbar-brand">
           <a href="https://eu.store.bambulab.com/it">
-            <img class="navbar-logo" src="https://store.bblcdn.com/s2/default/febc4874843645f38149a05caa0f8a6d/logo.png"
-              alt="Bambu Lab">
+            <img class="navbar-logo"
+              src="https://store.bblcdn.com/s2/default/febc4874843645f38149a05caa0f8a6d/logo.png" alt="Bambu Lab">
           </a>
         </div>
 
@@ -171,122 +170,200 @@
     </nav>
   </div>
 
-
   <!-- MAIN CONTENT -->
-  <main class="cart-main">
+  <main class="catalog-page">
 
-    <!-- CART HEADER -->
-    <section class="cart-header">
-      <h1 class="cart-title">Carrello</h1>
-      <p class="cart-subtitle">Accedi per sincronizzare gli articoli nel tuo carrello. <a href="#" class="cart-login-link">Accedi ora &rsaquo;</a></p>
-    </section>
+    <h1 class="catalog-title">Stampanti 3D</h1>
 
-    <!-- CART ITEMS -->
-    <section class="cart-items-section">
-      <div class="cart-item">
-        <label class="cart-item-checkbox-wrap">
-          <input type="checkbox" checked>
-          <span class="cart-item-checkmark"></span>
-        </label>
-        <a href="https://eu.store.bambulab.com/it/products/bambu-lab-h2c" target="_blank" class="cart-item-img-wrap">
-          <img src="../../assets/img/bambulabh2d.png" alt="Bambu Lab H2C">
-        </a>
-        <div class="cart-item-info">
-          <a href="https://eu.store.bambulab.com/it/products/bambu-lab-h2c" target="_blank" class="cart-item-name">Bambu Lab H2C</a>
-          <div class="cart-item-variant">H2C Laser Full Combo / 40W Laser</div>
-          <a href="#" class="cart-item-remove">Rimuovi</a>
-        </div>
-        <div class="cart-item-qty">
-          <button class="qty-btn" aria-label="Diminuisci quantità">&#8722;</button>
-          <span class="qty-value">1</span>
-          <button class="qty-btn" aria-label="Aumenta quantità">&#43;</button>
-        </div>
-        <div class="cart-item-price">3349,00 &euro;</div>
+    <!-- BANNER -->
+    <div class="catalog-banner">
+      <div class="catalog-banner-text">
+        <p class="catalog-banner-heading">Quale stampante 3D è giusta per me?</p>
+        <p class="catalog-banner-sub">Fai un breve quiz per ricevere consigli su misura per te.</p>
+        <a href="#" class="catalog-banner-cta">Aiutami a scegliere &gt;</a>
       </div>
-    </section>
-
-    <!-- RECOMMENDED -->
-    <section class="cart-recommended">
-      <h2 class="cart-recommended-title">Consigliato per te</h2>
-      <div class="cart-recommended-grid">
-
-        <div class="rec-card">
-          <a href="https://eu.store.bambulab.com/it/products/bambu-pla-basic-filament" target="_blank" class="rec-card-img-wrap">
-            <img src="../../assets/img/filamenti.png" alt="PLA Basic">
-          </a>
-          <div class="rec-card-body">
-            <a href="https://eu.store.bambulab.com/it/products/bambu-pla-basic-filament" target="_blank" class="rec-card-name">PLA Basic</a>
-            <div class="rec-card-price">25,99 &euro;</div>
-            <select class="rec-card-select">
-              <option>Bianco giada (10100) / Filame...</option>
-            </select>
-            <button class="rec-card-btn">Nel carrello</button>
-          </div>
-        </div>
-
-        <div class="rec-card">
-          <a href="https://eu.store.bambulab.com/it/products/cutting-material-kit-starter-pack" target="_blank" class="rec-card-img-wrap">
-            <img src="../../assets/img/materiale1.png" alt="Cutting Material Kit">
-          </a>
-          <div class="rec-card-body">
-            <a href="https://eu.store.bambulab.com/it/products/cutting-material-kit-starter-pack" target="_blank" class="rec-card-name">Cutting Material Kit &ndash; Starter Pa...</a>
-            <div class="rec-card-price">56,99 &euro;</div>
-            <select class="rec-card-select">
-              <option>Cutting Material Kit - Starter Pack...</option>
-            </select>
-            <button class="rec-card-btn">Nel carrello</button>
-          </div>
-        </div>
-
-        <div class="rec-card">
-          <a href="https://eu.store.bambulab.com/it/products/laser-material-kit-starter-pack" target="_blank" class="rec-card-img-wrap">
-            <img src="../../assets/img/materiale2.png" alt="Laser Material Kit">
-          </a>
-          <div class="rec-card-body">
-            <a href="https://eu.store.bambulab.com/it/products/laser-material-kit-starter-pack" target="_blank" class="rec-card-name">Laser Material Kit &ndash; Starter Pack...</a>
-            <div class="rec-card-price">101,15 &euro;</div>
-            <div class="rec-card-pvc">PVC: 119,00 &euro; <span class="rec-card-pvc-icon" title="Prezzo al consumo">?</span></div>
-            <select class="rec-card-select">
-              <option>Laser Material Kit - Starter Pack (4...</option>
-            </select>
-            <button class="rec-card-btn">Nel carrello</button>
-          </div>
-        </div>
-
-        <div class="rec-card">
-          <a href="https://eu.store.bambulab.com/it/products/bambu-pla-matte-filament" target="_blank" class="rec-card-img-wrap">
-            <img src="../../assets/img/filamenti.png" alt="PLA Matte">
-          </a>
-          <div class="rec-card-body">
-            <a href="https://eu.store.bambulab.com/it/products/bambu-pla-matte-filament" target="_blank" class="rec-card-name">PLA Matte</a>
-            <div class="rec-card-price">25,99 &euro;</div>
-            <select class="rec-card-select">
-              <option>&#11044; Arancio mandarino (11300) / F...</option>
-            </select>
-            <button class="rec-card-btn">Nel carrello</button>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- CART FOOTER BAR -->
-    <div class="cart-footer-bar">
-      <div class="cart-coupon">
-        <span class="cart-coupon-label">Hai un codice?</span>
-        <span class="cart-coupon-desc">Procedi al checkout per usare Coupon e Gift Card.</span>
-        <button class="cart-continue-btn">Continua gli acquisti</button>
-      </div>
-      <div class="cart-summary">
-        <div class="cart-total-line">
-          <span class="cart-total-label">Totale: 3349,00 &euro;</span>
-        </div>
-        <div class="cart-tax-note">Tasse: calcolate al checkout</div>
-        <div class="cart-shipping-note">Spedizione: Spedizione gratuita per ordini idonei</div>
-        <button class="cart-checkout-btn">Checkout 1 articolo(i)</button>
+      <div class="catalog-banner-img-wrap">
+        <img src="../../assets/img/stampanti3d.png" alt="Stampanti 3D Bambu Lab" class="catalog-banner-img">
       </div>
     </div>
 
+    <!-- SEARCH -->
+    <div class="catalog-search-wrap">
+      <input class="catalog-search-input" type="text" placeholder="Cerca i prodotti di questa raccolta">
+      <svg class="catalog-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <path d="M10.0015 3.84961C13.3989 3.84961 16.1529 6.60359 16.1529 10C16.1529 13.3964 13.3989 16.1504 10.0015 16.1504C6.60427 16.1503 3.85016 13.3963 3.85016 10C3.85016 6.60367 6.60427 3.84974 10.0015 3.84961Z" stroke="currentColor" stroke-width="1.7"/>
+        <path d="M19.4524 21.5088C19.7334 21.8131 20.2079 21.832 20.5122 21.5511C20.8166 21.2701 20.8355 20.7956 20.5545 20.4912L20.0035 21L19.4524 21.5088ZM14.0024 14.5L13.4514 15.0088L19.4524 21.5088L20.0035 21L20.5545 20.4912L14.5535 13.9912L14.0024 14.5Z" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="catalog-toolbar">
+      <div class="catalog-toolbar-left">
+        <button class="toolbar-view-btn" aria-label="Vista lista">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="1" y="1" width="6" height="6" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="11" y="1" width="6" height="6" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="1" y="11" width="6" height="6" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="11" y="11" width="6" height="6" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </button>
+        <button class="toolbar-view-btn active" aria-label="Vista griglia">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="1" y="1" width="16" height="4" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="1" y="7" width="16" height="4" stroke="currentColor" stroke-width="1.5"/>
+            <rect x="1" y="13" width="16" height="4" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </button>
+      </div>
+      <div class="catalog-toolbar-right">
+        <button class="toolbar-sort-btn">
+          Ordina
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTENT: SIDEBAR + GRID -->
+    <div class="catalog-content">
+
+      <!-- SIDEBAR FILTERS -->
+      <aside class="catalog-sidebar">
+        <div class="filter-group">
+          <button class="filter-group-header">
+            <span>Per Serie</span>
+            <span class="filter-toggle-icon">&#8722;</span>
+          </button>
+          <ul class="filter-list">
+            <li><a href="#">Serie H</a></li>
+            <li><a href="#">Serie X</a></li>
+            <li><a href="#">Serie P</a></li>
+            <li><a href="#">Serie A</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- PRODUCT GRID -->
+      <div class="catalog-grid">
+
+        <!-- X2D -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/bambulabh2d.png" alt="Bambu Lab X2D">
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Bambu Lab X2D</p>
+            <p class="catalog-card-price">Da <strong>629,00 € EUR</strong></p>
+          </div>
+        </a>
+
+        <!-- H2C -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/bambulabh2d.png" alt="Bambu Lab H2C">
+            <div class="catalog-card-badges">
+              <span class="badge-award">&#9733;</span>
+            </div>
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Bambu Lab H2C</p>
+            <p class="catalog-card-price">Da <strong>2.249,00 € EUR</strong></p>
+          </div>
+        </a>
+
+        <!-- H2D -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/bambulabh2d.png" alt="Bambu Lab H2D">
+            <div class="catalog-card-badges">
+              <span class="badge-award">&#9733;</span>
+            </div>
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Bambu Lab H2D</p>
+            <p class="catalog-card-price">Da <strong>1.749,00 € EUR</strong></p>
+          </div>
+        </a>
+
+        <!-- H2S -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/h2s.png" alt="Bambu Lab H2S">
+            <div class="catalog-card-badges">
+              <span class="badge-new">New</span>
+            </div>
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Bambu Lab H2S</p>
+            <p class="catalog-card-price">Da <strong>1.149,00 € EUR</strong></p>
+          </div>
+        </a>
+
+        <!-- P2S -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/p2s.png" alt="Stampante 3D Bambu Lab P2S">
+            <div class="catalog-card-badges">
+              <span class="badge-award">&#9733;</span>
+            </div>
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Stampante 3D Bambu Lab P2S</p>
+            <p class="catalog-card-price">Da <strong>519,00 € EUR</strong></p>
+          </div>
+        </a>
+
+        <!-- P1S -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/p1s.png" alt="Stampante 3D Bambu Lab P1S">
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Stampante 3D Bambu Lab P1S</p>
+            <p class="catalog-card-price">Da <strong>389,00 € EUR</strong></p>
+          </div>
+        </a>
+
+        <!-- A2L -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/a1.png" alt="Bambu Lab A2L">
+            <span class="catalog-card-novita">Novità</span>
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Bambu Lab A2L</p>
+            <p class="catalog-card-price">Da <strong>379,00 € EUR</strong></p>
+          </div>
+        </a>
+
+        <!-- A1 -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/a1.png" alt="Stampante 3D Bambu Lab A1">
+            <div class="catalog-card-badges">
+              <span class="badge-award">&#9733;</span>
+            </div>
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Stampante 3D Bambu Lab A1</p>
+            <p class="catalog-card-price">Da <strong>259,00 € EUR</strong></p>
+          </div>
+        </a>
+
+        <!-- A1 Mini -->
+        <a href="#" class="catalog-card">
+          <div class="catalog-card-img-wrap">
+            <img src="../../assets/img/a1mini.png" alt="Mini stampante 3D Bambu Lab A1">
+          </div>
+          <div class="catalog-card-info">
+            <p class="catalog-card-name">Mini stampante 3D Bambu Lab A1</p>
+            <p class="catalog-card-price">Da <strong>189,00 € EUR</strong></p>
+          </div>
+        </a>
+
+      </div><!-- /.catalog-grid -->
+    </div><!-- /.catalog-content -->
   </main>
 
   <!-- FOOTER -->
