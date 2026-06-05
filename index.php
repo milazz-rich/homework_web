@@ -8,21 +8,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="https://eu.store.bambulab.com/favicon.ico">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/notice.css">
-  <link rel="stylesheet" href="assets/css/navbar.css">
-  <link rel="stylesheet" href="assets/css/carosel.css">
-  <link rel="stylesheet" href="assets/css/section.css">
-  <link rel="stylesheet" href="assets/css/product-categories.css">
-  <link rel="stylesheet" href="assets/css/featured-products.css">
-  <link rel="stylesheet" href="assets/css/printers-catalog.css">
-  <link rel="stylesheet" href="assets/css/store-benefits.css">
-  <link rel="stylesheet" href="assets/css/newsletter-signup.css">
-  <link rel="stylesheet" href="assets/css/currency-converter.css">
-  <link rel="stylesheet" href="assets/css/footer.css">
-  <script src="assets/js/script.js" defer></script>
-  <script src="assets/js/carosel.js" defer></script>
-  <script src="assets/js/slider.js" defer></script>
+  <link rel="stylesheet" href="assets/styles/style.css">
+  <link rel="stylesheet" href="assets/styles/notice.css">
+  <link rel="stylesheet" href="assets/styles/navbar.css">
+  <link rel="stylesheet" href="assets/styles/carosel.css">
+  <link rel="stylesheet" href="assets/styles/section.css">
+  <link rel="stylesheet" href="assets/styles/product-categories.css">
+  <link rel="stylesheet" href="assets/styles/featured-products.css">
+  <link rel="stylesheet" href="assets/styles/printers-catalog.css">
+  <link rel="stylesheet" href="assets/styles/store-benefits.css">
+  <link rel="stylesheet" href="assets/styles/newsletter-signup.css">
+  <link rel="stylesheet" href="assets/styles/currency-converter.css">
+  <link rel="stylesheet" href="assets/styles/footer.css">
+  <script src="assets/scripts/script.js" defer></script>
+  <script src="assets/scripts/carosel.js" defer></script>
+  <script src="assets/scripts/slider.js" defer></script>
   <title>Acquisti stampanti 3D, filamenti e accessori | Bambu Lab EU store</title>
 </head>
 
