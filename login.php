@@ -3,24 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registrati | Bambu Lab IT</title>
+  <title>Accedi | Bambu Lab IT</title>
   <link rel="icon" type="image/x-icon" href="https://eu.store.bambulab.com/favicon.ico">
-  <link rel="stylesheet" href="register.css">
+  <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
+
   <div class="card">
     <div class="locale">Italia <span>|</span> Italiano</div>
 
-    <h1>Registrati</h1>
+    <h1>Accedi</h1>
 
     <form action="#" method="post">
       <div class="form-group">
         <input type="email" name="email" placeholder="Indirizzo e-mail*" required>
-      </div>
-
-      <div class="form-group verify-wrapper">
-        <input type="text" name="codice_verifica" placeholder="Codice di verifica*">
-        <button type="button" class="btn-invia-codice">Invia codice di verifica</button>
       </div>
 
       <div class="form-group password-wrapper">
@@ -35,11 +31,13 @@
 
       <div class="checkbox-row">
         <input type="checkbox" id="terms" name="terms" required>
-        <label for="terms">Accetto i <a href="#">Termini di utilizzo e l'Informativa sulla privacy</a>.</label>
+        <label for="terms">Accetto i <a href="#">Termini di utilizzo e l'Informativa sulla privacy</a></label>
       </div>
 
-      <button type="submit" class="btn-invia">Invia</button>
+      <button type="submit" class="btn-accedi">Accedi</button>
     </form>
+
+    <div class="forgot"><a href="#">Dimenticata?</a></div>
 
     <div class="divider"><span>Effettua il login con altri account</span></div>
 
@@ -69,8 +67,8 @@
       </button>
     </div>
 
-    <div class="signin-row">
-      Hai già un account? <a href="#">Accedi Ora</a>
+    <div class="signup-row">
+      Non hai un account? <a href="#">Crea il tuo Account</a>
     </div>
 
     <div class="copyright">Copyright &copy; 2026 Bambu Lab Tutti i diritti riservati.</div>
@@ -91,5 +89,6 @@
       }
     }
   </script>
+
 </body>
 </html>

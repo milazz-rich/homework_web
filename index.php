@@ -1,220 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$pageStyles = [
+  'css/home.css',
+  'css/carosel.css',
+  'css/section.css',
+  'css/product-categories.css',
+  'css/featured-products.css',
+  'css/printers-catalog.css',
+  'css/store-benefits.css',
+  'css/newsletter-signup.css',
+  'css/currency-converter.css',
+];
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="https://eu.store.bambulab.com/favicon.ico">
-  <link rel="stylesheet" href="assets/styles/style.css">
-  <link rel="stylesheet" href="assets/styles/notice.css">
-  <link rel="stylesheet" href="assets/styles/navbar.css">
-  <link rel="stylesheet" href="assets/styles/carosel.css">
-  <link rel="stylesheet" href="assets/styles/section.css">
-  <link rel="stylesheet" href="assets/styles/product-categories.css">
-  <link rel="stylesheet" href="assets/styles/featured-products.css">
-  <link rel="stylesheet" href="assets/styles/printers-catalog.css">
-  <link rel="stylesheet" href="assets/styles/store-benefits.css">
-  <link rel="stylesheet" href="assets/styles/newsletter-signup.css">
-  <link rel="stylesheet" href="assets/styles/currency-converter.css">
-  <link rel="stylesheet" href="assets/styles/footer.css">
-  <link rel="stylesheet" href="assets/styles/dropdown.css">
-  <script src="assets/scripts/script.js" defer></script>
-  <script src="assets/scripts/carosel.js" defer></script>
-  <script src="assets/scripts/slider.js" defer></script>
-  <script src="assets/scripts/dropdown.js" defer></script>
-  <title>Acquisti stampanti 3D, filamenti e accessori | Bambu Lab EU store</title>
-</head>
+$pageScripts = [
+  'js/script.js',
+  'js/carosel.js',
+  'js/slider.js',
+];
 
-<body>
-  <!-- NOTICE -->
-  <div class="notice">
-    <div class="notice-inner">
-      <a class="notice-site" href="https://bambulab.com/">
-        Bambulab.com
-      </a>
-
-      <div class="notice-message">
-        🎉 La stampante 3D a Singolo Ugello Definitiva! Per saperne di più &gt;&gt;
-      </div>
-
-      <div class="notice-meta">
-        <span class="notice-meta-item">
-          <svg class="notice-icon-globe" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path
-              d="M17 9C17 13.4183 13.4183 17 9 17M17 9C17 4.58172 13.4183 1 9 1M17 9H12.2M9 17C4.58172 17 1 13.4183 1 9M9 17C10.7673 17 12.2 13.4183 12.2 9M9 17C7.23269 17 5.8 13.4183 5.8 9M1 9C1 4.58172 4.58172 1 9 1M1 9H5.8M9 1C7.23269 1 5.8 4.58172 5.8 9M9 1C10.7673 1 12.2 4.58172 12.2 9M12.2 9H5.8"
-              stroke="currentColor" stroke-width="1" />
-          </svg>
-          <span>Europe</span>
-          <svg class="notice-icon-arrow" width="6" height="9" viewBox="0 0 6 9" fill="none" aria-hidden="true">
-            <path d="M0.5 1L4.3 4.5L0.5 8" stroke="currentColor" stroke-linecap="round" />
-          </svg>
-        </span>
-
-        <span class="notice-meta-item">
-          <span>Italiano</span>
-          <svg class="notice-icon-arrow" width="6" height="9" viewBox="0 0 6 9" fill="none" aria-hidden="true">
-            <path d="M0.5 1L4.3 4.5L0.5 8" stroke="currentColor" stroke-linecap="round" />
-          </svg>
-        </span>
-      </div>
-    </div>
-  </div>
-
-  <!-- NAVBAR -->
-  <nav class="navbar-mobile" aria-label="Navigazione mobile">
-    <div class="navbar-mobile-inner">
-      <div class="navbar-mobile-left">
-        <button class="navbar-mobile-toggle" type="button" aria-label="Apri il menu" aria-expanded="false">
-          <svg class="navbar-mobile-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            aria-hidden="true">
-            <path d="M7.50024 5H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-            <path d="M7.50024 12H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-            <path d="M7.50024 19H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-            <path d="M4.00073 5H4.50073" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-            <path d="M4.00073 12H4.50073" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-            <path d="M4.00073 19H4.50073" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
-          </svg>
-        </button>
-      </div>
-
-      <a class="navbar-mobile-brand" href="https://eu.store.bambulab.com/it" aria-label="Bambu Lab">
-        <img class="navbar-mobile-logo"
-          src="https://store.bblcdn.com/s2/default/febc4874843645f38149a05caa0f8a6d/logo.png" alt="Bambu Lab">
-      </a>
-
-      <div class="navbar-mobile-actions">
-        <button class="navbar-mobile-icon-button search" type="button" aria-label="Apri ricerca" aria-haspopup="dialog"
-          aria-expanded="false">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M10.0015 3.84961C13.3989 3.84961 16.1529 6.60359 16.1529 10C16.1529 13.3964 13.3989 16.1504 10.0015 16.1504C6.60427 16.1503 3.85016 13.3963 3.85016 10C3.85016 6.60367 6.60427 3.84974 10.0015 3.84961Z"
-              stroke="currentColor" stroke-width="1.7"></path>
-            <path
-              d="M19.4524 21.5088C19.7334 21.8131 20.2079 21.832 20.5122 21.5511C20.8166 21.2701 20.8355 20.7956 20.5545 20.4912L20.0035 21L19.4524 21.5088ZM14.0024 14.5L13.4514 15.0088L19.4524 21.5088L20.0035 21L20.5545 20.4912L14.5535 13.9912L14.0024 14.5Z"
-              fill="currentColor"></path>
-          </svg>
-        </button>
-
-        <a class="navbar-mobile-icon-button cart" href="https://eu.store.bambulab.com/cart" aria-label="Open cart"
-          title="Go to cart" data-cart-fly-target="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path
-              d="M9.3577 20.3593C10.2185 20.3593 10.9163 19.6616 10.9163 18.801C10.9163 17.9403 10.2185 17.2427 9.3577 17.2427C8.49693 17.2427 7.79913 17.9403 7.79913 18.801C7.79913 19.6616 8.49693 20.3593 9.3577 20.3593Z"
-              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-              d="M17.166 20.3593C18.0268 20.3593 18.7245 19.6616 18.7245 18.801C18.7245 17.9403 18.0268 17.2427 17.166 17.2427C16.3052 17.2427 15.6074 17.9403 15.6074 18.801C15.6074 19.6616 16.3052 20.3593 17.166 20.3593Z"
-              stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M2.1745 4.5H4.5008L6.57217 14.9282H20.0031" stroke="currentColor" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M8.41967 12.054H19.1462L20.0034 7.00684H7.49896L8.41967 12.054Z" stroke="currentColor"
-              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </nav>
-
-  <nav class="navbar-desktop" aria-label="Navigazione principale">
-    <div class="navbar-inner">
-      <div class="navbar-brand">
-        <a href="https://eu.store.bambulab.com/it">
-          <img class="navbar-logo" src="https://store.bblcdn.com/s2/default/febc4874843645f38149a05caa0f8a6d/logo.png"
-            alt="Bambu Lab">
-        </a>
-      </div>
-
-      <nav class="navbar-menu no-scrollbar" aria-label="Navigazione principale">
-        <ul>
-          <li><a href="/it/collections/sale" data-dropdown-trigger="saldi">🔥Saldi</a></li>
-          <li><a href="#" data-menu="stampanti">Stampanti</a></li>
-          <li><a href="#" data-menu="ams">AMS</a></li>
-          <li><a href="#" data-menu="filamenti">Filamenti</a></li>
-          <li><a href="#" data-menu="accessori">Accessori</a></li>
-          <li><a href="#" data-menu="materiale">Materiale</a></li>
-          <li><a href="#" data-menu="ricambi">Pezzi di ricambio</a></li>
-          <li><a href="#" data-menu="makersupply">Maker's Supply</a></li>
-          <li>
-            <a href="#" data-dropdown-trigger="supporto">Supporto</a>
-            <div class="dropdown-menu hidden" data-dropdown-menu="supporto">
-              <a href="#">Tracciamento Ordine</a>
-              <a href="#">Centro di supporto</a>
-              <a href="#">Account aziendale</a>
-              <a href="#">FAQ</a>
-              <a href="#">Pezzi di ricambio</a>
-              <a href="#">Wiki ufficiale</a>
-              <a href="#">Politica di spedizione</a>
-              <a href="#">Resi e rimborsi</a>
-              <a href="#">Termini di garanzia</a>
-              <a href="#">Aiuto sui pagamenti</a>
-            </div>
-          </li>
-        </ul>
-      </nav>
-
-      <div class="navbar-actions">
-        <button class="search" type="button" aria-label="Apri ricerca">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M10.0015 3.84961C13.3989 3.84961 16.1529 6.60359 16.1529 10C16.1529 13.3964 13.3989 16.1504 10.0015 16.1504C6.60427 16.1503 3.85016 13.3963 3.85016 10C3.85016 6.60367 6.60427 3.84974 10.0015 3.84961Z"
-              stroke="#1A1A1A" stroke-width="1.7"></path>
-            <path
-              d="M19.4524 21.5088C19.7334 21.8131 20.2079 21.832 20.5122 21.5511C20.8166 21.2701 20.8355 20.7956 20.5545 20.4912L20.0035 21L19.4524 21.5088ZM14.0024 14.5L13.4514 15.0088L19.4524 21.5088L20.0035 21L20.5545 20.4912L14.5535 13.9912L14.0024 14.5Z"
-              fill="#1A1A1A"></path>
-          </svg>
-        </button>
-
-        <a class="cart" href="/cart" aria-label="Open cart">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M9.3577 20.3593C10.2185 20.3593 10.9163 19.6616 10.9163 18.801C10.9163 17.9403 10.2185 17.2427 9.3577 17.2427C8.49693 17.2427 7.79913 17.9403 7.79913 18.801C7.79913 19.6616 8.49693 20.3593 9.3577 20.3593Z"
-              stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path
-              d="M17.166 20.3593C18.0268 20.3593 18.7245 19.6616 18.7245 18.801C18.7245 17.9403 18.0268 17.2427 17.166 17.2427C16.3052 17.2427 15.6074 17.9403 15.6074 18.801C15.6074 19.6616 16.3052 20.3593 17.166 20.3593Z"
-              stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M2.1745 4.5H4.5008L6.57217 14.9282H20.0031" stroke="#1A1A1A" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M8.41967 12.054H19.1462L20.0034 7.00684H7.49896L8.41967 12.054Z" stroke="#1A1A1A"
-              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </a>
-
-        <button class="user" type="button" data-dropdown-trigger="user">
-          <svg width="32" height="32" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="16" cy="16.5" r="12" stroke="#1A1A1A" stroke-width="1.5"></circle>
-            <circle cx="16" cy="12.5" r="4" stroke="#1A1A1A" stroke-width="1.5"></circle>
-            <path d="M25.0393 24.5C24.0032 19.8994 20.3489 16.5 16 16.5C11.651 16.5 7.99679 19.8994 6.96069 24.5"
-              stroke="#1A1A1A" stroke-width="1.5"></path>
-          </svg>
-        </button>
-        <div class="dropdown-menu hidden" data-dropdown-menu="user">
-          <a href="#">Registrati</a>
-          <a href="#">Login</a>
-        </div>
-      </div>
-    </div>
-
-      <!-- DROPDOWN MENU SALDI -->
-      <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="saldi">
-        <div class="dropdown-menu-full-inner">
-          <div class="dropdown-menu-full-links">
-            <a href="#">Vendita filamenti <span>›</span></a>
-            <a href="#">Vendita accessori <span>›</span></a>
-            <a href="#">Maker's Supply Sale <span>›</span></a>
-            <a href="#">Material Sale <span>›</span></a>
-          </div>
-
-          <a class="dropdown-menu-full-card" href="#">
-            <img src="./assets/img/filamenti.png" alt="Vendita all'ingrosso di filamenti base">
-            <strong>Vendita all'ingrosso di filamenti base</strong>
-            <span>A partire da 11,50€ a rotolo.</span>
-          </a>
-        </div>
-      </div>
-
-    </nav>
+include __DIR__ . '/layout/header.php';
+?>
 
   <!-- CAROSELLO -->
   <div class="carosel">
@@ -243,6 +47,7 @@
 
   <!-- MAIN PAGE -->
   <main>
+    
     <!-- PRODUCT-CATEGORIES -->
     <section class="section product-categories">
       <a href="https://eu.store.bambulab.com/it/collections/3d-printers">
@@ -250,7 +55,7 @@
           <div class="title">Stampanti 3d</div>
           <div class="subtitle">Stampanti avanzate potenziano progetti avanzati</div>
         </div>
-        <img src="./assets/img/stampanti3d.png" alt="stampanti3d" width="189" height="129">
+        <img src="img/stampanti3d.png" alt="stampanti3d" width="189" height="129">
       </a>
 
       <a href="https://eu.store.bambulab.com/it/pages/bambu-filament-overview">
@@ -258,7 +63,7 @@
           <div class="title">Filamenti</div>
           <div class="subtitle">Eccellente qualità, prestazione e facilità d'uso</div>
         </div>
-        <img src="./assets/img/filamenti.png" alt="filamenti" width="189" height="129">
+        <img src="img/filamenti.png" alt="filamenti" width="189" height="129">
       </a>
 
       <a href="https://eu.store.bambulab.com/it/collections/accessories">
@@ -266,7 +71,7 @@
           <div class="title">Accessori</div>
           <div class="subtitle">Potenzia la tua stampante con accessori avanzati</div>
         </div>
-        <img src="./assets/img/accessori.png" alt="accessori" width="189" height="129">
+        <img src="img/accessori.png" alt="accessori" width="189" height="129">
       </a>
 
       <a href="https://eu.store.bambulab.com/it/maker-supply">
@@ -274,7 +79,7 @@
           <div class="title">Maker's Supply</div>
           <div class="subtitle">Fornitura di accessori per completare i tuoi progetti</div>
         </div>
-        <img src="./assets/img/makerssupply.png" alt="makerssupply" width="189" height="129">
+        <img src="img/makerssupply.png" alt="makerssupply" width="189" height="129">
       </a>
 
       <a href="https://eu.store.bambulab.com/it/collections/bambu-material">
@@ -282,7 +87,7 @@
           <div class="title">Material</div>
           <div class="subtitle">Fornire materiali adatti ai processi di taglio laser e a lama</div>
         </div>
-        <img src="./assets/img/material.png" alt="material" width="189" height="129">
+        <img src="img/material.png" alt="material" width="189" height="129">
       </a>
     </section>
 
@@ -327,7 +132,7 @@
                     </svg>
                   </div>
                 </div>
-                <img src="./assets/img/ams2pro.png" alt="ams2pro" width="235">
+                <img src="img/ams2pro.png" alt="ams2pro" width="235">
               </a>
             </div>
 
@@ -343,7 +148,7 @@
                     </svg>
                   </div>
                 </div>
-                <img src="./assets/img/visionencoder.png" alt="visionencoder" width="235">
+                <img src="img/visionencoder.png" alt="visionencoder" width="235">
               </a>
             </div>
 
@@ -359,7 +164,7 @@
                     </svg>
                   </div>
                 </div>
-                <img src="./assets/img/hotendadaltaportata.png" alt="hotendadaltaportata" width="120">
+                <img src="img/hotendadaltaportata.png" alt="hotendadaltaportata" width="120">
               </a>
             </div>
 
@@ -375,7 +180,7 @@
                     </svg>
                   </div>
                 </div>
-                <img src="./assets/img/h2laserupgradekit.png" alt="h2laserupgradekit" width="235">
+                <img src="img/h2laserupgradekit.png" alt="h2laserupgradekit" width="235">
               </a>
             </div>
 
@@ -391,7 +196,7 @@
                     </svg>
                   </div>
                 </div>
-                <img src="./assets/img/tungstencarbidenozzle.png" alt="tungstencarbidenozzle" width="120">
+                <img src="img/tungstencarbidenozzle.png" alt="tungstencarbidenozzle" width="120">
               </a>
             </div>
 
@@ -407,7 +212,7 @@
                     </svg>
                   </div>
                 </div>
-                <img src="./assets/img/rotaryattachment.png" alt="rotaryattachment" width="235">
+                <img src="img/rotaryattachment.png" alt="rotaryattachment" width="235">
               </a>
             </div>
 
@@ -428,7 +233,7 @@
               </svg>
             </div>
           </div>
-          <img src="./assets/img/ams2pro.png" alt="ams2pro" height="124">
+          <img src="img/ams2pro.png" alt="ams2pro" height="124">
         </a>
         <a href="https://eu.store.bambulab.com/it/products/vision-encoder" class="product-box">
           <div>
@@ -443,7 +248,7 @@
               </svg>
             </div>
           </div>
-          <img src="./assets/img/visionencoder.png" alt="ams2pro" height="124">
+          <img src="img/visionencoder.png" alt="ams2pro" height="124">
         </a>
         <a href="https://eu.store.bambulab.com/it/products/bambu-high-flow-hotend-h2-p2s" class="product-box">
           <div>
@@ -458,7 +263,7 @@
               </svg>
             </div>
           </div>
-          <img src="./assets/img/hotendadaltaportata.png" alt="ams2pro" height="124">
+          <img src="img/hotendadaltaportata.png" alt="ams2pro" height="124">
         </a>
         <a href="https://eu.store.bambulab.com/it/products/laser-upgrade-kit" class="product-box">
           <div>
@@ -473,7 +278,7 @@
               </svg>
             </div>
           </div>
-          <img src="./assets/img/h2laserupgradekit.png" alt="ams2pro" height="124">
+          <img src="img/h2laserupgradekit.png" alt="ams2pro" height="124">
         </a>
         <a href="https://eu.store.bambulab.com/it/products/tungsten-carbide-nozzle-h2-p2s" class="product-box">
           <div>
@@ -488,7 +293,7 @@
               </svg>
             </div>
           </div>
-          <img src="./assets/img/tungstencarbidenozzle.png" alt="ams2pro" height="124">
+          <img src="img/tungstencarbidenozzle.png" alt="ams2pro" height="124">
         </a>
         <a href="https://eu.store.bambulab.com/it/products/bambu-lab-rotary-attachment" class="product-box">
           <div>
@@ -503,7 +308,7 @@
               </svg>
             </div>
           </div>
-          <img src="./assets/img/rotaryattachment.png" alt="ams2pro" height="124">
+          <img src="img/rotaryattachment.png" alt="ams2pro" height="124">
         </a>
 
       </div>
@@ -552,7 +357,7 @@
       <div class="printers-grid">
         <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
           <div class="printers-card-img">
-            <img src="./assets/img/bambulabh2d.png" alt="Bambu Lab H2D">
+            <img src="img/bambulabh2d.png" alt="Bambu Lab H2D">
           </div>
 
           <div class="printers-card-info">
@@ -574,7 +379,7 @@
 
         <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
           <div class="printers-card-img">
-            <img src="./assets/img/h2s.png" alt="Bambu Lab H2S">
+            <img src="img/h2s.png" alt="Bambu Lab H2S">
           </div>
 
           <div class="printers-card-info">
@@ -596,7 +401,7 @@
 
         <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
           <div class="printers-card-img">
-            <img src="./assets/img/p2s.png" alt="Bambu Lab P2S">
+            <img src="img/p2s.png" alt="Bambu Lab P2S">
           </div>
 
           <div class="printers-card-info">
@@ -618,7 +423,7 @@
 
         <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
           <div class="printers-card-img">
-            <img src="./assets/img/p1s.png" alt="Bambu Lab P1S">
+            <img src="img/p1s.png" alt="Bambu Lab P1S">
           </div>
 
           <div class="printers-card-info">
@@ -640,7 +445,7 @@
 
         <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
           <div class="printers-card-img">
-            <img src="./assets/img/a1.png" alt="Bambu Lab A1">
+            <img src="img/a1.png" alt="Bambu Lab A1">
           </div>
 
           <div class="printers-card-info">
@@ -662,7 +467,7 @@
 
         <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
           <div class="printers-card-img">
-            <img src="./assets/img/a1mini.png" alt="Bambu Lab A1 mini">
+            <img src="img/a1mini.png" alt="Bambu Lab A1 mini">
           </div>
 
           <div class="printers-card-info">
@@ -723,7 +528,7 @@
           </div>
 
           <div class="banner-media">
-            <img class="banner-image" src="./assets/img/plalithophanebundle.png" alt="plalithophanebundle">
+            <img class="banner-image" src="img/plalithophanebundle.png" alt="plalithophanebundle">
           </div>
         </a>
         <a class="banner banner2" href="/it/pages/promotions/filament-bulk-sale">
@@ -746,7 +551,7 @@
           </div>
 
           <div class="banner-media">
-            <img class="banner-image" src="./assets/img/acquistarisparmiadipiu.png"
+            <img class="banner-image" src="img/acquistarisparmiadipiu.png"
               alt="Acquista di più, risparmia di più">
           </div>
         </a>
@@ -883,7 +688,7 @@
           </div>
 
           <div class="banner-media">
-            <img class="banner-image" src="./assets/img/accessori1.png" alt="plalithophanebundle">
+            <img class="banner-image" src="img/accessori1.png" alt="plalithophanebundle">
           </div>
         </a>
         <a class="banner banner2" href="/it/pages/promotions/filament-bulk-sale">
@@ -910,7 +715,7 @@
           </div>
 
           <div class="banner-media">
-            <img class="banner-image" src="./assets/img/accessori2.png" alt="Acquista di più, risparmia di più">
+            <img class="banner-image" src="img/accessori2.png" alt="Acquista di più, risparmia di più">
           </div>
         </a>
       </div>
@@ -1041,7 +846,7 @@
           </div>
 
           <div class="banner-media">
-            <img class="banner-image" src="./assets/img/makersuppy1.png" alt="plalithophanebundle">
+            <img class="banner-image" src="img/makersuppy1.png" alt="plalithophanebundle">
           </div>
         </a>
         <a class="banner banner2" href="/it/pages/promotions/filament-bulk-sale">
@@ -1064,7 +869,7 @@
           </div>
 
           <div class="banner-media">
-            <img class="banner-image" src="./assets/img/makersuppy2.png" alt="Acquista di più, risparmia di più">
+            <img class="banner-image" src="img/makersuppy2.png" alt="Acquista di più, risparmia di più">
           </div>
         </a>
       </div>
@@ -1181,7 +986,7 @@
           </div>
 
           <div class="banner-media">
-            <img class="banner-image" src="./assets/img/materiale1.png" alt="plalithophanebundle">
+            <img class="banner-image" src="img/materiale1.png" alt="plalithophanebundle">
           </div>
         </a>
         <a class="banner banner2" href="/it/pages/promotions/filament-bulk-sale">
@@ -1204,7 +1009,7 @@
           </div>
 
           <div class="banner-media">
-            <img class="banner-image" src="./assets/img/materiale2.png" alt="Acquista di più, risparmia di più">
+            <img class="banner-image" src="img/materiale2.png" alt="Acquista di più, risparmia di più">
           </div>
         </a>
       </div>
@@ -1466,125 +1271,4 @@
 
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div class="footer-column">
-          <h2 class="footer-heading">Menu</h2>
-          <ul class="footer-list">
-            <li><a href="/it/collections/sale">🔥Saldi</a></li>
-            <li><a href="/it/collections/3d-printers">Stampanti</a></li>
-            <li><a href="/it/collections/all-ams">AMS</a></li>
-            <li><a href="/it/collections/bambu-lab-3d-printers-filament">Filamenti</a></li>
-            <li><a href="/it/collections/accessories">Accessori</a></li>
-            <li><a href="/it/collections/bambu-material">Materiale</a></li>
-            <li><a href="/it/pages/spare-parts">Pezzi di ricambio</a></li>
-            <li><a href="/it/maker-supply">Maker's Supply</a></li>
-            <li><a href="https://bambulab.com/en/support">Supporto</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-column">
-          <h2 class="footer-heading">Supporto</h2>
-          <ul class="footer-list">
-            <li><a href="/it/track">Tracker ordini</a></li>
-            <li><a href="/it/a/faq">FAQ</a></li>
-            <li><a href="https://wiki.bambulab.com/home">Wiki ufficiale</a></li>
-            <li><a href="/it/policies/shipping-policy">Politica di spedizione</a></li>
-            <li><a href="/it/policies/refund-policy">Resi &amp; Rimborsi</a></li>
-            <li><span class="footer-link-static">Impostazioni dei cookie</span></li>
-            <li><a href="https://bambulab.com/policies/privacy">Informativa sulla privacy</a></li>
-            <li><a href="https://bambulab.com/policies/terms">Termini di servizio</a></li>
-            <li><a href="https://bambulab.com/policies/warranty">Dichiarazione di garanzia</a></li>
-            <li><a href="/it/pages/payment-help">Aiuto per i pagamenti</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-column">
-          <h2 class="footer-heading">Esplora</h2>
-          <ul class="footer-list">
-            <li><a href="https://www.bambulab.com">Sito ufficiale</a></li>
-            <li><a href="https://bambulab.com/corporate-sales">Vendite aziendali</a></li>
-            <li><a href="https://bambulab.com/dealer">Rivenditore autorizzato</a></li>
-            <li><a href="https://bambulab.com/contact-us">Contattaci</a></li>
-            <li><a href="https://bambulab.com/about-us">Su di noi</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-column footer-column-info">
-          <h2 class="footer-heading">Informazioni su Bambu Lab</h2>
-
-          <div class="footer-text">
-            <p>
-              Bambu Lab è un'azienda di tecnologia di consumo che si concentra sulle stampanti 3D desktop.
-              A partire dalla serie X1, Bambu Lab costruisce stampanti 3D all'avanguardia che abbattono le
-              barriere tra il mondo digitale e quello fisico, portando la creatività a un livello completamente nuovo.
-            </p>
-          </div>
-
-          <ul class="footer-social">
-            <li>
-              <a href="https://www.facebook.com/groups/bambulabofficialusers" target="_blank" rel="noopener"
-                aria-label="Facebook">
-                <svg viewBox="0 0 9 17" aria-hidden="true">
-                  <path
-                    d="M5.842 17V9.246h2.653l.398-3.023h-3.05v-1.93c0-.874.246-1.47 1.526-1.47H9V.118C8.718.082 7.75 0 6.623 0 4.27 0 2.66 1.408 2.66 3.994v2.23H0v3.022h2.66V17h3.182z">
-                  </path>
-                </svg>
-              </a>
-            </li>
-
-            <li>
-              <a href="https://www.reddit.com/r/BambuLab" target="_blank" rel="noopener" aria-label="Reddit">
-                <svg viewBox="0 0 32 32" aria-hidden="true">
-                  <path
-                    d="M18.984 20.464C19.0973 20.576 19.0973 20.7587 18.984 20.872C18.364 21.488 17.392 21.788 16.0093 21.788L15.9987 21.7853L15.988 21.788C14.6067 21.788 13.6333 21.488 13.0133 20.8707C12.9 20.7587 12.9 20.576 13.0133 20.464C13.1253 20.352 13.3093 20.352 13.4227 20.464C13.928 20.9667 14.7667 21.212 15.988 21.212L15.9987 21.2147L16.0093 21.212C17.2293 21.212 18.068 20.9667 18.5747 20.464C18.688 20.352 18.872 20.352 18.984 20.464ZM14.3973 17.24C14.3973 16.564 13.8453 16.0147 13.168 16.0147C12.4893 16.0147 11.9373 16.564 11.9373 17.24C11.9373 17.9147 12.4893 18.464 13.168 18.464C13.8453 18.4653 14.3973 17.916 14.3973 17.24ZM32 16C32 24.836 24.836 32 16 32C7.164 32 0 24.836 0 16C0 7.164 7.164 0 16 0C24.836 0 32 7.164 32 16ZM25.3333 15.828C25.3333 14.6933 24.4067 13.7707 23.2667 13.7707C22.7107 13.7707 22.2067 13.9933 21.8347 14.3507C20.4267 13.424 18.5213 12.8347 16.4133 12.7587L17.5667 9.12667L20.6907 9.85867L20.6867 9.904C20.6867 10.832 21.4453 11.5867 22.3773 11.5867C23.3093 11.5867 24.0667 10.832 24.0667 9.904C24.0667 8.976 23.3093 8.22133 22.3773 8.22133C21.6613 8.22133 21.052 8.668 20.8053 9.29333L17.4387 8.504C17.292 8.468 17.1413 8.55333 17.096 8.69733L15.8093 12.748C13.6013 12.7747 11.6027 13.3693 10.132 14.3227C9.76267 13.9827 9.27333 13.7693 8.732 13.7693C7.59333 13.7707 6.66667 14.6933 6.66667 15.828C6.66667 16.5827 7.08133 17.236 7.69067 17.5947C7.65067 17.8133 7.624 18.036 7.624 18.2613C7.624 21.3027 11.364 23.7773 15.9613 23.7773C20.5587 23.7773 24.2987 21.3027 24.2987 18.2613C24.2987 18.048 24.276 17.8387 24.24 17.632C24.888 17.284 25.3333 16.6107 25.3333 15.828V15.828ZM18.8373 16.016C18.1587 16.016 17.608 16.5653 17.608 17.2413C17.608 17.916 18.16 18.4653 18.8373 18.4653C19.5147 18.4653 20.0667 17.916 20.0667 17.2413C20.0667 16.5653 19.516 16.016 18.8373 16.016Z">
-                  </path>
-                </svg>
-              </a>
-            </li>
-
-            <li>
-              <a href="https://twitter.com/BambulabGlobal" target="_blank" rel="noopener" aria-label="Twitter">
-                <svg viewBox="0 0 32 26" aria-hidden="true">
-                  <path
-                    d="M32 3.077c-1.1748.525-2.4433.8748-3.768 1.031 1.356-.8123 2.3932-2.0995 2.887-3.6305-1.2686.7498-2.6746 1.2997-4.168 1.5934C25.751.796 24.045.0025 22.158.0025c-3.6242 0-6.561 2.937-6.561 6.5612 0 .5124.0562 1.0123.1686 1.4935C10.3104 7.7822 5.474 5.1702 2.237 1.196c-.5624.9687-.8873 2.0997-.8873 3.2994 0 2.2746 1.156 4.2867 2.9182 5.4615-1.075-.0314-2.0872-.3313-2.9745-.8187v.0812c0 3.1806 2.262 5.8363 5.2677 6.4362-.55.15-1.131.2312-1.731.2312-.4248 0-.831-.0438-1.2372-.1188.8374 2.6057 3.262 4.5054 6.13 4.5616-2.2495 1.7622-5.074 2.812-8.1546 2.812-.531 0-1.0498-.0313-1.5684-.0938 2.912 1.8684 6.3613 2.9494 10.0668 2.9494 12.0726 0 18.6776-10.0043 18.6776-18.6776 0-.2874-.0063-.5686-.0188-.8498C30.0066 5.5514 31.119 4.3954 32 3.077z">
-                  </path>
-                </svg>
-              </a>
-            </li>
-
-            <li>
-              <a href="https://www.instagram.com/bambulab_official" target="_blank" rel="noopener"
-                aria-label="Instagram">
-                <svg viewBox="0 0 32 32" aria-hidden="true">
-                  <path
-                    d="M15.994 2.886c4.273 0 4.775.019 6.464.095 1.562.07 2.406.33 2.971.552.749.292 1.283.635 1.841 1.194s.908 1.092 1.194 1.841c.216.565.483 1.41.552 2.971.076 1.689.095 2.19.095 6.464s-.019 4.775-.095 6.464c-.07 1.562-.33 2.406-.552 2.971-.292.749-.635 1.283-1.194 1.841s-1.092.908-1.841 1.194c-.565.216-1.41.483-2.971.552-1.689.076-2.19.095-6.464.095s-4.775-.019-6.464-.095c-1.562-.07-2.406-.33-2.971-.552-.749-.292-1.283-.635-1.841-1.194s-.908-1.092-1.194-1.841c-.216-.565-.483-1.41-.552-2.971-.076-1.689-.095-2.19-.095-6.464s.019-4.775.095-6.464c.07-1.562.33-2.406.552-2.971.292-.749.635-1.283 1.194-1.841s1.092-.908 1.841-1.194c.565-.216 1.41-.483 2.971-.552 1.689-.083 2.19-.095 6.464-.095zm0-2.883c-4.343 0-4.889.019-6.597.095-1.702.076-2.864.349-3.879.743-1.054.406-1.943.959-2.832 1.848S1.251 4.473.838 5.521C.444 6.537.171 7.699.095 9.407.019 11.109 0 11.655 0 15.997s.019 4.889.095 6.597c.076 1.702.349 2.864.743 3.886.406 1.054.959 1.943 1.848 2.832s1.784 1.435 2.832 1.848c1.016.394 2.178.667 3.886.743s2.248.095 6.597.095 4.889-.019 6.597-.095c1.702-.076 2.864-.349 3.886-.743 1.054-.406 1.943-.959 2.832-1.848s1.435-1.784 1.848-2.832c.394-1.016.667-2.178.743-3.886s.095-2.248.095-6.597-.019-4.889-.095-6.597c-.076-1.702-.349-2.864-.743-3.886-.406-1.054-.959-1.943-1.848-2.832S27.532 1.247 26.484.834C25.468.44 24.306.167 22.598.091c-1.714-.07-2.26-.089-6.603-.089zm0 7.778c-4.533 0-8.216 3.676-8.216 8.216s3.683 8.216 8.216 8.216 8.216-3.683 8.216-8.216-3.683-8.216-8.216-8.216zm0 13.549c-2.946 0-5.333-2.387-5.333-5.333s2.387-5.333 5.333-5.333 5.333 2.387 5.333 5.333-2.387 5.333-5.333 5.333zM26.451 7.457c0 1.059-.858 1.917-1.917 1.917s-1.917-.858-1.917-1.917c0-1.059.858-1.917 1.917-1.917s1.917.858 1.917 1.917z">
-                  </path>
-                </svg>
-              </a>
-            </li>
-
-            <li>
-              <a href="https://www.youtube.com/channel/UCDF3Sd2LNAsa-nKD17Jq3mw" target="_blank" rel="noopener"
-                aria-label="YouTube">
-                <svg viewBox="0 0 33 32" aria-hidden="true">
-                  <path
-                    d="M0 25.693q0 1.997 1.318 3.395t3.209 1.398h24.259q1.891 0 3.209-1.398t1.318-3.395V6.387q0-1.997-1.331-3.435t-3.195-1.438H4.528q-1.864 0-3.195 1.438T.002 6.387v19.306zm12.116-3.488V9.876q0-.186.107-.293.08-.027.133-.027l.133.027 11.61 6.178q.107.107.107.266 0 .107-.107.213l-11.61 6.178q-.053.053-.107.053-.107 0-.16-.053-.107-.107-.107-.213z">
-                  </path>
-                </svg>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <a href="/it" class="footer-copyright">© Bambu Lab EU</a>
-      </div>
-    </div>
-  </footer>
-</body>
-
-</html>
+<?php include __DIR__ . '/layout/footer.php'; ?>

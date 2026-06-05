@@ -1,4 +1,33 @@
-<div>
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="https://eu.store.bambulab.com/favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/notice.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/dropdown.css">
+  <script src="js/dropdown.js" defer></script>
+  <?php if (!empty($pageStyles ?? [])): ?>
+    <?php foreach ($pageStyles as $style): ?>
+      <link rel="stylesheet" href="<?= htmlspecialchars($style, ENT_QUOTES) ?>">
+    <?php endforeach; ?>
+  <?php endif; ?>
+  <?php if (!empty($pageScripts ?? [])): ?>
+    <?php foreach ($pageScripts as $script): ?>
+      <script src="<?= htmlspecialchars($script, ENT_QUOTES) ?>" defer></script>
+    <?php endforeach; ?>
+  <?php endif; ?>
+  <title>Acquisti stampanti 3D, filamenti e accessori | Bambu Lab EU store</title>
+</head>
+<body>
+
   <!-- NOTICE -->
   <div class="notice">
     <div class="notice-inner">
@@ -33,12 +62,13 @@
     </div>
   </div>
 
-  <!-- NAVBAR MOBILE -->
+  <!-- NAVBAR -->
   <nav class="navbar-mobile" aria-label="Navigazione mobile">
     <div class="navbar-mobile-inner">
       <div class="navbar-mobile-left">
         <button class="navbar-mobile-toggle" type="button" aria-label="Apri il menu" aria-expanded="false">
-          <svg class="navbar-mobile-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <svg class="navbar-mobile-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            aria-hidden="true">
             <path d="M7.50024 5H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
             <path d="M7.50024 12H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
             <path d="M7.50024 19H20.0034" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -49,14 +79,14 @@
         </button>
       </div>
 
-      <a class="navbar-mobile-brand" href="https://eu.store.bambulab.com/it" aria-label="Bambu Lab">
+      <a class="navbar-mobile-brand" href="index.php" aria-label="Bambu Lab">
         <img class="navbar-mobile-logo"
           src="https://store.bblcdn.com/s2/default/febc4874843645f38149a05caa0f8a6d/logo.png" alt="Bambu Lab">
       </a>
 
       <div class="navbar-mobile-actions">
-        <button class="navbar-mobile-icon-button search" type="button" aria-label="Apri ricerca"
-          aria-haspopup="dialog" aria-expanded="false">
+        <button class="navbar-mobile-icon-button search" type="button" aria-label="Apri ricerca" aria-haspopup="dialog"
+          aria-expanded="false">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M10.0015 3.84961C13.3989 3.84961 16.1529 6.60359 16.1529 10C16.1529 13.3964 13.3989 16.1504 10.0015 16.1504C6.60427 16.1503 3.85016 13.3963 3.85016 10C3.85016 6.60367 6.60427 3.84974 10.0015 3.84961Z"
@@ -67,7 +97,7 @@
           </svg>
         </button>
 
-        <a class="navbar-mobile-icon-button cart" href="https://eu.store.bambulab.com/cart" aria-label="Open cart"
+        <a class="navbar-mobile-icon-button cart" href="pages/cart/cart.php" aria-label="Open cart"
           title="Go to cart" data-cart-fly-target="true">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
@@ -86,27 +116,41 @@
     </div>
   </nav>
 
-  <!-- NAVBAR DESKTOP -->
   <nav class="navbar-desktop" aria-label="Navigazione principale">
+    
     <div class="navbar-inner">
       <div class="navbar-brand">
-        <a href="https://eu.store.bambulab.com/it">
-          <img class="navbar-logo"
-            src="https://store.bblcdn.com/s2/default/febc4874843645f38149a05caa0f8a6d/logo.png" alt="Bambu Lab">
+        <a href="/">
+          <img class="navbar-logo" src="https://store.bblcdn.com/s2/default/febc4874843645f38149a05caa0f8a6d/logo.png"
+            alt="Bambu Lab">
         </a>
       </div>
 
       <nav class="navbar-menu no-scrollbar" aria-label="Navigazione principale">
         <ul>
-          <li><a href="#" data-menu="saldi">🔥Saldi</a></li>
-          <li><a href="#" data-menu="stampanti">Stampanti</a></li>
-          <li><a href="#" data-menu="ams">AMS</a></li>
-          <li><a href="#" data-menu="filamenti">Filamenti</a></li>
-          <li><a href="#" data-menu="accessori">Accessori</a></li>
-          <li><a href="#" data-menu="materiale">Materiale</a></li>
-          <li><a href="#" data-menu="ricambi">Pezzi di ricambio</a></li>
-          <li><a href="#" data-menu="makersupply">Maker's Supply</a></li>
-          <li><a href="#" data-menu="supporto">Supporto</a></li>
+          <li><a href="/it/collections/sale" data-dropdown-trigger="saldi">🔥Saldi</a></li>
+          <li><a href="3d-printer.php" data-dropdown-trigger="saldi">Stampanti</a></li>
+          <li><a href="#" data-dropdown-trigger="saldi">AMS</a></li>
+          <li><a href="#" data-dropdown-trigger="saldi">Filamenti</a></li>
+          <li><a href="#" data-dropdown-trigger="saldi">Accessori</a></li>
+          <li><a href="#" data-dropdown-trigger="saldi">Materiale</a></li>
+          <li><a href="#" data-dropdown-trigger="saldi">Pezzi di ricambio</a></li>
+          <li><a href="#" data-dropdown-trigger="saldi">Maker's Supply</a></li>
+          <li>
+            <a href="#" data-dropdown-trigger="supporto">Supporto</a>
+            <div class="dropdown-menu hidden" data-dropdown-menu="supporto">
+              <a href="#">Tracciamento Ordine</a>
+              <a href="#">Centro di supporto</a>
+              <a href="#">Account aziendale</a>
+              <a href="#">FAQ</a>
+              <a href="#">Pezzi di ricambio</a>
+              <a href="#">Wiki ufficiale</a>
+              <a href="#">Politica di spedizione</a>
+              <a href="#">Resi e rimborsi</a>
+              <a href="#">Termini di garanzia</a>
+              <a href="#">Aiuto sui pagamenti</a>
+            </div>
+          </li>
         </ul>
       </nav>
 
@@ -122,7 +166,7 @@
           </svg>
         </button>
 
-        <a class="cart" href="/cart" aria-label="Open cart">
+        <a class="cart" href="cart.php" aria-label="Open cart">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M9.3577 20.3593C10.2185 20.3593 10.9163 19.6616 10.9163 18.801C10.9163 17.9403 10.2185 17.2427 9.3577 17.2427C8.49693 17.2427 7.79913 17.9403 7.79913 18.801C7.79913 19.6616 8.49693 20.3593 9.3577 20.3593Z"
@@ -137,7 +181,7 @@
           </svg>
         </a>
 
-        <button class="user" type="button">
+        <button class="user" type="button" data-dropdown-trigger="user">
           <svg width="32" height="32" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="16" cy="16.5" r="12" stroke="#1A1A1A" stroke-width="1.5"></circle>
             <circle cx="16" cy="12.5" r="4" stroke="#1A1A1A" stroke-width="1.5"></circle>
@@ -145,8 +189,29 @@
               stroke="#1A1A1A" stroke-width="1.5"></path>
           </svg>
         </button>
+        <div class="dropdown-menu hidden" data-dropdown-menu="user">
+          <a href="register.php">Registrati</a>
+          <a href="login.php">Login</a>
+        </div>
       </div>
     </div>
-  </nav>
-</div>
 
+    <!-- DROPDOWN MENU SALDI -->
+    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="saldi">
+      <div class="dropdown-menu-full-inner">
+        <div class="dropdown-menu-full-links">
+          <a href="#">Vendita filamenti <span>›</span></a>
+          <a href="#">Vendita accessori <span>›</span></a>
+          <a href="#">Maker's Supply Sale <span>›</span></a>
+          <a href="#">Material Sale <span>›</span></a>
+        </div>
+
+        <a class="dropdown-menu-full-card" href="#">
+          <img src="/img/filamenti.png" alt="Vendita all'ingrosso di filamenti base">
+          <strong>Vendita all'ingrosso di filamenti base</strong>
+          <span>A partire da 11,50€ a rotolo.</span>
+        </a>
+      </div>
+    </div>
+
+  </nav>
