@@ -3,7 +3,7 @@ const cartEmptyState = document.querySelector('#cart-empty-state');
 const cartTotalLabel = document.querySelector('#cart-total-label');
 const cartCheckoutBtn = document.querySelector('#cart-checkout-btn');
 const cartSubtitle = document.querySelector('#cart-subtitle');
-const recommendedButtons = Array.from(document.querySelectorAll('.rec-card-btn[data-printer-id]'));
+const recommendedButtons = Array.from(document.querySelectorAll('.rec-card-btn[data-product-id]'));
 
 const cartMoney = new Intl.NumberFormat('it-IT', {
   style: 'currency',
@@ -24,17 +24,17 @@ function formatMoney(value) {
 }
 
 function getLineTotal(item) {
-  const price = Number(item?.printer?.price || 0);
+  const price = Number(item?.product?.price || 0);
   const quantity = Number(item?.quantity || 0);
   return price * quantity;
 }
 
 function syncRecommendedButtons(items) {
-  const cartPrinterIds = new Set(items.map((item) => String(item?.printer?.id || '')));
+  const cartProductIds = new Set(items.map((item) => String(item?.product?.id || '')));
 
   recommendedButtons.forEach((button) => {
-    const printerId = button.dataset.printerId;
-    const inCart = cartPrinterIds.has(printerId);
+    const productId = button.dataset.productId;
+    const inCart = cartProductIds.has(productId);
 
     button.textContent = inCart ? 'Nel carrello' : 'Aggiungi al carrello';
     button.disabled = inCart;
@@ -76,7 +76,7 @@ function renderCart(items) {
   if (cartEmptyState) cartEmptyState.style.display = 'none';
 
   cartItemsList.innerHTML = items.map((item) => {
-    const printer = item.printer || {};
+    const product = item.product || {};
     const price = getLineTotal(item);
 
     return `
@@ -86,11 +86,11 @@ function renderCart(items) {
           <span class="cart-item-checkmark"></span>
         </label>
         <a href="#" target="_blank" class="cart-item-img-wrap">
-          <img src="${escapeHtml(printer.image_path || 'img/stampanti3d.png')}" alt="${escapeHtml(printer.name || '')}">
+          <img src="${escapeHtml(product.image_path || 'img/stampanti3d.png')}" alt="${escapeHtml(product.name || '')}">
         </a>
         <div class="cart-item-info">
-          <a href="#" target="_blank" class="cart-item-name">${escapeHtml(printer.name || '')}</a>
-          <div class="cart-item-variant">${escapeHtml(printer.subtitle || '')}</div>
+          <a href="#" target="_blank" class="cart-item-name">${escapeHtml(product.name || '')}</a>
+          <div class="cart-item-variant">${escapeHtml(product.subtitle || '')}</div>
           <a href="#" class="cart-item-remove" data-action="remove">Rimuovi</a>
         </div>
         <div class="cart-item-qty">
@@ -139,7 +139,7 @@ async function loadCart() {
 
 async function addRecommendedProduct(printerId) {
   const formData = new FormData();
-  formData.append('printer_id', String(printerId));
+  formData.append('product_id', String(printerId));
   formData.append('quantity', '1');
 
   const response = await fetch('app/api/api_cart.php', {
@@ -265,14 +265,14 @@ cartCheckoutBtn?.addEventListener('click', async () => {
 
 recommendedButtons.forEach((button) => {
   button.addEventListener('click', async () => {
-    const printerId = button.dataset.printerId;
+    const productId = button.dataset.productId;
 
-    if (!printerId || button.disabled) return;
+    if (!productId || button.disabled) return;
 
     try {
       button.disabled = true;
       button.textContent = 'Aggiunta...';
-      await addRecommendedProduct(printerId);
+      await addRecommendedProduct(productId);
     } catch (error) {
       if (cartEmptyState) {
         cartEmptyState.textContent = error.message || 'Errore aggiunta al carrello.';

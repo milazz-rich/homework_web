@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__ . '/../services/AuthService.php';
-require_once __DIR__ . '/../services/CartService.php';
 require_once __DIR__ . '/../repositories/ProductRepository.php';
 require_once __DIR__ . '/../services/StripeService.php';
 
@@ -23,39 +22,29 @@ try {
         exit;
     }
 
-    $cartService = new CartService();
-    $productRepository = new ProductRepository();
-    $stripeService = new StripeService();
-
-    $items = $cartService->getUserCart((int) $currentUser->getId());
-
-    if ($items === []) {
+    if (!isset($_POST['product_id']) || !ctype_digit((string) $_POST['product_id'])) {
         http_response_code(400);
-        echo json_encode(['message' => 'Il carrello è vuoto.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        echo json_encode(['message' => 'product_id non valido.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         exit;
     }
 
-    $lineItems = [];
-
-    foreach ($items as $item) {
-        $product = $productRepository->findById($item->getProductId());
-
-        if ($product === null) {
-            continue;
+    $quantity = 1;
+    if (isset($_POST['quantity']) && $_POST['quantity'] !== '') {
+        if (!ctype_digit((string) $_POST['quantity'])) {
+            http_response_code(400);
+            echo json_encode(['message' => 'quantity non valida.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            exit;
         }
 
-        $lineItems[] = [
-            'name' => $product->getName(),
-            'description' => $product->getSubtitle(),
-            'unit_amount' => (int) round($product->getPrice() * 100),
-            'quantity' => $item->getQuantity(),
-            'image' => $product->getImagePath() !== '' ? (stripos($product->getImagePath(), 'http') === 0 ? $product->getImagePath() : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http') . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . '/' . ltrim($product->getImagePath(), '/')) : null,
-        ];
+        $quantity = max(1, (int) $_POST['quantity']);
     }
 
-    if ($lineItems === []) {
-        http_response_code(400);
-        echo json_encode(['message' => 'Nessun prodotto valido nel carrello.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $productRepository = new ProductRepository();
+    $product = $productRepository->findById((int) $_POST['product_id']);
+
+    if ($product === null) {
+        http_response_code(404);
+        echo json_encode(['message' => 'Prodotto non trovato.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         exit;
     }
 
@@ -63,10 +52,19 @@ try {
     $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
     $baseUrl = $scheme . '://' . $host;
 
+    $lineItem = [[
+        'name' => $product->getName(),
+        'description' => $product->getSubtitle(),
+        'unit_amount' => (int) round($product->getPrice() * 100),
+        'quantity' => $quantity,
+        'image' => $product->getImagePath() !== '' ? (stripos($product->getImagePath(), 'http') === 0 ? $product->getImagePath() : $baseUrl . '/' . ltrim($product->getImagePath(), '/')) : null,
+    ]];
+
+    $stripeService = new StripeService();
     $session = $stripeService->createCheckoutSession(
-        $lineItems,
+        $lineItem,
         $baseUrl . '/cart.php?checkout=success',
-        $baseUrl . '/cart.php?checkout=cancel',
+        $baseUrl . '/product.php?id=' . (int) $product->getId() . '&checkout=cancel',
         $currentUser->getEmail()
     );
 

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/app/services/ThreeDPrinterService.php';
+require_once __DIR__ . '/app/services/ProductService.php';
 
 $pageStyles = [
   'css/home.css',
@@ -13,10 +13,10 @@ $pageScripts = [
 $printers = [];
 
 try {
-  $printerService = new ThreeDPrinterService();
-  $printers = $printerService->getPrinters(6);
+  $productService = new ProductService();
+  $products = $productService->getProducts(0, 6);
 } catch (Throwable $e) {
-  $printers = [];
+  $products = [];
 }
 
 include __DIR__ . '/layout/header.php';
@@ -357,13 +357,13 @@ include __DIR__ . '/layout/header.php';
       </div>
 
       <div class="printers-grid">
-        <?php foreach ($printers as $printer): ?>
+        <?php foreach ($products as $product): ?>
           <?php
-          $name = $printer->getName();
-          $subtitle = $printer->getSubtitle();
-          $imagePath = $printer->getImagePath() !== '' ? $printer->getImagePath() : 'img/stampanti3d.png';
+          $name = $product->getName();
+          $subtitle = $product->getSubtitle();
+          $imagePath = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/stampanti3d.png';
           ?>
-          <a href="/it/products" class="printers-card">
+          <a href="product.php?id=<?= urlencode((string) $product->getId()) ?>" class="printers-card">
             <div class="printers-card-img">
               <img src="<?= htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>">
             </div>

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../services/ThreeDPrinterService.php';
+require_once __DIR__ . '/../services/ProductService.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 
 $limit = null;
+$type = null;
 
 if (isset($_GET['limit']) && $_GET['limit'] !== '') {
     if (!ctype_digit((string) $_GET['limit'])) {
@@ -22,11 +23,21 @@ if (isset($_GET['limit']) && $_GET['limit'] !== '') {
     $limit = (int) $_GET['limit'];
 }
 
-try {
-    $printerService = new ThreeDPrinterService();
-    $printers = $printerService->getPrinters($limit);
+if (isset($_GET['type']) && $_GET['type'] !== '') {
+    if (!ctype_digit((string) $_GET['type'])) {
+        http_response_code(400);
+        echo json_encode(['message' => 'Il parametro type deve essere un numero intero valido.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
 
-    echo json_encode(array_map(static fn (ThreeDPrinter $printer) => $printer->toArray(), $printers), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $type = (int) $_GET['type'];
+}
+
+try {
+    $productService = new ProductService();
+    $products = $productService->getProducts($type, $limit);
+
+    echo json_encode(array_map(static fn (Product $product) => $product->toArray(), $products), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 } catch (Throwable $e) {
     http_response_code(500);
     echo json_encode([

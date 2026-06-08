@@ -44,10 +44,23 @@
   margin-bottom: 40px;
 }
 
+#cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
 .cart-item {
   display: flex;
   align-items: center;
   gap: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 /* Checkbox */

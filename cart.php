@@ -42,7 +42,7 @@ include __DIR__ . '/layout/header.php';
             <select class="rec-card-select">
               <option>Configurazione standard</option>
             </select>
-            <button class="rec-card-btn" data-printer-id="2">Aggiungi al carrello</button>
+            <button class="rec-card-btn" data-product-id="2">Aggiungi al carrello</button>
           </div>
         </div>
 
@@ -56,7 +56,7 @@ include __DIR__ . '/layout/header.php';
             <select class="rec-card-select">
               <option>Configurazione standard</option>
             </select>
-            <button class="rec-card-btn" data-printer-id="9">Aggiungi al carrello</button>
+            <button class="rec-card-btn" data-product-id="9">Aggiungi al carrello</button>
           </div>
         </div>
 

@@ -12,17 +12,17 @@ class CartService
         $this->cartRepository = $cartRepository ?? new CartRepository();
     }
 
-    public function addToCart(int $userId, int $printerId, int $quantity = 1): Cart
+    public function addToCart(int $userId, int $productId, int $quantity = 1): Cart
     {
-        if ($userId <= 0 || $printerId <= 0) {
-            throw new InvalidArgumentException('User e stampante devono avere un id valido.');
+        if ($userId <= 0 || $productId <= 0) {
+            throw new InvalidArgumentException('User e prodotto devono avere un id valido.');
         }
 
         if ($quantity <= 0) {
             throw new InvalidArgumentException('La quantità deve essere maggiore di zero.');
         }
 
-        $existing = $this->cartRepository->findByUserAndPrinter($userId, $printerId);
+        $existing = $this->cartRepository->findByUserAndProduct($userId, $productId);
 
         if ($existing !== null) {
             $existing->setQuantity($existing->getQuantity() + $quantity);
@@ -31,7 +31,7 @@ class CartService
             return $existing;
         }
 
-        $cart = new Cart(null, $userId, $printerId, $quantity);
+        $cart = new Cart(null, $userId, $productId, $quantity);
         $this->cartRepository->create($cart);
 
         return $cart;

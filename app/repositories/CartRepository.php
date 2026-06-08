@@ -15,10 +15,10 @@ class CartRepository
     public function create(Cart $cart): int
     {
         $userId = (int) $cart->getUserId();
-        $printerId = (int) $cart->getPrinterId();
+        $productId = (int) $cart->getProductId();
         $quantity = (int) $cart->getQuantity();
 
-        $sql = "INSERT INTO `cart` (`user_id`, `printer_id`, `quantity`) VALUES ({$userId}, {$printerId}, {$quantity}) ON DUPLICATE KEY UPDATE `quantity` = `quantity` + VALUES(`quantity`)";
+        $sql = "INSERT INTO `cart` (`user_id`, `product_id`, `quantity`) VALUES ({$userId}, {$productId}, {$quantity}) ON DUPLICATE KEY UPDATE `quantity` = `quantity` + VALUES(`quantity`)";
         $result = mysqli_query($this->mysqli, $sql);
 
         if (!$result) {
@@ -32,7 +32,7 @@ class CartRepository
             return $insertId;
         }
 
-        $existing = $this->findByUserAndPrinter($userId, $printerId);
+        $existing = $this->findByUserAndProduct($userId, $productId);
         if ($existing !== null) {
             $cart->setId($existing->getId());
             $cart->setQuantity($existing->getQuantity());
@@ -44,7 +44,7 @@ class CartRepository
 
     public function findById(int $id): ?Cart
     {
-        $sql = "SELECT `id`, `user_id`, `printer_id`, `quantity`, `created_at`, `updated_at` FROM `cart` WHERE `id` = {$id} LIMIT 1";
+        $sql = "SELECT `id`, `user_id`, `product_id`, `quantity`, `created_at`, `updated_at` FROM `cart` WHERE `id` = {$id} LIMIT 1";
         $result = mysqli_query($this->mysqli, $sql);
 
         if (!$result) {
@@ -61,7 +61,7 @@ class CartRepository
      */
     public function findByUserId(int $userId): array
     {
-        $sql = "SELECT `id`, `user_id`, `printer_id`, `quantity`, `created_at`, `updated_at` FROM `cart` WHERE `user_id` = {$userId} ORDER BY `id` DESC";
+        $sql = "SELECT `id`, `user_id`, `product_id`, `quantity`, `created_at`, `updated_at` FROM `cart` WHERE `user_id` = {$userId} ORDER BY `id` DESC";
         $result = mysqli_query($this->mysqli, $sql);
 
         if (!$result) {
@@ -76,9 +76,9 @@ class CartRepository
         return $items;
     }
 
-    public function findByUserAndPrinter(int $userId, int $printerId): ?Cart
+    public function findByUserAndProduct(int $userId, int $productId): ?Cart
     {
-        $sql = "SELECT `id`, `user_id`, `printer_id`, `quantity`, `created_at`, `updated_at` FROM `cart` WHERE `user_id` = {$userId} AND `printer_id` = {$printerId} LIMIT 1";
+        $sql = "SELECT `id`, `user_id`, `product_id`, `quantity`, `created_at`, `updated_at` FROM `cart` WHERE `user_id` = {$userId} AND `product_id` = {$productId} LIMIT 1";
         $result = mysqli_query($this->mysqli, $sql);
 
         if (!$result) {

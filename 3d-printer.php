@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/app/services/ThreeDPrinterService.php';
+require_once __DIR__ . '/app/services/ProductService.php';
 
 $pageStyles = [
   'css/3d-printer.css',
@@ -12,10 +12,10 @@ $pageScripts = [
 $printers = [];
 
 try {
-  $printerService = new ThreeDPrinterService();
-  $printers = $printerService->getPrinters();
+  $productService = new ProductService();
+  $products = $productService->getProducts(0);
 } catch (Throwable $e) {
-  $printers = [];
+  $products = [];
 }
 
 include __DIR__ . '/layout/header.php';
@@ -97,13 +97,13 @@ include __DIR__ . '/layout/header.php';
 
       <!-- PRODUCT GRID -->
       <div class="catalog-grid">
-        <?php foreach ($printers as $printer): ?>
+        <?php foreach ($products as $product): ?>
           <?php
-          $name = $printer->getName();
-          $price = number_format($printer->getPrice(), 2, ',', '.');
-          $imagePath = $printer->getImagePath() !== '' ? $printer->getImagePath() : 'img/stampanti3d.png';
+          $name = $product->getName();
+          $price = number_format($product->getPrice(), 2, ',', '.');
+          $imagePath = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/stampanti3d.png';
           ?>
-          <a href="#" class="catalog-card">
+          <a href="product.php?id=<?= urlencode((string) $product->getId()) ?>" class="catalog-card">
             <div class="catalog-card-img-wrap">
               <img src="<?= htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>">
             </div>

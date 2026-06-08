@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../services/AuthService.php';
 require_once __DIR__ . '/../services/CartService.php';
-require_once __DIR__ . '/../repositories/ThreeDPrinterRepository.php';
+require_once __DIR__ . '/../repositories/ProductRepository.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -17,21 +17,21 @@ try {
     }
 
     $cartService = new CartService();
-    $printerRepository = new ThreeDPrinterRepository();
+    $productRepository = new ProductRepository();
     $userId = (int) $currentUser->getId();
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $items = $cartService->getUserCart($userId);
 
-        $payload = array_map(static function (Cart $item) use ($printerRepository): array {
-            $printer = $printerRepository->findById($item->getPrinterId());
+        $payload = array_map(static function (Cart $item) use ($productRepository): array {
+            $product = $productRepository->findById($item->getProductId());
 
             return [
                 'id' => $item->getId(),
                 'quantity' => $item->getQuantity(),
                 'created_at' => $item->getCreatedAt(),
                 'updated_at' => $item->getUpdatedAt(),
-                'printer' => $printer ? $printer->toArray() : null,
+                'product' => $product ? $product->toArray() : null,
             ];
         }, $items);
 
@@ -66,15 +66,15 @@ try {
             exit;
         }
 
-        if (!isset($_POST['printer_id'])) {
+        if (!isset($_POST['product_id'])) {
             http_response_code(400);
-            echo json_encode(['message' => 'Manca printer_id.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            echo json_encode(['message' => 'Manca product_id.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             exit;
         }
 
-        if (!ctype_digit((string) $_POST['printer_id'])) {
+        if (!ctype_digit((string) $_POST['product_id'])) {
             http_response_code(400);
-            echo json_encode(['message' => 'printer_id non valido.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            echo json_encode(['message' => 'product_id non valido.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             exit;
         }
 
@@ -89,7 +89,7 @@ try {
             $quantity = (int) $_POST['quantity'];
         }
 
-        $cartItem = $cartService->addToCart($userId, (int) $_POST['printer_id'], $quantity);
+        $cartItem = $cartService->addToCart($userId, (int) $_POST['product_id'], $quantity);
 
         echo json_encode($cartItem->toArray(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         exit;

@@ -4,7 +4,7 @@ class Cart
 {
     private ?int $id;
     private int $userId;
-    private int $printerId;
+    private int $productId;
     private int $quantity;
     private ?string $createdAt;
     private ?string $updatedAt;
@@ -12,14 +12,14 @@ class Cart
     public function __construct(
         ?int $id = null,
         int $userId = 0,
-        int $printerId = 0,
+        int $productId = 0,
         int $quantity = 1,
         ?string $createdAt = null,
         ?string $updatedAt = null
     ) {
         $this->id = $id;
         $this->userId = $userId;
-        $this->printerId = $printerId;
+        $this->productId = $productId;
         $this->quantity = $quantity;
         $this->createdAt = $createdAt;
         $this->updatedAt = $updatedAt;
@@ -45,14 +45,14 @@ class Cart
         $this->userId = $userId;
     }
 
-    public function getPrinterId(): int
+    public function getProductId(): int
     {
-        return $this->printerId;
+        return $this->productId;
     }
 
-    public function setPrinterId(int $printerId): void
+    public function setProductId(int $productId): void
     {
-        $this->printerId = $printerId;
+        $this->productId = $productId;
     }
 
     public function getQuantity(): int
@@ -90,7 +90,7 @@ class Cart
         return new self(
             isset($data['id']) ? (int) $data['id'] : null,
             isset($data['user_id']) ? (int) $data['user_id'] : 0,
-            isset($data['printer_id']) ? (int) $data['printer_id'] : 0,
+            isset($data['product_id']) ? (int) $data['product_id'] : 0,
             isset($data['quantity']) ? (int) $data['quantity'] : 1,
             isset($data['created_at']) ? (string) $data['created_at'] : null,
             isset($data['updated_at']) ? (string) $data['updated_at'] : null
@@ -102,7 +102,7 @@ class Cart
         return [
             'id' => $this->id,
             'user_id' => $this->userId,
-            'printer_id' => $this->printerId,
+            'product_id' => $this->productId,
             'quantity' => $this->quantity,
             'created_at' => $this->createdAt,
             'updated_at' => $this->updatedAt,
