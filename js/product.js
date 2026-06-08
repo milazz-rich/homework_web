@@ -108,6 +108,9 @@ document.querySelector('.btn-add-cart')?.addEventListener('click', () => {
       if (!response.ok) {
         throw new Error(data.message || 'Errore durante l\'aggiunta al carrello.');
       }
+      if (typeof window.refreshCartBadge === 'function') {
+        window.refreshCartBadge();
+      }
       btn.textContent = 'Aggiunto ✓';
       btn.style.background = '#00993a';
       setTimeout(() => {

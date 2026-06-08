@@ -7,6 +7,26 @@ $pageScripts = [
   'js/cart.js',
 ];
 
+require_once __DIR__ . '/app/services/ProductService.php';
+
+$recommendedPrinters = [];
+$recommendedFilaments = [];
+$recommendedAccessories = [];
+$recommendedMaterials = [];
+
+try {
+  $productService = new ProductService();
+  $recommendedPrinters = $productService->getProducts(0, 1);
+  $recommendedFilaments = $productService->getProducts(1, 1);
+  $recommendedAccessories = $productService->getProducts(2, 1);
+  $recommendedMaterials = $productService->getProducts(4, 1);
+} catch (Throwable $e) {
+  $recommendedPrinters = [];
+  $recommendedFilaments = [];
+  $recommendedAccessories = [];
+  $recommendedMaterials = [];
+}
+
 include __DIR__ . '/layout/header.php';
 ?>
 
@@ -32,33 +52,28 @@ include __DIR__ . '/layout/header.php';
       <h2 class="cart-recommended-title">Consigliato per te</h2>
       <div class="cart-recommended-grid">
 
-        <div class="rec-card">
-          <a href="#" target="_blank" class="rec-card-img-wrap">
-            <img src="img/bambulabh2d.png" alt="Bambu Lab H2D">
-          </a>
-          <div class="rec-card-body">
-            <a href="#" target="_blank" class="rec-card-name">Bambu Lab H2D</a>
-            <div class="rec-card-price">1.749,00 &euro;</div>
-            <select class="rec-card-select">
-              <option>Configurazione standard</option>
-            </select>
-            <button class="rec-card-btn" data-product-id="2">Aggiungi al carrello</button>
-          </div>
-        </div>
-
-        <div class="rec-card">
-          <a href="#" target="_blank" class="rec-card-img-wrap">
-            <img src="img/a1mini.png" alt="Bambu Lab A1 mini">
-          </a>
-          <div class="rec-card-body">
-            <a href="#" target="_blank" class="rec-card-name">Bambu Lab A1 mini</a>
-            <div class="rec-card-price">189,00 &euro;</div>
-            <select class="rec-card-select">
-              <option>Configurazione standard</option>
-            </select>
-            <button class="rec-card-btn" data-product-id="9">Aggiungi al carrello</button>
-          </div>
-        </div>
+        <?php foreach ([$recommendedPrinters, $recommendedFilaments, $recommendedAccessories, $recommendedMaterials] as $group): ?>
+          <?php foreach ($group as $product): ?>
+            <?php
+            $recName = $product->getName();
+            $recImage = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/stampanti3d.png';
+            $recPrice = number_format($product->getPrice(), 2, ',', '.');
+            ?>
+            <div class="rec-card">
+              <a href="product.php?id=<?= urlencode((string) $product->getId()) ?>" class="rec-card-img-wrap">
+                <img src="<?= htmlspecialchars($recImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($recName, ENT_QUOTES, 'UTF-8') ?>">
+              </a>
+              <div class="rec-card-body">
+                <a href="product.php?id=<?= urlencode((string) $product->getId()) ?>" class="rec-card-name"><?= htmlspecialchars($recName, ENT_QUOTES, 'UTF-8') ?></a>
+                <div class="rec-card-price"><?= htmlspecialchars($recPrice, ENT_QUOTES, 'UTF-8') ?> &euro;</div>
+                <select class="rec-card-select">
+                  <option>Configurazione standard</option>
+                </select>
+                <button class="rec-card-btn" data-product-id="<?= (int) $product->getId() ?>">Aggiungi al carrello</button>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        <?php endforeach; ?>
 
       </div>
     </section>

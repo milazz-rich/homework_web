@@ -11,12 +11,24 @@ $pageScripts = [
 ];
 
 $printers = [];
+$filaments = [];
+$accessories = [];
+$makersupply = [];
+$materials = [];
 
 try {
   $productService = new ProductService();
   $products = $productService->getProducts(0, 6);
+  $filaments = $productService->getProducts(1);
+  $accessories = $productService->getProducts(2);
+  $makersupply = $productService->getProducts(3);
+  $materials = $productService->getProducts(4);
 } catch (Throwable $e) {
   $products = [];
+  $filaments = [];
+  $accessories = [];
+  $makersupply = [];
+  $materials = [];
 }
 
 include __DIR__ . '/layout/header.php';
@@ -52,7 +64,7 @@ include __DIR__ . '/layout/header.php';
     
     <!-- PRODUCT-CATEGORIES -->
     <section class="section product-categories">
-      <a href="https://eu.store.bambulab.com/it/collections/3d-printers">
+      <a href="3d-printer.php">
         <div>
           <div class="title">Stampanti 3d</div>
           <div class="subtitle">Stampanti avanzate potenziano progetti avanzati</div>
@@ -60,7 +72,7 @@ include __DIR__ . '/layout/header.php';
         <img src="img/stampanti3d.png" alt="stampanti3d" width="189" height="129">
       </a>
 
-      <a href="https://eu.store.bambulab.com/it/pages/bambu-filament-overview">
+      <a href="filamenti.php">
         <div>
           <div class="title">Filamenti</div>
           <div class="subtitle">Eccellente qualità, prestazione e facilità d'uso</div>
@@ -68,7 +80,7 @@ include __DIR__ . '/layout/header.php';
         <img src="img/filamenti.png" alt="filamenti" width="189" height="129">
       </a>
 
-      <a href="https://eu.store.bambulab.com/it/collections/accessories">
+      <a href="accessori.php">
         <div>
           <div class="title">Accessori</div>
           <div class="subtitle">Potenzia la tua stampante con accessori avanzati</div>
@@ -76,7 +88,7 @@ include __DIR__ . '/layout/header.php';
         <img src="img/accessori.png" alt="accessori" width="189" height="129">
       </a>
 
-      <a href="https://eu.store.bambulab.com/it/maker-supply">
+      <a href="makersupply.php">
         <div>
           <div class="title">Maker's Supply</div>
           <div class="subtitle">Fornitura di accessori per completare i tuoi progetti</div>
@@ -84,7 +96,7 @@ include __DIR__ . '/layout/header.php';
         <img src="img/makerssupply.png" alt="makerssupply" width="189" height="129">
       </a>
 
-      <a href="https://eu.store.bambulab.com/it/collections/bambu-material">
+      <a href="materiali.php">
         <div>
           <div class="title">Material</div>
           <div class="subtitle">Fornire materiali adatti ai processi di taglio laser e a lama</div>
@@ -320,7 +332,7 @@ include __DIR__ . '/layout/header.php';
     <section class="section printers-catalog">
       <div class="section-title">
         <h2>Stampanti 3d</h2>
-        <a href="https://eu.store.bambulab.com/it/collections/3d-printer" class="seeother">
+        <a href="3d-printer.php" class="seeother">
           <span>Visualizza tutti</span>
           <svg viewBox="64 64 896 896" focusable="false" data-icon="right" width="1em" height="1em" fill="currentColor">
             <path
@@ -392,7 +404,7 @@ include __DIR__ . '/layout/header.php';
     <section class="section">
       <div class="section-title">
         <h2>Filamenti</h2>
-        <a href="https://eu.store.bambulab.com/it/collections/bambu-lab-3d-printers-filament" class="seeother">
+        <a href="filamenti.php" class="seeother">
           <span>Visualizza tutti</span>
           <svg viewBox="64 64 896 896" focusable="false" data-icon="right" width="1em" height="1em" fill="currentColor">
             <path
@@ -458,93 +470,21 @@ include __DIR__ . '/layout/header.php';
 
 
       <div class="card-grid">
-        <a href="https://eu.store.bambulab.com/it/collections/pla" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.com/s2/default/45415374089847da961be5c21f5071ef/5.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="PLA" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">PLA</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/petg" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.com/s2/default/467d85baad41438abfceb0b873a8df79/6.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="PETG" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">PETG</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/asa-abs" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.com/s2/default/5700175e2a4a414d91cffb2229687a50/7.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="ABS &amp; ASA" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">ABS &amp; ASA</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/pc-tpu" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.com/s2/default/70baa9bbfed64c34b0fa38b1c8fee43b/8.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="PC &amp; TPU" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">PC &amp; TPU</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/pa-pet" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.com/s2/default/03fe69724b3248cea63966ccf89cd3d0/9.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="PA/PET" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">PA/PET</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/fiber-reinforced" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.com/s2/default/49ea2306adc2484da55b64cb580925ef/10.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Fiber Reinforced" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Fiber Reinforced</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/support" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/dfe92d60a2e943b0ab3b10cba0279fb4/Support.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Supporto" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Supporto</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/bambu-lab-3d-printers-filament" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.com/s2/default/5156413461524b91a094de9a13ce344f/12.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="ACQUISTA TUTTO" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">ACQUISTA TUTTO</div>
-          </div>
-        </a>
+        <?php foreach ($filaments as $filament): ?>
+          <?php
+          $filamentName = $filament->getName();
+          $filamentSubtitle = $filament->getSubtitle();
+          $filamentImage = $filament->getImagePath() !== '' ? $filament->getImagePath() : 'img/filamenti.png';
+          ?>
+          <a href="product.php?id=<?= urlencode((string) $filament->getId()) ?>" class="card">
+            <div class="card-image">
+              <img src="<?= htmlspecialchars($filamentImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($filamentName, ENT_QUOTES, 'UTF-8') ?>" loading="lazy" width="282" height="250">
+            </div>
+            <div class="card-body">
+              <div class="card-title"><?= htmlspecialchars($filamentName, ENT_QUOTES, 'UTF-8') ?></div>
+            </div>
+          </a>
+        <?php endforeach; ?>
       </div>
     </section>
 
@@ -552,7 +492,7 @@ include __DIR__ . '/layout/header.php';
     <section class="section">
       <div class="section-title">
         <h2>Accessori</h2>
-        <a href="https://eu.store.bambulab.com/it/collections/bambu-lab-3d-printers-filament" class="seeother">
+        <a href="accessori.php" class="seeother">
           <span>Visualizza tutti</span>
           <svg viewBox="64 64 896 896" focusable="false" data-icon="right" width="1em" height="1em" fill="currentColor">
             <path
@@ -621,101 +561,22 @@ include __DIR__ . '/layout/header.php';
 
 
       <div class="card-grid">
-        <a href="https://eu.store.bambulab.com/it/products/bambu-engineering-plate" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/8f320285d44a4331bddf0d2564bf07c2/1.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Bambu Engineering Plate" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Bambu Engineering Plate</div>
-            <div class="card-subtitle">Una Piastra di Costruzione per Tutti i Filamenti</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/bambu-dual-texture-pei-plate" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/501f69dd829d4802be11e526c0b2d579/2.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Dual-Texture PEI Plate" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Dual-Texture PEI Plate</div>
-            <div class="card-subtitle">Due Superfici, Una Sola Piastra</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/bambu-cool-plate-supertack" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/85a1755dc1be45cc991baa00a5a78080/3.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Cool Plate SuperTack" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Cool Plate SuperTack</div>
-            <div class="card-subtitle">Dì Addio ai Fallimenti di Stampa</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/bambu-smooth-pei-plate" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/fd8627ec4c5a45a4bce444365cdabf52/4.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Smooth PEI Plate" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Smooth PEI Plate</div>
-            <div class="card-subtitle">Primi Strati Ultra-Lisci per una Precisione Opaca</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/vision-encoder" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/ddb1755e3e1646809760effe2038bf10/5.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Vision Encoder" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Vision Encoder</div>
-            <div class="card-subtitle">Precisione di Movimento Inferiore a 50μm</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/smoke-purifier" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/c16ee378adea4303a1c9b69c724cd6fa/6.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Smoke Purifier" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Smoke Purifier</div>
-            <div class="card-subtitle">Filtra il 99% delle Particelle fino a 0,3µm e i VOC</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/h2d-laser-upgrade-kit" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/23cf4e98fc314c0a83ecd796f09495dd/7.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="H2 Laser Upgrade Kit" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">H2 Laser Upgrade Kit</div>
-            <div class="card-subtitle">Potenzia le Tue Stampanti con il Taglio Laser di Precisione</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/cutting-upgrade-kit-h2-series" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/a1c2549c7df74a498931030ee645534b/8.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="H2 Cutting Upgrade Kit" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">H2 Cutting Upgrade Kit</div>
-            <div class="card-subtitle">Sblocca Taglio e Disegno sulla Tua Serie H2</div>
-          </div>
-        </a>
+        <?php foreach ($accessories as $accessory): ?>
+          <?php
+          $accessoryName = $accessory->getName();
+          $accessorySubtitle = $accessory->getSubtitle();
+          $accessoryImage = $accessory->getImagePath() !== '' ? $accessory->getImagePath() : 'img/accessori.png';
+          ?>
+          <a href="product.php?id=<?= urlencode((string) $accessory->getId()) ?>" class="card">
+            <div class="card-image">
+              <img src="<?= htmlspecialchars($accessoryImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($accessoryName, ENT_QUOTES, 'UTF-8') ?>" loading="lazy" width="282" height="250">
+            </div>
+            <div class="card-body">
+              <div class="card-title"><?= htmlspecialchars($accessoryName, ENT_QUOTES, 'UTF-8') ?></div>
+              <div class="card-subtitle"><?= htmlspecialchars($accessorySubtitle, ENT_QUOTES, 'UTF-8') ?></div>
+            </div>
+          </a>
+        <?php endforeach; ?>
       </div>
     </section>
 
@@ -723,7 +584,7 @@ include __DIR__ . '/layout/header.php';
     <section class="section">
       <div class="section-title">
         <h2>Maker's Supply</h2>
-        <a href="https://eu.store.bambulab.com/it/collections/bambu-lab-3d-printers-filament" class="seeother">
+        <a href="makersupply.php" class="seeother">
           <span>Visualizza tutti</span>
           <svg viewBox="64 64 896 896" focusable="false" data-icon="right" width="1em" height="1em" fill="currentColor">
             <path
@@ -775,78 +636,22 @@ include __DIR__ . '/layout/header.php';
 
 
       <div class="card-grid">
-        <a href="https://eu.store.bambulab.com/it/collections/makerlab-accessories" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/ce4b076b4e4741d0bb35d2d2be6d6411/5.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Accessoires Makerlab" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Accessoires Makerlab</div>
-            <div class="card-subtitle">Accessoires conçus pour s'associer à vos créations MakerLab.</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/maker-s-supply-models" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/ad201c0509dd461ebb0dd8f9e53edd2e/1.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Kit di modelli" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Kit di modelli</div>
-            <div class="card-subtitle">Album di grandi progetti</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/maker-combo-kits" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/c9fa5a5b6dd24938960f8fe87c83cd53/8.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Kit Combo per Maker" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Kit Combo per Maker</div>
-            <div class="card-subtitle">Kits sélectionnés pour Chaque Créateur</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/hardware-parts" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/342fbf29cf084f0f9faa3fac8b54325a/6.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Parti hardware" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Parti hardware</div>
-            <div class="card-subtitle">Hardware di alta qualità</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/electronics" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/fe1561613d8348e8a6f1f410d20628de/111111.jpg__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Elettronica" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Elettronica</div>
-            <div class="card-subtitle">Elettronica per stimolare creatività</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/tools-others" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/20bbbf027881483881bb226b29094949/4.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Strumenti ed altro" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Strumenti ed altro</div>
-            <div class="card-subtitle">Strumenti di precisione per la stampa 3DStrumenti di precisione per la stampa 3D
+        <?php foreach ($makersupply as $item): ?>
+          <?php
+          $itemName = $item->getName();
+          $itemSubtitle = $item->getSubtitle();
+          $itemImage = $item->getImagePath() !== '' ? $item->getImagePath() : 'img/makersuppy1.png';
+          ?>
+          <a href="product.php?id=<?= urlencode((string) $item->getId()) ?>" class="card">
+            <div class="card-image">
+              <img src="<?= htmlspecialchars($itemImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($itemName, ENT_QUOTES, 'UTF-8') ?>" loading="lazy" width="282" height="250">
             </div>
-          </div>
-        </a>
+            <div class="card-body">
+              <div class="card-title"><?= htmlspecialchars($itemName, ENT_QUOTES, 'UTF-8') ?></div>
+              <div class="card-subtitle"><?= htmlspecialchars($itemSubtitle, ENT_QUOTES, 'UTF-8') ?></div>
+            </div>
+          </a>
+        <?php endforeach; ?>
       </div>
     </section>
 
@@ -854,7 +659,7 @@ include __DIR__ . '/layout/header.php';
     <section class="section">
       <div class="section-title">
         <h2>Materiali</h2>
-        <a href="https://eu.store.bambulab.com/it/collections/bambu-lab-3d-printers-filament" class="seeother">
+        <a href="materiali.php" class="seeother">
           <span>Visualizza tutti</span>
           <svg viewBox="64 64 896 896" focusable="false" data-icon="right" width="1em" height="1em" fill="currentColor">
             <path
@@ -915,101 +720,22 @@ include __DIR__ . '/layout/header.php';
 
 
       <div class="card-grid">
-        <a href="https://eu.store.bambulab.com/it/products/bambu-basswood-plywood" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/bbc2ba11545840179342b3591471e6fd/B-YA001.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Compensato di Tiglio" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Compensato di Tiglio</div>
-            <div class="card-subtitle">Facile da tagliare e texture facile da dipingere.</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/birch-plywood" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/aabb12d9201a4bc6bcfc57fe0060a895/B-YA002.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Compensato di Betulla" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Compensato di Betulla</div>
-            <div class="card-subtitle">Aspetto del legno chiaro.</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/3mm-black-walnut-plywood-6pcs" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/be0643ea0efe42ceaa962d78cee13b21/B-YA003.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Compensato di Noce Nero" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Compensato di Noce Nero</div>
-            <div class="card-subtitle">Estetica Scuri per un arredamento di lusso.</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/3mm-bamboo-board-6pcs" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/3aa197247a7d4955a68becd8dc8457d4/B-YA005.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Tavola di Bambù" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Tavola di Bambù</div>
-            <div class="card-subtitle">Aggiungi una texture naturale di bambù ai tuoi progetti.</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/bambu-opaque-glossy-acrylic-sheet" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/11a97db7e631489db475f052c96ba936/B-YB001.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Acrilico" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Acrilico</div>
-            <div class="card-subtitle">Personalizza portachiavi, accessori e decorazioni.</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/sticker-vinyl" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/5618605f8ba6443aa6d4d7e2882033f0/B-YG001.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Adesivi e Vinile" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Adesivi e Vinile</div>
-            <div class="card-subtitle">Personalizza oggetti quotidiani con vinile e adesivi.</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/miscellaneous" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/9942195183ec4fd498f42682de9a85cf/B-YC001.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Varie" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Varie</div>
-            <div class="card-subtitle">Tag in acciaio inossidabile e biglietti da visita in alluminio.</div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/collections/bambu-material" class="card">
-          <div class="card-image">
-            <img
-              src="https://store.bblcdn.eu/s8/default/3820e96e479b49ed8867b69998ec4aa7/B-YG018.png__op__resize,m_lfit,w_640__op__format,f_auto__op__quality,q_100"
-              alt="Per saperne di più" loading="lazy" width="282" height="250">
-          </div>
-          <div class="card-body">
-            <div class="card-title">Per saperne di più</div>
-            <div class="card-subtitle">Ottieni più materiali per le tue diverse esigenze.</div>
-          </div>
-        </a>
+        <?php foreach ($materials as $material): ?>
+          <?php
+          $materialName = $material->getName();
+          $materialSubtitle = $material->getSubtitle();
+          $materialImage = $material->getImagePath() !== '' ? $material->getImagePath() : 'img/material.png';
+          ?>
+          <a href="product.php?id=<?= urlencode((string) $material->getId()) ?>" class="card">
+            <div class="card-image">
+              <img src="<?= htmlspecialchars($materialImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($materialName, ENT_QUOTES, 'UTF-8') ?>" loading="lazy" width="282" height="250">
+            </div>
+            <div class="card-body">
+              <div class="card-title"><?= htmlspecialchars($materialName, ENT_QUOTES, 'UTF-8') ?></div>
+              <div class="card-subtitle"><?= htmlspecialchars($materialSubtitle, ENT_QUOTES, 'UTF-8') ?></div>
+            </div>
+          </a>
+        <?php endforeach; ?>
       </div>
     </section>
 

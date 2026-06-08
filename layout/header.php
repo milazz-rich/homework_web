@@ -1,7 +1,17 @@
 <?php
 require_once __DIR__ . '/../app/services/AuthService.php';
+require_once __DIR__ . '/../app/services/ProductService.php';
 $authService = new AuthService();
 $authUser = $authService->currentUser();
+
+$dropdownPrinters = [];
+
+try {
+  $productService = new ProductService();
+  $dropdownPrinters = $productService->getProducts(0, 4);
+} catch (Throwable $e) {
+  $dropdownPrinters = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -114,6 +124,7 @@ $authUser = $authService->currentUser();
             <path d="M8.41967 12.054H19.1462L20.0034 7.00684H7.49896L8.41967 12.054Z" stroke="currentColor"
               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
+          <span class="cart-badge" aria-label="Articoli nel carrello">0</span>
         </a>
       </div>
     </div>
@@ -131,14 +142,13 @@ $authUser = $authService->currentUser();
 
       <nav class="navbar-menu no-scrollbar" aria-label="Navigazione principale">
         <ul>
-          <li><a href="/it/collections/sale" data-dropdown-trigger="saldi">🔥Saldi</a></li>
-          <li><a href="3d-printer.php" data-dropdown-trigger="saldi">Stampanti</a></li>
-          <li><a href="#" data-dropdown-trigger="saldi">AMS</a></li>
-          <li><a href="#" data-dropdown-trigger="saldi">Filamenti</a></li>
-          <li><a href="#" data-dropdown-trigger="saldi">Accessori</a></li>
-          <li><a href="#" data-dropdown-trigger="saldi">Materiale</a></li>
-          <li><a href="#" data-dropdown-trigger="saldi">Pezzi di ricambio</a></li>
-          <li><a href="#" data-dropdown-trigger="saldi">Maker's Supply</a></li>
+          <li><a href="saldi.php">🔥Saldi</a></li>
+          <li><a href="3d-printer.php" data-dropdown-trigger="stampanti">Stampanti</a></li>
+          <li><a href="ams.php">AMS</a></li>
+          <li><a href="filamenti.php">Filamenti</a></li>
+          <li><a href="accessori.php">Accessori</a></li>
+          <li><a href="materiali.php">Materiale</a></li>
+          <li><a href="makersupply.php">Maker's Supply</a></li>
           <li>
             <a href="#" data-dropdown-trigger="supporto">Supporto</a>
             <div class="dropdown-menu hidden" data-dropdown-menu="supporto">
@@ -182,6 +192,7 @@ $authUser = $authService->currentUser();
             <path d="M8.41967 12.054H19.1462L20.0034 7.00684H7.49896L8.41967 12.054Z" stroke="#1A1A1A"
               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
           </svg>
+          <span class="cart-badge" aria-label="Articoli nel carrello">0</span>
         </a>
 
         <button class="user" type="button" data-dropdown-trigger="user">
@@ -204,21 +215,38 @@ $authUser = $authService->currentUser();
       </div>
     </div>
 
-    <!-- DROPDOWN MENU SALDI -->
-    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="saldi">
+    <!-- DROPDOWN MENU STAMPANTI -->
+    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="stampanti">
       <div class="dropdown-menu-full-inner">
         <div class="dropdown-menu-full-links">
-          <a href="#">Vendita filamenti <span>›</span></a>
-          <a href="#">Vendita accessori <span>›</span></a>
-          <a href="#">Maker's Supply Sale <span>›</span></a>
-          <a href="#">Material Sale <span>›</span></a>
+          <a href="3d-printer.php">Serie H <span>›</span></a>
+          <a href="3d-printer.php">Serie X <span>›</span></a>
+          <a href="3d-printer.php">Serie P <span>›</span></a>
+          <a href="3d-printer.php">Serie A <span>›</span></a>
+          <a href="3d-printer.php">Per Professionisti <span>›</span></a>
+          <a href="3d-printer.php">Tutte Le Stampanti 3D <span>›</span></a>
+          <a href="3d-printer.php">Come scegliere? <span>›</span></a>
         </div>
 
-        <a class="dropdown-menu-full-card" href="#">
-          <img src="/img/filamenti.png" alt="Vendita all'ingrosso di filamenti base">
-          <strong>Vendita all'ingrosso di filamenti base</strong>
-          <span>A partire da 11,50€ a rotolo.</span>
-        </a>
+        <div class="dropdown-menu-full-products">
+          <?php foreach ($dropdownPrinters as $index => $product): ?>
+            <?php
+            $productName = $product->getName();
+            $productSubtitle = $product->getSubtitle();
+            $productImage = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/stampanti3d.png';
+            ?>
+            <a class="dropdown-menu-full-product<?= $index === 0 ? ' is-featured' : '' ?>" href="product.php?id=<?= urlencode((string) $product->getId()) ?>">
+              <?php if ($index === 0): ?>
+                <span class="dropdown-menu-product-badge">In evidenza</span>
+              <?php endif; ?>
+              <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>">
+              <div class="dropdown-menu-product-text">
+                <strong><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></strong>
+                <span><?= htmlspecialchars($productSubtitle, ENT_QUOTES, 'UTF-8') ?></span>
+              </div>
+            </a>
+          <?php endforeach; ?>
+        </div>
       </div>
     </div>
 

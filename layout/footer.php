@@ -4,14 +4,14 @@
         <div class="footer-column">
           <h2 class="footer-heading">Menu</h2>
           <ul class="footer-list">
-            <li><a href="/it/collections/sale">🔥Saldi</a></li>
+            <li><a href="saldi.php">🔥Saldi</a></li>
             <li><a href="/it/collections/3d-printers">Stampanti</a></li>
-            <li><a href="/it/collections/all-ams">AMS</a></li>
-            <li><a href="/it/collections/bambu-lab-3d-printers-filament">Filamenti</a></li>
-            <li><a href="/it/collections/accessories">Accessori</a></li>
-            <li><a href="/it/collections/bambu-material">Materiale</a></li>
+            <li><a href="ams.php">AMS</a></li>
+            <li><a href="filamenti.php">Filamenti</a></li>
+            <li><a href="accessori.php">Accessori</a></li>
+            <li><a href="materiali.php">Materiale</a></li>
             <li><a href="/it/pages/spare-parts">Pezzi di ricambio</a></li>
-            <li><a href="/it/maker-supply">Maker's Supply</a></li>
+            <li><a href="makersupply.php">Maker's Supply</a></li>
             <li><a href="https://bambulab.com/en/support">Supporto</a></li>
           </ul>
         </div>

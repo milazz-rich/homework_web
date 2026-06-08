@@ -154,6 +154,10 @@ async function addRecommendedProduct(printerId) {
     throw new Error(data.message || 'Errore aggiunta al carrello.');
   }
 
+  if (typeof window.refreshCartBadge === 'function') {
+    window.refreshCartBadge();
+  }
+
   await loadCart();
 }
 
@@ -173,6 +177,10 @@ async function updateItemQuantity(cartId, quantity) {
     throw new Error(data.message || 'Errore aggiornamento carrello.');
   }
 
+  if (typeof window.refreshCartBadge === 'function') {
+    window.refreshCartBadge();
+  }
+
   return loadCart();
 }
 
@@ -186,6 +194,10 @@ async function removeItem(cartId) {
   if (!response.ok) {
     const data = await response.json();
     throw new Error(data.message || 'Errore rimozione elemento.');
+  }
+
+  if (typeof window.refreshCartBadge === 'function') {
+    window.refreshCartBadge();
   }
 
   return loadCart();

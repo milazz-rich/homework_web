@@ -18,6 +18,8 @@ const DROPDOWNS = {
   }
 };
 
+const cartBadges = Array.from(document.querySelectorAll('.cart-badge'));
+
 function closeDropdown(dropdown) {
   dropdown.container.classList.add("hidden");
 }
@@ -104,3 +106,49 @@ Object.values(DROPDOWNS).forEach((dropdown) => {
     });
   }
 });
+
+function updateCartBadge(count) {
+  cartBadges.forEach((badge) => {
+    if (!badge) return;
+
+    if (count > 0) {
+      badge.textContent = count > 99 ? '99+' : String(count);
+      badge.style.display = 'inline-flex';
+    } else {
+      badge.textContent = '0';
+      badge.style.display = 'none';
+    }
+  });
+}
+
+async function loadCartBadge() {
+  if (!cartBadges.length) return;
+
+  try {
+    const response = await fetch('app/api/api_cart.php', {
+      headers: { Accept: 'application/json' },
+    });
+
+    if (response.status === 401) {
+      updateCartBadge(0);
+      return;
+    }
+
+    if (!response.ok) {
+      updateCartBadge(0);
+      return;
+    }
+
+    const items = await response.json();
+    const count = Array.isArray(items)
+      ? items.reduce((sum, item) => sum + Number(item?.quantity || 0), 0)
+      : 0;
+
+    updateCartBadge(count);
+  } catch (_error) {
+    updateCartBadge(0);
+  }
+}
+
+window.refreshCartBadge = loadCartBadge;
+loadCartBadge();
