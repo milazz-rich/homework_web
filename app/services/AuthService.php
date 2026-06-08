@@ -77,78 +77,37 @@ class AuthService
             throw new RuntimeException('Impossibile preparare il payload e-mail.');
         }
 
-        $sendResendEmail = function (bool $verifySsl) use ($payload, $apiKey): void {
-            if (function_exists('curl_init')) {
-                $ch = curl_init('https://api.resend.com/emails');
-                curl_setopt_array($ch, [
-                    CURLOPT_RETURNTRANSFER => true,
-                    CURLOPT_POST => true,
-                    CURLOPT_POSTFIELDS => $payload,
-                    CURLOPT_HTTPHEADER => [
-                        'Authorization: Bearer ' . $apiKey,
-                        'Content-Type: application/json',
-                    ],
-                    CURLOPT_TIMEOUT => 20,
-                    CURLOPT_SSL_VERIFYPEER => $verifySsl,
-                    CURLOPT_SSL_VERIFYHOST => $verifySsl ? 2 : 0,
-                ]);
-
-                $raw = curl_exec($ch);
-                $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-                if ($raw === false) {
-                    $error = curl_error($ch);
-                    curl_close($ch);
-                    throw new RuntimeException('Errore di rete con Resend: ' . $error);
-                }
-
-                curl_close($ch);
-
-                if ($status < 200 || $status >= 300) {
-                    $body = json_decode($raw, true);
-                    $message = $body['message'] ?? ($raw ?: 'Invio e-mail fallito.');
-                    throw new RuntimeException('Impossibile inviare il codice di verifica: ' . $message);
-                }
-
-                return;
-            }
-
-            $context = stream_context_create([
-                'http' => [
-                    'method' => 'POST',
-                    'header' => "Authorization: Bearer {$apiKey}\r\nContent-Type: application/json\r\n",
-                    'content' => $payload,
-                    'timeout' => 20,
-                    'ignore_errors' => true,
+        if (function_exists('curl_init')) {
+            $ch = curl_init('https://api.resend.com/emails');
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => $payload,
+                CURLOPT_HTTPHEADER => [
+                    'Authorization: Bearer ' . $apiKey,
+                    'Content-Type: application/json',
                 ],
+                CURLOPT_TIMEOUT => 20,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => 0,
             ]);
 
-            $raw = file_get_contents('https://api.resend.com/emails', false, $context);
-            $raw = $raw === false ? '' : $raw;
-            $status = 0;
+            $raw = curl_exec($ch);
+            $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-            foreach ($http_response_header ?? [] as $headerLine) {
-                if (preg_match('/^HTTP\/\S+\s+(\d{3})\b/', $headerLine, $matches)) {
-                    $status = (int) $matches[1];
-                    break;
-                }
+            if ($raw === false) {
+                $error = curl_error($ch);
+                curl_close($ch);
+                throw new RuntimeException('Errore di rete con Resend: ' . $error);
             }
+
+            curl_close($ch);
 
             if ($status < 200 || $status >= 300) {
                 $body = json_decode($raw, true);
                 $message = $body['message'] ?? ($raw ?: 'Invio e-mail fallito.');
                 throw new RuntimeException('Impossibile inviare il codice di verifica: ' . $message);
             }
-        };
-
-        try {
-            $sendResendEmail(true);
-        } catch (RuntimeException $e) {
-            if (PHP_OS_FAMILY !== 'Windows' || (!str_contains($e->getMessage(), 'certificate') && !str_contains($e->getMessage(), 'issuer') && !str_contains($e->getMessage(), 'SSL'))) {
-                throw $e;
-            }
-
-            $sendResendEmail(false);
         }
 
         return $code;

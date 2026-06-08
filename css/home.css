@@ -1158,16 +1158,12 @@ section .card-grid {
   }
 }
 
-.newsletter-signup {
-  width: 100%;
-}
-
 .newsletter-signup-box {
   width: 100%;
   background-color: rgb(245, 245, 245);
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 16px;
   box-sizing: border-box;
 }
 
@@ -1216,6 +1212,22 @@ section .card-grid {
   margin-top: 16px;
 }
 
+.newsletter-signup-message {
+  min-height: 1.4em;
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #cc2b2b;
+}
+
+.newsletter-signup-message.is-success {
+  color: #1b7a35;
+}
+
+.newsletter-signup-message.is-error {
+  color: #cc2b2b;
+}
+
 .newsletter-signup-form {
   position: relative;
   width: 100%;
@@ -1251,7 +1263,7 @@ section .card-grid {
 }
 
 .newsletter-signup-consent {
-  margin-top: 6px;
+  margin-top: 14px;
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -1342,17 +1354,12 @@ section .card-grid {
   }
 
   .newsletter-signup-consent {
-    margin-top: 8px;
+    margin-top: 16px;
   }
 
   .newsletter-signup-consent span {
     font-size: 14px;
   }
-}
-
-.currency-converter {
-  width: 100%;
-  margin-bottom: 120px;
 }
 
 .currency-converter-box {
@@ -1440,10 +1447,6 @@ section .card-grid {
 }
 
 @media (min-width: 1025px) {
-  .currency-converter {
-    margin-bottom: 180px;
-  }
-
   .currency-converter-box {
     padding: 40px 30px;
   }
@@ -1458,7 +1461,4 @@ section .card-grid {
 }
 
 @media (min-width: 1440px) {
-  .currency-converter {
-    margin-bottom: 240px;
-  }
 }

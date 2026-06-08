@@ -1,109 +1,36 @@
 const newsletterForm = {
-  form: document.querySelector(".newsletter-signup-form"),
-  container: document.querySelector(".newsletter-signup-form-wrap"),
-  input: document.querySelector(".newsletter-signup-form input[type='email']"),
-  button: document.querySelector(".newsletter-signup-form button"),
-  consent: document.querySelector(".newsletter-signup-consent input[type='checkbox']"),
-  accessKey: "40cf218c52dffc7c28eaddf7943f110f"
+  form: document.querySelector('.newsletter-signup-form'),
+  message: document.querySelector('.newsletter-signup-message'),
 };
 
-function ensureMessageBox() {
-  if (!newsletterForm.container) return null;
+if (newsletterForm.form) {
+  newsletterForm.form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-  let box = newsletterForm.container.querySelector(".newsletter-signup-message");
-  if (box) return box;
+    fetch('app/api/api_newsletter.php', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: new FormData(newsletterForm.form),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (!newsletterForm.message) return;
 
-  box = document.createElement("p");
-  box.className = "newsletter-signup-message";
-  box.style.marginTop = "10px";
-  box.style.fontSize = "14px";
-  box.style.lineHeight = "1.4";
-  newsletterForm.container.appendChild(box);
-  return box;
+        newsletterForm.message.textContent = data.message || 'Errore di rete o server non raggiungibile.';
+        newsletterForm.message.classList.toggle('is-success', !!data.success);
+        newsletterForm.message.classList.toggle('is-error', !data.success);
+      })
+      .catch(() => {
+        if (!newsletterForm.message) return;
+
+        newsletterForm.message.textContent = 'Errore di rete o server non raggiungibile.';
+        newsletterForm.message.classList.remove('is-success');
+        newsletterForm.message.classList.add('is-error');
+      });
+  });
 }
-
-function setMessage(text, ok) {
-  const box = ensureMessageBox();
-  if (!box) return;
-
-  box.textContent = text;
-  box.style.color = ok ? "#1b7a35" : "#cc2b2b";
-}
-
-function onResponse(response) {
-  if (response.ok) return response.json();
-  return null;
-}
-
-function onNetworkError(error) {
-  console.error(error);
-  return null;
-}
-
-function onJson(data) {
-  if (data == null) {
-    setMessage("Errore di rete o server non raggiungibile.", false);
-    return;
-  }
-
-  if (data.success === false) {
-    setMessage("Errore API Mailboxlayer: richiesta non valida.", false);
-    return;
-  }
-
-  if (data.format_valid && data.mx_found) {
-    setMessage("Email valida. Iscrizione completata.", true);
-    return;
-  }
-
-  setMessage("Email non valida. Controlla l'indirizzo inserito.", false);
-}
-
-function validateNewsletterEmail(email) {
-  const url =
-    "https://apilayer.net/api/check?access_key=" +
-    newsletterForm.accessKey +
-    "&email=" +
-    encodeURIComponent(email) +
-    "&smtp=1&format=1";
-
-  fetch(url)
-    .then(onResponse)
-    .then(onJson)
-    .catch(onNetworkError);
-}
-
-function onNewsletterSubmit(event) {
-  event.preventDefault();
-
-  if (!newsletterForm.input || !newsletterForm.consent) return;
-
-  const email = newsletterForm.input.value.trim();
-  if (email === "") {
-    setMessage("Inserisci una email.", false);
-    return;
-  }
-
-  if (!newsletterForm.consent.checked) {
-    setMessage("Devi accettare il consenso marketing.", false);
-    return;
-  }
-
-  validateNewsletterEmail(email);
-}
-
-function initNesletterForm() {
-  if (newsletterForm.form) {
-    newsletterForm.form.addEventListener("submit", onNewsletterSubmit);
-    return;
-  }
-
-  if (newsletterForm.button) {
-    newsletterForm.button.addEventListener("click", onNewsletterSubmit);
-  }
-}
-
-initNesletterForm();
 
 const currencyConverter = {
   amount: document.querySelector("#fxAmount"),

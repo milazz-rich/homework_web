@@ -1168,7 +1168,7 @@ include __DIR__ . '/layout/header.php';
     </section>
 
     <!-- NEWSLETTER-SIGNUP -->
-    <section class="section">
+    <section class="section" id="newsletter-signup">
       <div class="newsletter-signup-box">
         <div class="newsletter-signup-media-mobile">
           <img
@@ -1183,28 +1183,31 @@ include __DIR__ . '/layout/header.php';
           </div>
 
           <div class="newsletter-signup-form-wrap">
-            <form class="newsletter-signup-form">
-              <input type="email" placeholder="Inserire l'e-mail" aria-label="Inserire l'e-mail">
+            <form class="newsletter-signup-form" action="app/api/api_newsletter.php" method="post">
+              <input type="email" name="email" placeholder="Inserire l'e-mail" aria-label="Inserire l'e-mail" required>
+
+              <label class="newsletter-signup-consent">
+                <input type="checkbox" name="consent" value="1">
+                <span>
+                  Fai clic su “Iscriviti” per acconsentire ai messaggi di marketing di Bambu Lab.
+                  Puoi annullare l’iscrizione in qualsiasi momento tramite il link nell’e-mail.
+                  Consulta la
+                  <a href="https://bambulab.com/en/policies/privacy" target="_blank" rel="noopener noreferrer">Informativa
+                    sulla privacy</a>,
+                  i
+                  <a href="https://bambulab.com/en/policies/terms" target="_blank" rel="noopener noreferrer">Termini di
+                    utilizzo</a>
+                  e le
+                  <a href="https://eu.store.bambulab.com/pages/subscription-coupon-terms-and-conditions" target="_blank"
+                    rel="noopener noreferrer">Condizioni generali</a>
+                  per ulteriori dettagli.
+                </span>
+              </label>
+
               <button type="submit">Iscriviti</button>
             </form>
 
-            <label class="newsletter-signup-consent">
-              <input type="checkbox">
-              <span>
-                Fai clic su “Iscriviti” per acconsentire ai messaggi di marketing di Bambu Lab.
-                Puoi annullare l’iscrizione in qualsiasi momento tramite il link nell’e-mail.
-                Consulta la
-                <a href="https://bambulab.com/en/policies/privacy" target="_blank" rel="noopener noreferrer">Informativa
-                  sulla privacy</a>,
-                i
-                <a href="https://bambulab.com/en/policies/terms" target="_blank" rel="noopener noreferrer">Termini di
-                  utilizzo</a>
-                e le
-                <a href="https://eu.store.bambulab.com/pages/subscription-coupon-terms-and-conditions" target="_blank"
-                  rel="noopener noreferrer">Condizioni generali</a>
-                per ulteriori dettagli.
-              </span>
-            </label>
+            <p class="newsletter-signup-message" aria-live="polite"></p>
           </div>
         </div>
 
