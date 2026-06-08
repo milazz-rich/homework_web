@@ -33,89 +33,36 @@ if (newsletterForm.form) {
 }
 
 const currencyConverter = {
-  amount: document.querySelector("#fxAmount"),
-  from: document.querySelector("#fxFrom"),
-  to: document.querySelector("#fxTo"),
-  button: document.querySelector("#fxConvertButton"),
-  result: document.querySelector("#fxResult")
+  amount: document.querySelector('#fxAmount'),
+  from: document.querySelector('#fxFrom'),
+  to: document.querySelector('#fxTo'),
+  button: document.querySelector('#fxConvertButton'),
+  result: document.querySelector('#fxResult')
 };
 
-function setFxResult(text, ok) {
-  if (!currencyConverter.result) return;
-  currencyConverter.result.textContent = text;
-  currencyConverter.result.style.color = ok ? "#1b7a35" : "#cc2b2b";
+if (currencyConverter.button) {
+  currencyConverter.button.addEventListener('click', () => {
+    if (!currencyConverter.amount || !currencyConverter.from || !currencyConverter.to || !currencyConverter.result) return;
+
+    fetch('app/api/api_currency_converter.php', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: new URLSearchParams({
+        amount: currencyConverter.amount.value,
+        from: currencyConverter.from.value,
+        to: currencyConverter.to.value,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        currencyConverter.result.textContent = data.message || 'Errore nel recupero del cambio valuta.';
+        currencyConverter.result.style.color = data.success ? '#1b7a35' : '#cc2b2b';
+      })
+      .catch(() => {
+        currencyConverter.result.textContent = 'Errore nel recupero del cambio valuta.';
+        currencyConverter.result.style.color = '#cc2b2b';
+      });
+  });
 }
-
-function onFxResponse(response) {
-  if (response.ok) return response.json();
-  return null;
-}
-
-function onFxNetworkError(error) {
-  console.error(error);
-  return null;
-}
-
-function onFxJson(data) {
-  if (data == null || data.result !== "success") {
-    setFxResult("Errore nel recupero del cambio valuta.", false);
-    return;
-  }
-
-  const amount = Number(currencyConverter.amount.value);
-  const fromCode = currencyConverter.from.value;
-  const toCode = currencyConverter.to.value;
-  const rate = data.rates[toCode];
-
-  if (!rate) {
-    setFxResult("Valuta di destinazione non disponibile.", false);
-    return;
-  }
-
-  const converted = amount * rate;
-  const text =
-    amount.toFixed(2) +
-    " " +
-    fromCode +
-    " = " +
-    converted.toFixed(2) +
-    " " +
-    toCode +
-    " (1 " +
-    fromCode +
-    " = " +
-    rate.toFixed(4) +
-    " " +
-    toCode +
-    ")";
-
-  setFxResult(text, true);
-}
-
-function convertCurrency() {
-  if (!currencyConverter.amount || !currencyConverter.from || !currencyConverter.to) return;
-
-  const amount = Number(currencyConverter.amount.value);
-  const fromCode = currencyConverter.from.value;
-  const toCode = currencyConverter.to.value;
-
-  if (!Number.isFinite(amount) || amount <= 0) {
-    setFxResult("Inserisci un importo valido maggiore di zero.", false);
-    return;
-  }
-
-  if (fromCode === toCode) {
-    setFxResult(amount.toFixed(2) + " " + fromCode + " = " + amount.toFixed(2) + " " + toCode, true);
-    return;
-  }
-
-  const url = "https://open.er-api.com/v6/latest/" + encodeURIComponent(fromCode);
-  fetch(url).then(onFxResponse, onFxNetworkError).then(onFxJson);
-}
-
-function initCurrencyConverter() {
-  if (!currencyConverter.button) return;
-  currencyConverter.button.addEventListener("click", convertCurrency);
-}
-
-initCurrencyConverter();
