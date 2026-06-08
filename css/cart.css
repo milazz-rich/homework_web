@@ -326,6 +326,7 @@
 }
 
 .cart-continue-btn {
+  display: inline-block;
   background: #fff;
   border: 1px solid #1a1a1a;
   border-radius: 6px;
@@ -336,6 +337,8 @@
   font-family: inherit;
   width: fit-content;
   transition: background 0.2s;
+  text-decoration: none;
+  color: #1a1a1a;
 }
 
 .cart-continue-btn:hover {

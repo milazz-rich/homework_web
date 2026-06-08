@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/app/services/ThreeDPrinterService.php';
+
 $pageStyles = [
   'css/home.css',
 ];
@@ -7,6 +9,15 @@ $pageScripts = [
   'js/script.js',
   'js/home.js',
 ];
+
+$printers = [];
+
+try {
+  $printerService = new ThreeDPrinterService();
+  $printers = $printerService->getPrinters(6);
+} catch (Throwable $e) {
+  $printers = [];
+}
 
 include __DIR__ . '/layout/header.php';
 ?>
@@ -346,137 +357,34 @@ include __DIR__ . '/layout/header.php';
       </div>
 
       <div class="printers-grid">
-        <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
-          <div class="printers-card-img">
-            <img src="img/bambulabh2d.png" alt="Bambu Lab H2D">
-          </div>
-
-          <div class="printers-card-info">
-            <div>
-              <div class="printers-card-title">Bambu Lab H2D</div>
-              <div class="printers-card-subtitle">Produzione personale secondo un nuovo approccio</div>
+        <?php foreach ($printers as $printer): ?>
+          <?php
+          $name = $printer->getName();
+          $subtitle = $printer->getSubtitle();
+          $imagePath = $printer->getImagePath() !== '' ? $printer->getImagePath() : 'img/stampanti3d.png';
+          ?>
+          <a href="/it/products" class="printers-card">
+            <div class="printers-card-img">
+              <img src="<?= htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>">
             </div>
 
-            <div class="printers-card-link">
-              Visualizza il prodotto
-              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="16" viewBox="0 0 6 16" fill="none">
-                <g>
-                  <path d="M1 4.5L4.8 8L1 11.5" stroke="#00AE42" stroke-linecap="round"></path>
-                </g>
-              </svg>
+            <div class="printers-card-info">
+              <div>
+                <div class="printers-card-title"><?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?></div>
+                <div class="printers-card-subtitle"><?= htmlspecialchars($subtitle, ENT_QUOTES, 'UTF-8') ?></div>
+              </div>
+
+              <div class="printers-card-link">
+                Visualizza il prodotto
+                <svg xmlns="http://www.w3.org/2000/svg" width="6" height="16" viewBox="0 0 6 16" fill="none">
+                  <g>
+                    <path d="M1 4.5L4.8 8L1 11.5" stroke="#00AE42" stroke-linecap="round"></path>
+                  </g>
+                </svg>
+              </div>
             </div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
-          <div class="printers-card-img">
-            <img src="img/h2s.png" alt="Bambu Lab H2S">
-          </div>
-
-          <div class="printers-card-info">
-            <div>
-              <div class="printers-card-title">Bambu Lab H2S</div>
-              <div class="printers-card-subtitle">La stampante 3D a Singolo Ugello definitiva</div>
-            </div>
-
-            <div class="printers-card-link">
-              Visualizza il prodotto
-              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="16" viewBox="0 0 6 16" fill="none">
-                <g>
-                  <path d="M1 4.5L4.8 8L1 11.5" stroke="#00AE42" stroke-linecap="round"></path>
-                </g>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
-          <div class="printers-card-img">
-            <img src="img/p2s.png" alt="Bambu Lab P2S">
-          </div>
-
-          <div class="printers-card-info">
-            <div>
-              <div class="printers-card-title">Bambu Lab P2S</div>
-              <div class="printers-card-subtitle">Prestazioni di Punta. Fascia di Prezzo Media.</div>
-            </div>
-
-            <div class="printers-card-link">
-              Visualizza il prodotto
-              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="16" viewBox="0 0 6 16" fill="none">
-                <g>
-                  <path d="M1 4.5L4.8 8L1 11.5" stroke="#00AE42" stroke-linecap="round"></path>
-                </g>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
-          <div class="printers-card-img">
-            <img src="img/p1s.png" alt="Bambu Lab P1S">
-          </div>
-
-          <div class="printers-card-info">
-            <div>
-              <div class="printers-card-title">Bambu Lab P1S</div>
-              <div class="printers-card-subtitle">Macchina Affidabile</div>
-            </div>
-
-            <div class="printers-card-link">
-              Visualizza il prodotto
-              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="16" viewBox="0 0 6 16" fill="none">
-                <g>
-                  <path d="M1 4.5L4.8 8L1 11.5" stroke="#00AE42" stroke-linecap="round"></path>
-                </g>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
-          <div class="printers-card-img">
-            <img src="img/a1.png" alt="Bambu Lab A1">
-          </div>
-
-          <div class="printers-card-info">
-            <div>
-              <div class="printers-card-title">Bambu Lab A1</div>
-              <div class="printers-card-subtitle">Il più venduto</div>
-            </div>
-
-            <div class="printers-card-link">
-              Visualizza il prodotto
-              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="16" viewBox="0 0 6 16" fill="none">
-                <g>
-                  <path d="M1 4.5L4.8 8L1 11.5" stroke="#00AE42" stroke-linecap="round"></path>
-                </g>
-              </svg>
-            </div>
-          </div>
-        </a>
-
-        <a href="https://eu.store.bambulab.com/it/products/h2d?from=home_page_3dprinter" class="printers-card">
-          <div class="printers-card-img">
-            <img src="img/a1mini.png" alt="Bambu Lab A1 mini">
-          </div>
-
-          <div class="printers-card-info">
-            <div>
-              <div class="printers-card-title">Bambu Lab A1 mini</div>
-              <div class="printers-card-subtitle">Il G.O.A.T delle stampanti 3D di livello entry</div>
-            </div>
-
-            <div class="printers-card-link">
-              Visualizza il prodotto
-              <svg xmlns="http://www.w3.org/2000/svg" width="6" height="16" viewBox="0 0 6 16" fill="none">
-                <g>
-                  <path d="M1 4.5L4.8 8L1 11.5" stroke="#00AE42" stroke-linecap="round"></path>
-                </g>
-              </svg>
-            </div>
-          </div>
-        </a>
+          </a>
+        <?php endforeach; ?>
       </div>
     </section>
 

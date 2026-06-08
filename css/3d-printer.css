@@ -197,12 +197,21 @@
   text-decoration: underline;
 }
 
+.filter-list a.is-active {
+  color: #00ae42;
+  font-weight: 700;
+}
+
 /* ── PRODUCT GRID ── */
 .catalog-grid {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+}
+
+.catalog-grid.catalog-grid--list {
+  grid-template-columns: 1fr;
 }
 
 .catalog-card {
