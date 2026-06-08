@@ -55,6 +55,7 @@ function renderCart(items) {
 
   if (cartCheckoutBtn) {
     cartCheckoutBtn.textContent = `Checkout ${totalQuantity} articolo(i)`;
+    cartCheckoutBtn.disabled = items.length === 0;
   }
 
   syncRecommendedButtons(items);
@@ -225,6 +226,39 @@ cartItemsList?.addEventListener('click', async (event) => {
     if (cartEmptyState) {
       cartEmptyState.textContent = error.message || 'Errore aggiornamento carrello.';
       cartEmptyState.style.display = 'block';
+    }
+  }
+});
+
+cartCheckoutBtn?.addEventListener('click', async () => {
+  try {
+    cartCheckoutBtn.disabled = true;
+    cartCheckoutBtn.textContent = 'Reindirizzamento...';
+
+    const response = await fetch('app/api/api_checkout.php', {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Errore durante il checkout.');
+    }
+
+    if (!data.url) {
+      throw new Error('Stripe non ha restituito un URL valido.');
+    }
+
+    window.location.href = data.url;
+  } catch (error) {
+    if (cartEmptyState) {
+      cartEmptyState.textContent = error.message || 'Errore durante il checkout.';
+      cartEmptyState.style.display = 'block';
+    }
+    if (cartCheckoutBtn) {
+      cartCheckoutBtn.disabled = false;
+      cartCheckoutBtn.textContent = 'Checkout';
     }
   }
 });
