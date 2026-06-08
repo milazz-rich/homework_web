@@ -5,12 +5,27 @@ $authService = new AuthService();
 $authUser = $authService->currentUser();
 
 $dropdownPrinters = [];
+$dropdownSaldiFeatured = [];
+$dropdownAms = [];
+$dropdownFilaments = [];
+$dropdownAccessories = [];
+$dropdownMakerSupply = [];
 
 try {
   $productService = new ProductService();
   $dropdownPrinters = $productService->getProducts(0, 4);
+  $dropdownSaldiFeatured = $productService->getProducts(1, 1);
+  $dropdownAms = $productService->getProducts(5, 4);
+  $dropdownFilaments = $productService->getProducts(1, 4);
+  $dropdownAccessories = $productService->getProducts(2, 4);
+  $dropdownMakerSupply = $productService->getProducts(3, 8);
 } catch (Throwable $e) {
   $dropdownPrinters = [];
+  $dropdownSaldiFeatured = [];
+  $dropdownAms = [];
+  $dropdownFilaments = [];
+  $dropdownAccessories = [];
+  $dropdownMakerSupply = [];
 }
 ?>
 <!DOCTYPE html>
@@ -142,13 +157,13 @@ try {
 
       <nav class="navbar-menu no-scrollbar" aria-label="Navigazione principale">
         <ul>
-          <li><a href="saldi.php">🔥Saldi</a></li>
+          <li><a href="saldi.php" data-dropdown-trigger="saldi">🔥Saldi</a></li>
           <li><a href="3d-printer.php" data-dropdown-trigger="stampanti">Stampanti</a></li>
-          <li><a href="ams.php">AMS</a></li>
-          <li><a href="filamenti.php">Filamenti</a></li>
-          <li><a href="accessori.php">Accessori</a></li>
-          <li><a href="materiali.php">Materiale</a></li>
-          <li><a href="makersupply.php">Maker's Supply</a></li>
+          <li><a href="ams.php" data-dropdown-trigger="ams">AMS</a></li>
+          <li><a href="filamenti.php" data-dropdown-trigger="filamenti">Filamenti</a></li>
+          <li><a href="accessori.php" data-dropdown-trigger="accessori">Accessori</a></li>
+          <li><a href="materiali.php" data-dropdown-trigger="materiali">Materiale</a></li>
+          <li><a href="makersupply.php" data-dropdown-trigger="makersupply">Maker's Supply</a></li>
           <li>
             <a href="#" data-dropdown-trigger="supporto">Supporto</a>
             <div class="dropdown-menu hidden" data-dropdown-menu="supporto">
@@ -215,6 +230,35 @@ try {
       </div>
     </div>
 
+    <!-- DROPDOWN MENU SALDI -->
+    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="saldi">
+      <div class="dropdown-menu-full-inner">
+        <div class="dropdown-menu-full-links">
+          <a href="filamenti.php">Vendita filamenti <span>›</span></a>
+          <a href="accessori.php">Vendita accessori <span>›</span></a>
+          <a href="makersupply.php">Maker's Supply Sale <span>›</span></a>
+          <a href="materiali.php">Material Sale <span>›</span></a>
+        </div>
+
+        <div class="dropdown-menu-full-products dropdown-menu-full-products--single">
+          <?php foreach ($dropdownSaldiFeatured as $index => $product): ?>
+            <?php
+            $productName = $product->getName();
+            $productSubtitle = $product->getSubtitle();
+            $productImage = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/filamenti.png';
+            ?>
+            <a class="dropdown-menu-full-product is-featured" href="product.php?id=<?= urlencode((string) $product->getId()) ?>">
+              <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>">
+              <div class="dropdown-menu-product-text">
+                <strong>Vendita all'ingrosso di filamenti base</strong>
+                <span>A partire da 11,50€ a rotolo.</span>
+              </div>
+            </a>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+
     <!-- DROPDOWN MENU STAMPANTI -->
     <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="stampanti">
       <div class="dropdown-menu-full-inner">
@@ -241,6 +285,179 @@ try {
               <?php endif; ?>
               <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>">
               <div class="dropdown-menu-product-text">
+                <strong><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></strong>
+                <span><?= htmlspecialchars($productSubtitle, ENT_QUOTES, 'UTF-8') ?></span>
+              </div>
+            </a>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+
+    <!-- DROPDOWN MENU AMS -->
+    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="ams">
+      <div class="dropdown-menu-full-inner">
+        <div class="dropdown-menu-full-links">
+          <a href="ams.php">Automatic Material System <span>›</span></a>
+          <a href="ams.php#comparison">Confronto prodotti <span>›</span></a>
+        </div>
+
+        <div class="dropdown-menu-full-products">
+          <?php foreach ($dropdownAms as $product): ?>
+            <?php
+            $productName = $product->getName();
+            $productSubtitle = $product->getSubtitle();
+            $productImage = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/ams2pro.png';
+            ?>
+            <a class="dropdown-menu-full-product" href="product.php?id=<?= urlencode((string) $product->getId()) ?>">
+              <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>">
+              <div class="dropdown-menu-product-text">
+                <strong><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></strong>
+                <span><?= htmlspecialchars($productSubtitle, ENT_QUOTES, 'UTF-8') ?></span>
+              </div>
+            </a>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+
+    <!-- DROPDOWN MENU FILAMENTI -->
+    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="filamenti">
+      <div class="dropdown-menu-full-inner dropdown-menu-full-inner--filaments">
+        <div class="dropdown-menu-full-links dropdown-menu-full-links--filaments">
+          <a href="filamenti.php">Speciali <span>›</span></a>
+          <a href="filamenti.php">PLA <span>›</span></a>
+          <a href="filamenti.php">PETG <span>›</span></a>
+          <a href="filamenti.php">ABS/ASA <span>›</span></a>
+          <a href="filamenti.php">TPU <span>›</span></a>
+          <a href="filamenti.php">PC/TPU <span>›</span></a>
+          <a href="filamenti.php">PA/PET <span>›</span></a>
+        </div>
+
+        <div class="dropdown-menu-filaments-content">
+          <div class="dropdown-menu-filaments-section">
+            <h3>Hot &amp; New</h3>
+            <div class="dropdown-menu-filaments-grid">
+              <?php foreach (array_slice($dropdownFilaments, 0, 2) as $index => $product): ?>
+                <?php
+                $productName = $product->getName();
+                $productSubtitle = $product->getSubtitle();
+                $productImage = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/filamenti.png';
+                $badge = $index === 0 ? 'In evidenza' : 'Novità';
+                $badgeClass = $index === 0 ? 'badge-hot' : 'badge-new';
+                ?>
+                <a class="dropdown-menu-filaments-card" href="product.php?id=<?= urlencode((string) $product->getId()) ?>">
+                  <span class="dropdown-menu-filaments-badge <?= $badgeClass ?>"><?= htmlspecialchars($badge, ENT_QUOTES, 'UTF-8') ?></span>
+                  <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>">
+                  <div class="dropdown-menu-filaments-text">
+                    <strong><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></strong>
+                    <span><?= htmlspecialchars($productSubtitle, ENT_QUOTES, 'UTF-8') ?></span>
+                  </div>
+                </a>
+              <?php endforeach; ?>
+            </div>
+          </div>
+
+          <div class="dropdown-menu-filaments-divider"></div>
+
+          <div class="dropdown-menu-filaments-section">
+            <h3>Fascio</h3>
+            <div class="dropdown-menu-filaments-grid">
+              <?php foreach (array_slice($dropdownFilaments, 2, 2) as $product): ?>
+                <?php
+                $productName = $product->getName();
+                $productSubtitle = $product->getSubtitle();
+                $productImage = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/filamenti.png';
+                ?>
+                <a class="dropdown-menu-filaments-card" href="product.php?id=<?= urlencode((string) $product->getId()) ?>">
+                  <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>">
+                  <div class="dropdown-menu-filaments-text">
+                    <strong><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></strong>
+                    <span><?= htmlspecialchars($productSubtitle, ENT_QUOTES, 'UTF-8') ?></span>
+                  </div>
+                </a>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DROPDOWN MENU ACCESSORI -->
+    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="accessori">
+      <div class="dropdown-menu-full-inner dropdown-menu-full-inner--accessories">
+        <div class="dropdown-menu-full-links dropdown-menu-full-links--accessories">
+          <a href="accessori.php">Piastre <span>›</span></a>
+          <a href="accessori.php">Encoder <span>›</span></a>
+          <a href="accessori.php">Purificatore <span>›</span></a>
+          <a href="accessori.php">Laser <span>›</span></a>
+        </div>
+
+        <div class="dropdown-menu-full-products dropdown-menu-full-products--accessories">
+          <?php foreach ($dropdownAccessories as $product): ?>
+            <?php
+            $productName = $product->getName();
+            $productSubtitle = $product->getSubtitle();
+            $productImage = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/accessori.png';
+            ?>
+            <a class="dropdown-menu-full-product" href="product.php?id=<?= urlencode((string) $product->getId()) ?>">
+              <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>">
+              <div class="dropdown-menu-product-text">
+                <strong><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></strong>
+                <span><?= htmlspecialchars($productSubtitle, ENT_QUOTES, 'UTF-8') ?></span>
+              </div>
+            </a>
+          <?php endforeach; ?>
+        </div>
+      </div>
+    </div>
+
+    <!-- DROPDOWN MENU MATERIALI -->
+    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="materiali">
+      <div class="dropdown-menu-full-inner dropdown-menu-full-inner--materials">
+        <div class="dropdown-menu-full-links dropdown-menu-full-links--materials">
+          <a href="materiali.php">Bulk Sale <span>›</span></a>
+          <a href="materiali.php">New Arrival <span>›</span></a>
+          <a href="materiali.php">Bundle <span>›</span></a>
+          <a href="materiali.php">Laser Material <span>›</span></a>
+          <a href="materiali.php">Blade Cutting Material <span>›</span></a>
+          <a href="materiali.php">Materiali Ausiliari <span>›</span></a>
+        </div>
+
+        <a class="dropdown-menu-materials-card" href="materiali.php">
+          <img src="img/materiale2.png" alt="Materiali per taglio e creazione">
+          <div class="dropdown-menu-materials-text">
+            <strong>Vendita in massa di materiale laser</strong>
+            <span>Materials for precision engraving and cutting - Up to 15% Off</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- DROPDOWN MENU MAKER'S SUPPLY -->
+    <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="makersupply">
+      <div class="dropdown-menu-full-inner dropdown-menu-full-inner--makersupply">
+        <div class="dropdown-menu-full-links dropdown-menu-full-links--makersupply">
+          <a href="makersupply.php">Nuovi prodotti <span>›</span></a>
+          <a href="makersupply.php">Kit modello <span>›</span></a>
+          <a href="makersupply.php">CyberBrick <span>›</span></a>
+          <a href="makersupply.php">Maker Tools <span>›</span></a>
+          <a href="makersupply.php">Parti e componenti <span>›</span></a>
+          <a href="makersupply.php">Accessori MakerLab <span>›</span></a>
+          <a href="makersupply.php">Premium Models <span>›</span></a>
+        </div>
+
+        <div class="dropdown-menu-full-products dropdown-menu-full-products--makersupply">
+          <?php foreach ($dropdownMakerSupply as $product): ?>
+            <?php
+            $productName = $product->getName();
+            $productSubtitle = $product->getSubtitle();
+            $productImage = $product->getImagePath() !== '' ? $product->getImagePath() : 'img/makersuppy1.png';
+            ?>
+            <a class="dropdown-menu-makersupply-card" href="product.php?id=<?= urlencode((string) $product->getId()) ?>">
+              <span class="dropdown-menu-makersupply-badge">Novità</span>
+              <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>">
+              <div class="dropdown-menu-makersupply-text">
                 <strong><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></strong>
                 <span><?= htmlspecialchars($productSubtitle, ENT_QUOTES, 'UTF-8') ?></span>
               </div>

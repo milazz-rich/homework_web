@@ -1,8 +1,38 @@
 const DROPDOWNS = {
-  // Dropdown full: occupa tutta la larghezza della navbar.
   saldi: {
     trigger: '[data-dropdown-trigger="saldi"]',
     container: '[data-dropdown-menu="saldi"]',
+    mode: "full"
+  },
+  // Dropdown full: occupa tutta la larghezza della navbar.
+  stampanti: {
+    trigger: '[data-dropdown-trigger="stampanti"]',
+    container: '[data-dropdown-menu="stampanti"]',
+    mode: "full"
+  },
+  ams: {
+    trigger: '[data-dropdown-trigger="ams"]',
+    container: '[data-dropdown-menu="ams"]',
+    mode: "full"
+  },
+  filamenti: {
+    trigger: '[data-dropdown-trigger="filamenti"]',
+    container: '[data-dropdown-menu="filamenti"]',
+    mode: "full"
+  },
+  accessori: {
+    trigger: '[data-dropdown-trigger="accessori"]',
+    container: '[data-dropdown-menu="accessori"]',
+    mode: "full"
+  },
+  materiali: {
+    trigger: '[data-dropdown-trigger="materiali"]',
+    container: '[data-dropdown-menu="materiali"]',
+    mode: "full"
+  },
+  makersupply: {
+    trigger: '[data-dropdown-trigger="makersupply"]',
+    container: '[data-dropdown-menu="makersupply"]',
     mode: "full"
   },
   // Dropdown simple: pannello piccolo sotto al trigger.
