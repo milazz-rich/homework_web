@@ -67,6 +67,16 @@ h1 {
   border-color: #888;
 }
 
+.form-error {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: #fff1f0;
+  border: 1px solid #ffccc7;
+  color: #a8071a;
+  font-size: 13px;
+}
+
 /* Codice di verifica */
 .verify-wrapper {
   display: flex;
@@ -93,6 +103,11 @@ h1 {
 
 .btn-invia-codice:hover {
   color: #555;
+}
+
+.btn-invia-codice:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
 
 /* Password */

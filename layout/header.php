@@ -1,3 +1,8 @@
+<?php
+require_once __DIR__ . '/../app/services/AuthService.php';
+$authService = new AuthService();
+$authUser = $authService->currentUser();
+?>
 <!DOCTYPE html>
 <html lang="it">
 
@@ -188,8 +193,13 @@
           </svg>
         </button>
         <div class="dropdown-menu hidden" data-dropdown-menu="user">
-          <a href="register.php">Registrati</a>
-          <a href="login.php">Login</a>
+          <?php if ($authUser !== null): ?>
+            <span style="display:block;padding:12px 16px;color:#666;font-size:13px;">Ciao, <?= htmlspecialchars($authUser->getNome() ?: 'Utente', ENT_QUOTES) ?></span>
+            <a href="app/api/api_logout.php">Logout</a>
+          <?php else: ?>
+            <a href="register.php">Registrati</a>
+            <a href="login.php">Login</a>
+          <?php endif; ?>
         </div>
       </div>
     </div>
