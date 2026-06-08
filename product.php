@@ -39,21 +39,22 @@ if ($product === null) {
   exit;
 }
 
-$productName = $product->getName();
-$productSubtitle = $product->getSubtitle();
+$currentProductName = $product->getName();
+$currentProductSubtitle = $product->getSubtitle();
 $productPrice = $product->getPrice();
+$currentProductId = (int) $product->getId();
 $productPriceFormatted = number_format($productPrice, 2, ',', '.');
-$productImage = productAssetPath($product->getImagePath());
-$productImageAlt = $productName;
-$productDescription = $productSubtitle !== '' ? $productSubtitle : 'Stampante 3D disponibile nel catalogo.';
+$currentProductImage = productAssetPath($product->getImagePath());
+$currentProductImageAlt = $currentProductName;
+$currentProductDescription = $currentProductSubtitle !== '' ? $currentProductSubtitle : 'Stampante 3D disponibile nel catalogo.';
 
 include __DIR__ . '/layout/header.php';
 ?>
 
 <script>
   window.PRODUCT_BASE_PRICE = <?= json_encode($productPrice, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
-  window.PRODUCT_NAME = <?= json_encode($productName, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
-  window.PRODUCT_ID = <?= json_encode((int) $product->getId(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+  window.PRODUCT_NAME = <?= json_encode($currentProductName, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
+  window.PRODUCT_ID = <?= json_encode($currentProductId, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
 </script>
 
 <main class="product-page">
@@ -64,7 +65,7 @@ include __DIR__ . '/layout/header.php';
     <span>/</span>
     <a href="3d-printer.php">Stampanti 3D</a>
     <span>/</span>
-    <span><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></span>
+    <span><?= htmlspecialchars($currentProductName, ENT_QUOTES, 'UTF-8') ?></span>
   </nav>
 
   <!-- PRODUCT HERO -->
@@ -73,12 +74,12 @@ include __DIR__ . '/layout/header.php';
     <!-- GALLERY -->
     <div class="product-gallery">
       <div class="product-gallery-main">
-        <img id="mainImage" src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productImageAlt, ENT_QUOTES, 'UTF-8') ?>" />
+        <img id="mainImage" src="<?= htmlspecialchars($currentProductImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($currentProductImageAlt, ENT_QUOTES, 'UTF-8') ?>" />
       </div>
       <div class="product-gallery-thumbs">
         <?php for ($i = 0; $i < 4; $i++): ?>
-          <button class="thumb<?= $i === 0 ? ' active' : '' ?>" data-src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" data-fallback="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>">
-            <img src="<?= htmlspecialchars($productImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?>" />
+          <button class="thumb<?= $i === 0 ? ' active' : '' ?>" data-src="<?= htmlspecialchars($currentProductImage, ENT_QUOTES, 'UTF-8') ?>" data-fallback="<?= htmlspecialchars($currentProductImage, ENT_QUOTES, 'UTF-8') ?>">
+            <img src="<?= htmlspecialchars($currentProductImage, ENT_QUOTES, 'UTF-8') ?>" alt="<?= htmlspecialchars($currentProductName, ENT_QUOTES, 'UTF-8') ?>" />
           </button>
         <?php endfor; ?>
       </div>
@@ -89,7 +90,7 @@ include __DIR__ . '/layout/header.php';
       <p class="product-panel-price-main">€<?= htmlspecialchars($productPriceFormatted, ENT_QUOTES, 'UTF-8') ?> EUR</p>
 
       <p class="product-panel-desc">
-        <?= htmlspecialchars($productDescription, ENT_QUOTES, 'UTF-8') ?>
+        <?= htmlspecialchars($currentProductDescription, ENT_QUOTES, 'UTF-8') ?>
         <a href="#" class="product-panel-desc-link">Maggiori informazioni</a>
       </p>
 
@@ -105,8 +106,8 @@ include __DIR__ . '/layout/header.php';
         </button>
         <div class="product-accordion-body" hidden>
           <ul>
-            <li><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></li>
-            <li><?= htmlspecialchars($productSubtitle !== '' ? $productSubtitle : 'Stampante 3D dinamica', ENT_QUOTES, 'UTF-8') ?></li>
+            <li><?= htmlspecialchars($currentProductName, ENT_QUOTES, 'UTF-8') ?></li>
+            <li><?= htmlspecialchars($currentProductSubtitle !== '' ? $currentProductSubtitle : 'Stampante 3D dinamica', ENT_QUOTES, 'UTF-8') ?></li>
             <li>Prezzo aggiornato dal database</li>
             <li>Immagine caricata da `image_path`</li>
           </ul>
@@ -159,12 +160,12 @@ include __DIR__ . '/layout/header.php';
           <tr>
             <td>Nome</td>
             <td>Prodotto</td>
-            <td><?= htmlspecialchars($productName, ENT_QUOTES, 'UTF-8') ?></td>
+            <td><?= htmlspecialchars($currentProductName, ENT_QUOTES, 'UTF-8') ?></td>
           </tr>
           <tr>
             <td>Descrizione</td>
             <td>Subtitle</td>
-            <td><?= htmlspecialchars($productSubtitle !== '' ? $productSubtitle : '-', ENT_QUOTES, 'UTF-8') ?></td>
+            <td><?= htmlspecialchars($currentProductSubtitle !== '' ? $currentProductSubtitle : '-', ENT_QUOTES, 'UTF-8') ?></td>
           </tr>
           <tr>
             <td>Prezzo</td>
