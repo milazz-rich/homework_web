@@ -114,7 +114,7 @@ try {
 
       <div class="navbar-mobile-actions">
         <button class="navbar-mobile-icon-button search" type="button" aria-label="Apri ricerca" aria-haspopup="dialog"
-          aria-expanded="false">
+          aria-expanded="false" aria-controls="search-modal" data-search-open>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M10.0015 3.84961C13.3989 3.84961 16.1529 6.60359 16.1529 10C16.1529 13.3964 13.3989 16.1504 10.0015 16.1504C6.60427 16.1503 3.85016 13.3963 3.85016 10C3.85016 6.60367 6.60427 3.84974 10.0015 3.84961Z"
@@ -183,7 +183,7 @@ try {
       </nav>
 
       <div class="navbar-actions">
-        <button class="search" type="button" aria-label="Apri ricerca">
+        <button class="search" type="button" aria-label="Apri ricerca" aria-haspopup="dialog" aria-expanded="false" aria-controls="search-modal" data-search-open>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M10.0015 3.84961C13.3989 3.84961 16.1529 6.60359 16.1529 10C16.1529 13.3964 13.3989 16.1504 10.0015 16.1504C6.60427 16.1503 3.85016 13.3963 3.85016 10C3.85016 6.60367 6.60427 3.84974 10.0015 3.84961Z"
@@ -468,3 +468,27 @@ try {
     </div>
 
   </nav>
+
+  <div class="search-modal hidden" id="search-modal" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+    <div class="search-modal-backdrop" data-search-close></div>
+    <div class="search-modal-panel">
+      <div class="search-modal-header">
+        <div>
+          <p class="search-modal-kicker">Cerca nello store</p>
+          <h2 class="search-modal-title" id="search-modal-title">Trova prodotti</h2>
+        </div>
+        <button class="search-modal-close" type="button" aria-label="Chiudi ricerca" data-search-close>&times;</button>
+      </div>
+
+      <div class="search-modal-field">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M10.0015 3.84961C13.3989 3.84961 16.1529 6.60359 16.1529 10C16.1529 13.3964 13.3989 16.1504 10.0015 16.1504C6.60427 16.1503 3.85016 13.3963 3.85016 10C3.85016 6.60367 6.60427 3.84974 10.0015 3.84961Z" stroke="currentColor" stroke-width="1.7"/>
+          <path d="M19.4524 21.5088C19.7334 21.8131 20.2079 21.832 20.5122 21.5511C20.8166 21.2701 20.8355 20.7956 20.5545 20.4912L20.0035 21L19.4524 21.5088ZM14.0024 14.5L13.4514 15.0088L19.4524 21.5088L20.0035 21L20.5545 20.4912L14.5535 13.9912L14.0024 14.5Z" fill="currentColor"/>
+        </svg>
+        <input class="search-modal-input" type="search" placeholder="Cerca stampanti, filamenti, accessori..." autocomplete="off">
+      </div>
+
+      <div class="search-modal-status" data-search-status>Inizia a digitare per cercare un prodotto.</div>
+      <div class="search-modal-results" data-search-results></div>
+    </div>
+  </div>

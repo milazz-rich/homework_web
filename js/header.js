@@ -182,3 +182,135 @@ async function loadCartBadge() {
 
 window.refreshCartBadge = loadCartBadge;
 loadCartBadge();
+
+const searchModal = document.querySelector('#search-modal');
+const searchOpenButtons = Array.from(document.querySelectorAll('[data-search-open]'));
+const searchCloseButtons = Array.from(document.querySelectorAll('[data-search-close]'));
+const searchInput = searchModal?.querySelector('.search-modal-input');
+const searchResults = searchModal?.querySelector('[data-search-results]');
+const searchStatus = searchModal?.querySelector('[data-search-status]');
+
+let searchProducts = [];
+let searchProductsLoaded = false;
+
+function escapeSearchHtml(value) {
+  return String(value || '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+function updateSearchButtons(expanded) {
+  searchOpenButtons.forEach((button) => {
+    button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  });
+}
+
+async function loadSearchProducts() {
+  if (searchProductsLoaded) return;
+
+  if (searchStatus) searchStatus.textContent = 'Caricamento prodotti...';
+
+  const response = await fetch('app/api/api_products.php', {
+    headers: { Accept: 'application/json' },
+  });
+
+  if (!response.ok) {
+    throw new Error('Non riesco a caricare i prodotti.');
+  }
+
+  const data = await response.json();
+  searchProducts = Array.isArray(data) ? data : [];
+  searchProductsLoaded = true;
+}
+
+function renderSearchResults() {
+  if (!searchInput || !searchResults || !searchStatus) return;
+
+  const query = searchInput.value.trim().toLowerCase();
+
+  if (query.length < 2) {
+    searchResults.innerHTML = '';
+    searchStatus.textContent = 'Inserisci almeno 2 caratteri per cercare.';
+    return;
+  }
+
+  const matches = searchProducts
+    .filter((product) => {
+      const name = String(product.name || '').toLowerCase();
+      const subtitle = String(product.subtitle || '').toLowerCase();
+      return name.includes(query) || subtitle.includes(query);
+    })
+    .slice(0, 8);
+
+  if (!matches.length) {
+    searchResults.innerHTML = '';
+    searchStatus.textContent = 'Nessun prodotto trovato.';
+    return;
+  }
+
+  searchStatus.textContent = `${matches.length} risultato/i trovato/i`;
+  searchResults.innerHTML = matches.map((product) => {
+    const image = product.image_path || 'img/stampanti3d.png';
+    const price = Number(product.price || 0).toLocaleString('it-IT', {
+      style: 'currency',
+      currency: 'EUR',
+    });
+
+    return `
+      <a class="search-modal-result" href="product.php?id=${encodeURIComponent(product.id)}">
+        <span class="search-modal-result-image">
+          <img src="${escapeSearchHtml(image)}" alt="${escapeSearchHtml(product.name || '')}">
+        </span>
+        <span class="search-modal-result-body">
+          <strong>${escapeSearchHtml(product.name || '')}</strong>
+          <span>${escapeSearchHtml(product.subtitle || '')}</span>
+        </span>
+        <span class="search-modal-result-price">${price}</span>
+      </a>
+    `;
+  }).join('');
+}
+
+async function openSearchModal() {
+  if (!searchModal) return;
+
+  searchModal.classList.remove('hidden');
+  document.body.classList.add('search-modal-open');
+  updateSearchButtons(true);
+
+  setTimeout(() => searchInput?.focus(), 0);
+
+  try {
+    await loadSearchProducts();
+    renderSearchResults();
+  } catch (error) {
+    if (searchStatus) searchStatus.textContent = error.message || 'Errore durante la ricerca.';
+  }
+}
+
+function closeSearchModal() {
+  if (!searchModal) return;
+
+  searchModal.classList.add('hidden');
+  document.body.classList.remove('search-modal-open');
+  updateSearchButtons(false);
+}
+
+searchOpenButtons.forEach((button) => {
+  button.addEventListener('click', openSearchModal);
+});
+
+searchCloseButtons.forEach((button) => {
+  button.addEventListener('click', closeSearchModal);
+});
+
+searchInput?.addEventListener('input', renderSearchResults);
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && searchModal && !searchModal.classList.contains('hidden')) {
+    closeSearchModal();
+  }
+});
