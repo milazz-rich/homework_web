@@ -54,6 +54,17 @@
   line-height: 1.7;
 }
 
+.payment-success-note {
+  margin: 22px auto 0;
+  width: fit-content;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: #007a3d;
+  background: #eaf8f0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
 .payment-success-session {
   margin: 26px 0 0;
   padding: 14px 16px;

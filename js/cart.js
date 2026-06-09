@@ -78,6 +78,7 @@ function renderCart(items) {
   cartItemsList.innerHTML = items.map((item) => {
     const product = item.product || {};
     const price = getLineTotal(item);
+    const productUrl = product.id ? `product.php?id=${encodeURIComponent(product.id)}` : '#';
 
     return `
       <div class="cart-item" data-cart-id="${item.id}">
@@ -85,11 +86,11 @@ function renderCart(items) {
           <input type="checkbox" checked>
           <span class="cart-item-checkmark"></span>
         </label>
-        <a href="#" target="_blank" class="cart-item-img-wrap">
+        <a href="${productUrl}" class="cart-item-img-wrap">
           <img src="${escapeHtml(product.image_path || 'img/stampanti3d.png')}" alt="${escapeHtml(product.name || '')}">
         </a>
         <div class="cart-item-info">
-          <a href="#" target="_blank" class="cart-item-name">${escapeHtml(product.name || '')}</a>
+          <a href="${productUrl}" class="cart-item-name">${escapeHtml(product.name || '')}</a>
           <div class="cart-item-variant">${escapeHtml(product.subtitle || '')}</div>
           <a href="#" class="cart-item-remove" data-action="remove">Rimuovi</a>
         </div>

@@ -1,10 +1,30 @@
 <?php
+require_once __DIR__ . '/app/services/AuthService.php';
+require_once __DIR__ . '/app/services/CartService.php';
+
 $pageTitle = 'Pagamento completato | Bambu Lab EU store';
 $pageStyles = [
   'css/payment-success.css',
 ];
 
 $sessionId = filter_input(INPUT_GET, 'session_id', FILTER_SANITIZE_SPECIAL_CHARS);
+$clearCart = filter_input(INPUT_GET, 'clear_cart', FILTER_VALIDATE_INT) === 1;
+$cartCleared = false;
+
+if ($sessionId !== null && $sessionId !== '' && $clearCart) {
+  try {
+    $authService = new AuthService();
+    $currentUser = $authService->currentUser();
+
+    if ($currentUser !== null) {
+      $cartService = new CartService();
+      $cartService->clearUserCart((int) $currentUser->getId());
+      $cartCleared = true;
+    }
+  } catch (Throwable $e) {
+    $cartCleared = false;
+  }
+}
 
 include __DIR__ . '/layout/header.php';
 ?>
@@ -22,6 +42,10 @@ include __DIR__ . '/layout/header.php';
     <p class="payment-success-text">
       Stripe ha confermato il pagamento. Riceverai gli aggiornamenti dell'ordine all'indirizzo e-mail usato durante il checkout.
     </p>
+
+    <?php if ($cartCleared): ?>
+      <p class="payment-success-note">Il tuo carrello è stato svuotato.</p>
+    <?php endif; ?>
 
     <?php if ($sessionId !== null && $sessionId !== ''): ?>
       <p class="payment-success-session">
