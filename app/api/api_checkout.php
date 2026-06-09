@@ -65,7 +65,7 @@ try {
 
     $session = $stripeService->createCheckoutSession(
         $lineItems,
-        $baseUrl . '/cart.php?checkout=success',
+        $baseUrl . '/payment-success.php?session_id={CHECKOUT_SESSION_ID}',
         $baseUrl . '/cart.php?checkout=cancel',
         $currentUser->getEmail()
     );

@@ -19,6 +19,28 @@ function productAssetPath(string $path): string
   return $path !== '' ? $path : 'img/stampanti3d.png';
 }
 
+function productCollectionLabel(int $type): string
+{
+  if ($type === 1) return 'Filamenti';
+  if ($type === 2) return 'Accessori';
+  if ($type === 3) return "Maker's Supply";
+  if ($type === 4) return 'Materiali';
+  if ($type === 5) return 'AMS';
+
+  return 'Stampanti 3D';
+}
+
+function productCollectionUrl(int $type): string
+{
+  if ($type === 1) return 'filamenti.php';
+  if ($type === 2) return 'accessori.php';
+  if ($type === 3) return 'makersupply.php';
+  if ($type === 4) return 'materiali.php';
+  if ($type === 5) return 'ams.php';
+
+  return '3d-printer.php';
+}
+
 if ($product === null) {
   http_response_code(404);
   include __DIR__ . '/layout/header.php';
@@ -47,6 +69,9 @@ $productPriceFormatted = number_format($productPrice, 2, ',', '.');
 $currentProductImage = productAssetPath($product->getImagePath());
 $currentProductImageAlt = $currentProductName;
 $currentProductDescription = $currentProductSubtitle !== '' ? $currentProductSubtitle : 'Stampante 3D disponibile nel catalogo.';
+$currentProductType = $product->getType();
+$currentProductCollectionLabel = productCollectionLabel($currentProductType);
+$currentProductCollectionUrl = productCollectionUrl($currentProductType);
 
 include __DIR__ . '/layout/header.php';
 ?>
@@ -63,7 +88,7 @@ include __DIR__ . '/layout/header.php';
   <nav class="product-breadcrumb" aria-label="Breadcrumb">
     <a href="index.php">Home</a>
     <span>/</span>
-    <a href="3d-printer.php">Stampanti 3D</a>
+    <a href="<?= htmlspecialchars($currentProductCollectionUrl, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($currentProductCollectionLabel, ENT_QUOTES, 'UTF-8') ?></a>
     <span>/</span>
     <span><?= htmlspecialchars($currentProductName, ENT_QUOTES, 'UTF-8') ?></span>
   </nav>

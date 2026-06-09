@@ -1,0 +1,119 @@
+.payment-success-page {
+  min-height: 68vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 72px 20px;
+  background: #f7f8f6;
+  font-family: 'Manrope', sans-serif;
+}
+
+.payment-success-card {
+  width: min(100%, 620px);
+  padding: 48px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(18, 27, 20, 0.12);
+  text-align: center;
+}
+
+.payment-success-icon {
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #00a550;
+}
+
+.payment-success-kicker {
+  margin: 0 0 10px;
+  color: #00a550;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.payment-success-title {
+  margin: 0;
+  color: #171717;
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.payment-success-text {
+  margin: 18px auto 0;
+  max-width: 480px;
+  color: #5f665f;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.payment-success-session {
+  margin: 26px 0 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f2f4f2;
+  color: #5f665f;
+  font-size: 13px;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.payment-success-session strong {
+  color: #171717;
+  font-weight: 700;
+}
+
+.payment-success-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.payment-success-primary,
+.payment-success-secondary {
+  min-width: 180px;
+  padding: 13px 20px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.payment-success-primary {
+  color: #fff;
+  background: #171717;
+}
+
+.payment-success-secondary {
+  color: #171717;
+  background: #eef0ee;
+}
+
+@media (max-width: 640px) {
+  .payment-success-page {
+    padding: 44px 16px;
+  }
+
+  .payment-success-card {
+    padding: 34px 22px;
+    border-radius: 22px;
+  }
+
+  .payment-success-title {
+    font-size: 30px;
+  }
+
+  .payment-success-primary,
+  .payment-success-secondary {
+    width: 100%;
+  }
+}
