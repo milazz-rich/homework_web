@@ -52,44 +52,15 @@ class StripeService
         return $this->request('POST', 'https://api.stripe.com/v1/checkout/sessions', $payload);
     }
 
-    /**
-     * @param array<string, mixed> $metadata
-     */
-    public function createPaymentIntent(int $amount, string $currency = 'eur', array $metadata = []): array
-    {
-        if ($amount <= 0) {
-            throw new InvalidArgumentException('L\'importo deve essere maggiore di zero.');
-        }
-
-        $payload = [
-            'amount' => $amount,
-            'currency' => $currency,
-            'automatic_payment_methods[enabled]' => 'true',
-        ];
-
-        foreach ($metadata as $key => $value) {
-            $payload['metadata[' . $key . ']'] = (string) $value;
-        }
-
-        return $this->request('POST', 'https://api.stripe.com/v1/payment_intents', $payload);
-    }
-
-    public function retrieveCheckoutSession(string $sessionId): array
+    public function retrieveCheckoutSessionLineItems(string $sessionId): array
     {
         if ($sessionId === '') {
             throw new InvalidArgumentException('Session id non valido.');
         }
 
-        return $this->request('GET', 'https://api.stripe.com/v1/checkout/sessions/' . rawurlencode($sessionId));
-    }
-
-    public function retrievePaymentIntent(string $paymentIntentId): array
-    {
-        if ($paymentIntentId === '') {
-            throw new InvalidArgumentException('Payment intent id non valido.');
-        }
-
-        return $this->request('GET', 'https://api.stripe.com/v1/payment_intents/' . rawurlencode($paymentIntentId));
+        return $this->request('GET', 'https://api.stripe.com/v1/checkout/sessions/' . rawurlencode($sessionId) . '/line_items', [
+            'limit' => 100,
+        ]);
     }
 
     /**
