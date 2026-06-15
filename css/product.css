@@ -103,6 +103,11 @@
   color: #1a1a1a;
   font-weight: 600;
 }
+.product-purchase-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 .product-panel-shipping {
   display: flex;
   align-items: center;

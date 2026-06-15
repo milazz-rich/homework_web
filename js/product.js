@@ -26,11 +26,17 @@ document.querySelectorAll('.product-accordion-trigger').forEach(trigger => {
 });
 
 // Quantity
+const productPurchaseForm = document.getElementById('productPurchaseForm');
 const qtyInput = document.getElementById('qtyInput');
 const priceDisplay = document.querySelector('.product-price-display');
-const BASE_PRICE = Number(window.PRODUCT_BASE_PRICE || 0);
+const purchaseFormData = productPurchaseForm ? new FormData(productPurchaseForm) : new FormData();
+const BASE_PRICE = Number(purchaseFormData.get('unit_price') || 0);
 const ADD_TO_CART_URL = 'app/api/api_cart.php';
 const BUY_NOW_URL = 'app/api/api_buy_now.php';
+
+productPurchaseForm?.addEventListener('submit', (event) => {
+  event.preventDefault();
+});
 
 function updatePrice() {
   if (!qtyInput || !priceDisplay) return;
@@ -90,8 +96,7 @@ document.querySelector('.btn-add-cart')?.addEventListener('click', () => {
   const original = btn.textContent;
   btn.textContent = 'Aggiunta...';
 
-  const formData = new FormData();
-  formData.append('product_id', String(window.PRODUCT_ID || 0));
+  const formData = productPurchaseForm ? new FormData(productPurchaseForm) : new FormData();
   formData.append('quantity', String(qty));
 
   fetch(ADD_TO_CART_URL, {
@@ -135,8 +140,7 @@ document.querySelector('.btn-buy-now')?.addEventListener('click', () => {
   const original = btn.textContent;
   btn.textContent = 'Reindirizzamento...';
 
-  const formData = new FormData();
-  formData.append('product_id', String(window.PRODUCT_ID || 0));
+  const formData = productPurchaseForm ? new FormData(productPurchaseForm) : new FormData();
   formData.append('quantity', String(qty));
 
   fetch(BUY_NOW_URL, {

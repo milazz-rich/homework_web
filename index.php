@@ -18,7 +18,7 @@ $materials = [];
 
 try {
   $productService = new ProductService();
-  $products = $productService->getProducts(0, 6);
+  $products = $productService->getProducts(0);
   $filaments = $productService->getProducts(1);
   $accessories = $productService->getProducts(2);
   $makersupply = $productService->getProducts(3);

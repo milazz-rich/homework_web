@@ -76,12 +76,6 @@ $currentProductCollectionUrl = productCollectionUrl($currentProductType);
 include __DIR__ . '/layout/header.php';
 ?>
 
-<script>
-  window.PRODUCT_BASE_PRICE = <?= json_encode($productPrice, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
-  window.PRODUCT_NAME = <?= json_encode($currentProductName, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
-  window.PRODUCT_ID = <?= json_encode($currentProductId, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>;
-</script>
-
 <main class="product-page">
 
   <!-- BREADCRUMB -->
@@ -139,19 +133,24 @@ include __DIR__ . '/layout/header.php';
         </div>
       </div>
 
-      <div class="product-qty-row">
-        <div class="product-qty">
-          <button class="qty-btn" id="qtyMinus" aria-label="Diminuisci">−</button>
-          <input class="qty-input" id="qtyInput" type="number" value="1" min="1" max="99" aria-label="Quantità" />
-          <button class="qty-btn" id="qtyPlus" aria-label="Aumenta">+</button>
-        </div>
-        <div class="product-price-display">€<?= htmlspecialchars($productPriceFormatted, ENT_QUOTES, 'UTF-8') ?></div>
-      </div>
+      <form class="product-purchase-form" id="productPurchaseForm">
+        <input type="hidden" name="product_id" value="<?= htmlspecialchars((string) $currentProductId, ENT_QUOTES, 'UTF-8') ?>">
+        <input type="hidden" name="unit_price" value="<?= htmlspecialchars((string) $productPrice, ENT_QUOTES, 'UTF-8') ?>">
 
-      <div class="product-cta">
-        <button class="btn-add-cart">Aggiungi al carrello</button>
-        <button class="btn-buy-now">Acquista subito</button>
-      </div>
+        <div class="product-qty-row">
+          <div class="product-qty">
+            <button class="qty-btn" id="qtyMinus" type="button" aria-label="Diminuisci">−</button>
+            <input class="qty-input" id="qtyInput" name="quantity" type="number" value="1" min="1" max="99" aria-label="Quantità" />
+            <button class="qty-btn" id="qtyPlus" type="button" aria-label="Aumenta">+</button>
+          </div>
+          <div class="product-price-display">€<?= htmlspecialchars($productPriceFormatted, ENT_QUOTES, 'UTF-8') ?></div>
+        </div>
+
+        <div class="product-cta">
+          <button class="btn-add-cart" type="button">Aggiungi al carrello</button>
+          <button class="btn-buy-now" type="button">Acquista subito</button>
+        </div>
+      </form>
 
       <div class="product-payment">
         <p class="product-payment-label">Pagamento</p>

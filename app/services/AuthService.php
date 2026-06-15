@@ -2,15 +2,17 @@
 
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../repositories/UserRepository.php';
-require_once __DIR__ . '/../../config/resend.php';
+require_once __DIR__ . '/EmailService.php';
 
 class AuthService
 {
     private UserRepository $userRepository;
+    private EmailService $emailService;
 
-    public function __construct(?UserRepository $userRepository = null)
+    public function __construct(?UserRepository $userRepository = null, ?EmailService $emailService = null)
     {
         $this->userRepository = $userRepository ?? new UserRepository();
+        $this->emailService = $emailService ?? new EmailService();
         $this->startSession();
     }
 
@@ -58,57 +60,7 @@ class AuthService
             'code' => $code,
             'expires_at' => time() + 600,
         ];
-        $resendConfig = getResendConfig();
-        $apiKey = $resendConfig['apiKey'];
-        $from = $resendConfig['from'];
-
-        if ($apiKey === '') {
-            throw new RuntimeException('Configurazione Resend mancante: imposta RESEND_API_KEY.');
-        }
-
-        $payload = json_encode([
-            'from' => $from,
-            'to' => [$email],
-            'subject' => 'Codice di verifica registrazione',
-            'html' => '<p>Il tuo codice di verifica e&#39; <strong>' . htmlspecialchars($code, ENT_QUOTES, 'UTF-8') . '</strong>.</p><p>Scade tra 10 minuti.</p>',
-        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
-        if ($payload === false) {
-            throw new RuntimeException('Impossibile preparare il payload e-mail.');
-        }
-
-        if (function_exists('curl_init')) {
-            $ch = curl_init('https://api.resend.com/emails');
-            curl_setopt_array($ch, [
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POST => true,
-                CURLOPT_POSTFIELDS => $payload,
-                CURLOPT_HTTPHEADER => [
-                    'Authorization: Bearer ' . $apiKey,
-                    'Content-Type: application/json',
-                ],
-                CURLOPT_TIMEOUT => 20,
-                CURLOPT_SSL_VERIFYPEER => false,
-                CURLOPT_SSL_VERIFYHOST => 0,
-            ]);
-
-            $raw = curl_exec($ch);
-            $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-            if ($raw === false) {
-                $error = curl_error($ch);
-                curl_close($ch);
-                throw new RuntimeException('Errore di rete con Resend: ' . $error);
-            }
-
-            curl_close($ch);
-
-            if ($status < 200 || $status >= 300) {
-                $body = json_decode($raw, true);
-                $message = $body['message'] ?? ($raw ?: 'Invio e-mail fallito.');
-                throw new RuntimeException('Impossibile inviare il codice di verifica: ' . $message);
-            }
-        }
+        $this->emailService->sendVerificationCodeEmail($email, $code);
 
         return $code;
     }

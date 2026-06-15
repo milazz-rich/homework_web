@@ -61,9 +61,6 @@ class UserRepository
         return $row ? User::fromArray($row) : null;
     }
 
-    /**
-     * @return User[]
-     */
     public function findAll(): array
     {
         $sql = 'SELECT `id`, `nome`, `cognome`, `email`, `password` FROM `user` ORDER BY `id` DESC';

@@ -14,9 +14,6 @@ class StripeService
         $this->currency = (string) ($config['currency'] ?? 'eur');
     }
 
-    /**
-     * @param array<int, array{name:string,unit_amount:int,quantity:int,image?:string,description?:string}> $items
-     */
     public function createCheckoutSession(array $items, string $successUrl, string $cancelUrl, ?string $customerEmail = null): array
     {
         $payload = [
@@ -63,9 +60,6 @@ class StripeService
         ]);
     }
 
-    /**
-     * @param array<string, mixed> $payload
-     */
     private function request(string $method, string $url, array $payload = []): array
     {
         if ($this->secretKey === '') {

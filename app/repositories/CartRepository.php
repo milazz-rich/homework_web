@@ -56,9 +56,6 @@ class CartRepository
         return $row ? Cart::fromArray($row) : null;
     }
 
-    /**
-     * @return Cart[]
-     */
     public function findByUserId(int $userId): array
     {
         $sql = "SELECT `id`, `user_id`, `product_id`, `quantity`, `created_at`, `updated_at` FROM `cart` WHERE `user_id` = {$userId} ORDER BY `id` DESC";

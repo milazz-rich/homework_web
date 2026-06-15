@@ -37,9 +37,6 @@ class CartService
         return $cart;
     }
 
-    /**
-     * @return Cart[]
-     */
     public function getUserCart(int $userId): array
     {
         if ($userId <= 0) {
@@ -47,11 +44,6 @@ class CartService
         }
 
         return $this->cartRepository->findByUserId($userId);
-    }
-
-    public function getItemById(int $id): ?Cart
-    {
-        return $this->cartRepository->findById($id);
     }
 
     public function removeItem(int $id): bool

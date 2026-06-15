@@ -46,7 +46,6 @@ class ProductRepository
         return $row ? Product::fromArray($row) : null;
     }
 
-    /** @return Product[] */
     public function findAll(): array
     {
         $sql = 'SELECT `id`, `name`, `subtitle`, `price`, `image_path`, `type` FROM `product` ORDER BY `id` DESC';
@@ -64,7 +63,6 @@ class ProductRepository
         return $products;
     }
 
-    /** @return Product[] */
     public function findByType(int $type): array
     {
         $type = (int) $type;
@@ -83,7 +81,6 @@ class ProductRepository
         return $products;
     }
 
-    /** @return Product[] */
     public function findFirstN(?int $limit = null): array
     {
         if ($limit === null) {
@@ -106,7 +103,6 @@ class ProductRepository
         return $products;
     }
 
-    /** @return Product[] */
     public function findFirstNByType(int $type, ?int $limit = null): array
     {
         $type = (int) $type;
