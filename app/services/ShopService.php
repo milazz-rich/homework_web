@@ -40,7 +40,6 @@ class ShopService
         $this->stripeService = $stripeService ?? new StripeService();
     }
 
-    /** @return array<int, array<string, mixed>> */
     public function getCartItems(): array
     {
         $user = $this->requireCurrentUser();
@@ -59,7 +58,6 @@ class ShopService
         }, $items);
     }
 
-    /** @param array<string, mixed> $payload */
     public function handleCartPost(array $payload): array
     {
         $user = $this->requireCurrentUser();
@@ -88,7 +86,6 @@ class ShopService
         return $cartItem->toArray();
     }
 
-    /** @param array<string, mixed> $payload */
     public function handleCartDelete(array $payload): array
     {
         $user = $this->requireCurrentUser();
@@ -139,7 +136,6 @@ class ShopService
         return $this->formatStripeSession($session);
     }
 
-    /** @param array<string, mixed> $payload */
     public function createBuyNowCheckoutSession(array $payload): array
     {
         $user = $this->requireCurrentUser();
@@ -173,7 +169,6 @@ class ShopService
         return $user;
     }
 
-    /** @param array<string, mixed> $payload */
     private function readRequiredInt(array $payload, string $key, string $message): int
     {
         if (!isset($payload[$key]) || !ctype_digit((string) $payload[$key])) {
@@ -183,7 +178,6 @@ class ShopService
         return (int) $payload[$key];
     }
 
-    /** @param array<string, mixed> $payload */
     private function readOptionalInt(array $payload, string $key, int $default, string $message): int
     {
         if (!isset($payload[$key]) || $payload[$key] === '') {
@@ -218,7 +212,6 @@ class ShopService
         ];
     }
 
-    /** @param array<string, mixed> $session */
     private function formatStripeSession(array $session): array
     {
         return [

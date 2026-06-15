@@ -2,7 +2,6 @@ const cartItemsList = document.querySelector('#cart-items-list');
 const cartEmptyState = document.querySelector('#cart-empty-state');
 const cartTotalLabel = document.querySelector('#cart-total-label');
 const cartCheckoutBtn = document.querySelector('#cart-checkout-btn');
-const cartSubtitle = document.querySelector('#cart-subtitle');
 const recommendedButtons = Array.from(document.querySelectorAll('.rec-card-btn[data-product-id]'));
 
 const cartMoney = new Intl.NumberFormat('it-IT', {
@@ -60,10 +59,6 @@ function renderCart(items) {
 
   syncRecommendedButtons(items);
 
-  if (cartSubtitle) {
-    cartSubtitle.innerHTML = 'Carrello sincronizzato con il tuo account.';
-  }
-
   if (!items.length) {
     cartItemsList.innerHTML = '';
     if (cartEmptyState) {
@@ -118,7 +113,6 @@ async function loadCart() {
     if (response.status === 401) {
       cartItemsList.innerHTML = '';
       if (cartEmptyState) {
-        cartEmptyState.textContent = 'Accedi per vedere il tuo carrello.';
         cartEmptyState.style.display = 'block';
       }
       return;

@@ -7,12 +7,15 @@ $pageScripts = [
   'js/cart.js',
 ];
 
+require_once __DIR__ . '/app/services/AuthService.php';
 require_once __DIR__ . '/app/services/ProductService.php';
 
 $recommendedPrinters = [];
 $recommendedFilaments = [];
 $recommendedAccessories = [];
 $recommendedMaterials = [];
+$authService = new AuthService();
+$isAuthenticated = $authService->isAuthenticated();
 
 try {
   $productService = new ProductService();
@@ -36,14 +39,18 @@ include __DIR__ . '/layout/header.php';
     <!-- CART HEADER -->
     <section class="cart-header">
       <h1 class="cart-title">Carrello</h1>
-      <p class="cart-subtitle" id="cart-subtitle">Accedi per sincronizzare gli articoli nel tuo carrello. <a href="login.php" class="cart-login-link">Accedi ora &rsaquo;</a></p>
+      <?php if ($isAuthenticated): ?>
+        <p class="cart-subtitle" id="cart-subtitle">Carrello sincronizzato con il tuo account.</p>
+      <?php else: ?>
+        <p class="cart-subtitle" id="cart-subtitle">Accedi per sincronizzare gli articoli nel tuo carrello. <a href="login.php" class="cart-login-link">Accedi ora &rsaquo;</a></p>
+      <?php endif; ?>
     </section>
 
     <!-- CART ITEMS -->
     <section class="cart-items-section">
       <div id="cart-items-list"></div>
       <div id="cart-empty-state" style="display:none; text-align:center; color:#666; padding:24px 0;">
-        Il carrello è vuoto.
+        <?= $isAuthenticated ? 'Il carrello è vuoto.' : 'Accedi per vedere il tuo carrello.' ?>
       </div>
     </section>
 
