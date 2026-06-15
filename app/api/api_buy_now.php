@@ -6,7 +6,9 @@ header('Content-Type: application/json; charset=utf-8');
 
 try {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        throw new ShopServiceException('Metodo non consentito.', 405);
+        http_response_code(405);
+        echo json_encode(['message' => 'Metodo non consentito.'], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        exit;
     }
 
     $shopService = new ShopService();

@@ -49,7 +49,5 @@ try {
     echo json_encode(array_map(static fn (Product $product) => $product->toArray(), $products), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 } catch (Throwable $e) {
     http_response_code(500);
-    echo json_encode([
-        'message' => $e->getMessage(),
-    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    echo json_encode(['message' => $e->getMessage()], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 }
