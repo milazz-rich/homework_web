@@ -7,6 +7,7 @@ $pageStyles = [
 ];
 
 $pageScripts = [
+  'js/catalog.js',
   'js/accessori.js',
 ];
 

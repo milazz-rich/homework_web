@@ -6,6 +6,7 @@ $pageStyles = [
 ];
 
 $pageScripts = [
+  'js/catalog.js',
   'js/3d-printer.js',
 ];
 
