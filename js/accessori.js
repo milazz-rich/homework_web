@@ -1,22 +1,16 @@
 initCatalogPage({
-  getFilterFromText(text) {
-    const normalized = (text || '').toLowerCase();
-
-    if (normalized.includes('plate')) return 'piastre';
-    if (normalized.includes('encoder')) return 'encoder';
-    if (normalized.includes('purifier')) return 'purificatore';
-    if (normalized.includes('laser')) return 'laser';
-    if (normalized.includes('cutting')) return 'taglio';
-
-    return '';
+  textFilters: {
+    piastre: ['plate'],
+    encoder: ['encoder'],
+    purificatore: ['purifier'],
+    laser: ['laser'],
+    taglio: ['cutting'],
   },
-  getFilterFromLabel(label) {
-    if (label.includes('piastre')) return 'piastre';
-    if (label.includes('encoder')) return 'encoder';
-    if (label.includes('purificatore')) return 'purificatore';
-    if (label.includes('laser')) return 'laser';
-    if (label.includes('taglio')) return 'taglio';
-
-    return '';
+  labelFilters: {
+    piastre: ['piastre'],
+    encoder: ['encoder'],
+    purificatore: ['purificatore'],
+    laser: ['laser'],
+    taglio: ['taglio'],
   },
 });

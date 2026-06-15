@@ -106,6 +106,8 @@ include __DIR__ . '/layout/header.php';
 
     <!-- PURCHASE PANEL -->
     <div class="product-panel">
+      <h1 class="product-panel-title"><?= htmlspecialchars($currentProductName, ENT_QUOTES, 'UTF-8') ?></h1>
+
       <p class="product-panel-price-main">€<?= htmlspecialchars($productPriceFormatted, ENT_QUOTES, 'UTF-8') ?> EUR</p>
 
       <p class="product-panel-desc">

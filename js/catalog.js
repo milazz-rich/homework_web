@@ -6,8 +6,10 @@ function initCatalogPage(options) {
   const filterLinks = Array.from(document.querySelectorAll('.filter-list a'));
   const viewButtons = Array.from(document.querySelectorAll('.toolbar-view-btn'));
   const grid = document.querySelector('.catalog-grid');
-  const getFilterFromText = options.getFilterFromText || (() => '');
-  const getFilterFromLabel = options.getFilterFromLabel || (() => '');
+  const textFilters = options.textFilters || {};
+  const labelFilters = options.labelFilters || {};
+  const getFilterFromText = options.getFilterFromText || ((text) => getCatalogFilterFromMap(text, textFilters));
+  const getFilterFromLabel = options.getFilterFromLabel || ((label) => getCatalogFilterFromMap(label, labelFilters));
 
   let activeFilter = '';
   let sortMode = 'default';
@@ -186,4 +188,18 @@ function initCatalogPage(options) {
   addClearButton();
   updateSortLabel();
   renderCards();
+}
+
+function getCatalogFilterFromMap(text, filterMap) {
+  const normalized = (text || '').toLowerCase();
+
+  for (const filterName in filterMap) {
+    const keywords = filterMap[filterName];
+
+    if (keywords.some((keyword) => normalized.includes(keyword))) {
+      return filterName;
+    }
+  }
+
+  return '';
 }

@@ -89,6 +89,13 @@
   flex-direction: column;
   gap: 18px;
 }
+.product-panel-title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+}
 .product-panel-price-main {
   font-size: 28px;
   font-weight: 700;

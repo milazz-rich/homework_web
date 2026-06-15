@@ -3,7 +3,7 @@
 require_once __DIR__ . '/app/services/ProductService.php';
 
 $pageStyles = [
-  'css/3d-printer.css',
+  'css/catalog.css',
 ];
 
 $pageScripts = [

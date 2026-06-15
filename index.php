@@ -134,7 +134,7 @@ include __DIR__ . '/layout/header.php';
           <div class="featured-products-track" id="featured-products-track">
 
             <div class="featured-products-slide">
-              <a href="https://eu.store.bambulab.com/it/products/ams-2-pro" class="product-box">
+              <a href="product.php?id=49" class="product-box">
                 <div>
                   <h1 class="product-title">AMS 2 PRO</h1>
                   <div class="product-subtitle">Sistema AMS di seconda generazione compatibile con la serie X1 e P1
@@ -151,7 +151,7 @@ include __DIR__ . '/layout/header.php';
             </div>
 
             <div class="featured-products-slide">
-              <a href="https://eu.store.bambulab.com/it/products/vision-encoder" class="product-box">
+              <a href="product.php?id=28" class="product-box">
                 <div>
                   <h1 class="product-title">Vision Encoder</h1>
                   <div class="product-subtitle">Precisione a un nuovo livello</div>
@@ -167,7 +167,7 @@ include __DIR__ . '/layout/header.php';
             </div>
 
             <div class="featured-products-slide">
-              <a href="https://eu.store.bambulab.com/it/products/bambu-high-flow-hotend-h2-p2s" class="product-box">
+              <a href="product.php?id=31" class="product-box">
                 <div>
                   <h1 class="product-title">Hotend ad alta portata</h1>
                   <div class="product-subtitle"></div>
@@ -183,7 +183,7 @@ include __DIR__ . '/layout/header.php';
             </div>
 
             <div class="featured-products-slide">
-              <a href="https://eu.store.bambulab.com/it/products/laser-upgrade-kit" class="product-box">
+              <a href="product.php?id=30" class="product-box">
                 <div>
                   <h1 class="product-title">H2 Laser Upgrade Kit</h1>
                   <div class="product-subtitle">Potenzia il tuo H2 con il taglio laser di precisione</div>
@@ -199,7 +199,7 @@ include __DIR__ . '/layout/header.php';
             </div>
 
             <div class="featured-products-slide">
-              <a href="https://eu.store.bambulab.com/it/products/tungsten-carbide-nozzle-h2-p2s" class="product-box">
+              <a href="product.php?id=31" class="product-box">
                 <div>
                   <h1 class="product-title">Tungsten Carbide Nozzle</h1>
                   <div class="product-subtitle">Perfetto per filamenti abrasivi</div>
@@ -215,7 +215,7 @@ include __DIR__ . '/layout/header.php';
             </div>
 
             <div class="featured-products-slide">
-              <a href="https://eu.store.bambulab.com/it/products/bambu-lab-rotary-attachment" class="product-box">
+              <a href="product.php?id=28" class="product-box">
                 <div>
                   <h1 class="product-title">Rotary Attachment</h1>
                   <div class="product-subtitle">Incisioni laser professionali su tazze e oggetti curvi</div>
@@ -234,7 +234,7 @@ include __DIR__ . '/layout/header.php';
         </div>
       </div>
       <div class="products-box2">
-        <a href="https://eu.store.bambulab.com/it/products/ams-2-pro" class="product-box">
+        <a href="product.php?id=49" class="product-box">
           <div>
             <h1 class="product-title">AMS 2 Pro</h1>
             <div class="product-subtitle">Sistema AMS di seconda generazione compatibile con le serie X1 e P1</div>
@@ -249,7 +249,7 @@ include __DIR__ . '/layout/header.php';
           </div>
           <img src="img/ams2pro.png" alt="ams2pro" height="124">
         </a>
-        <a href="https://eu.store.bambulab.com/it/products/vision-encoder" class="product-box">
+        <a href="product.php?id=28" class="product-box">
           <div>
             <h1 class="product-title">Vision Encoder</h1>
             <div class="product-subtitle">Precisione a un nuovo livello</div>
@@ -264,7 +264,7 @@ include __DIR__ . '/layout/header.php';
           </div>
           <img src="img/visionencoder.png" alt="ams2pro" height="124">
         </a>
-        <a href="https://eu.store.bambulab.com/it/products/bambu-high-flow-hotend-h2-p2s" class="product-box">
+        <a href="product.php?id=31" class="product-box">
           <div>
             <h1 class="product-title">Hotend ad alta portata</h1>
             <div class="product-subtitle"></div>
@@ -279,7 +279,7 @@ include __DIR__ . '/layout/header.php';
           </div>
           <img src="img/hotendadaltaportata.png" alt="ams2pro" height="124">
         </a>
-        <a href="https://eu.store.bambulab.com/it/products/laser-upgrade-kit" class="product-box">
+        <a href="product.php?id=30" class="product-box">
           <div>
             <h1 class="product-title">H2 Laser Upgrade Kit</h1>
             <div class="product-subtitle">Potenzia il tuo H2 con il taglio laser di precisione</div>
@@ -294,7 +294,7 @@ include __DIR__ . '/layout/header.php';
           </div>
           <img src="img/h2laserupgradekit.png" alt="ams2pro" height="124">
         </a>
-        <a href="https://eu.store.bambulab.com/it/products/tungsten-carbide-nozzle-h2-p2s" class="product-box">
+        <a href="product.php?id=31" class="product-box">
           <div>
             <h1 class="product-title">Tungsten Carbide Nozzle</h1>
             <div class="product-subtitle">Perfetto per filamenti abrasivi</div>
@@ -309,7 +309,7 @@ include __DIR__ . '/layout/header.php';
           </div>
           <img src="img/tungstencarbidenozzle.png" alt="ams2pro" height="124">
         </a>
-        <a href="https://eu.store.bambulab.com/it/products/bambu-lab-rotary-attachment" class="product-box">
+        <a href="product.php?id=28" class="product-box">
           <div>
             <h1 class="product-title">Rotary Attachment</h1>
             <div class="product-subtitle">Incisioni laser professionali su tazze e oggetti curvi</div>
