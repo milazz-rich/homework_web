@@ -81,12 +81,8 @@ class ProductRepository
         return $products;
     }
 
-    public function findFirstN(?int $limit = null): array
+    public function findLatest(int $limit): array
     {
-        if ($limit === null) {
-            return $this->findAll();
-        }
-
         $limit = max(0, $limit);
         $sql = "SELECT `id`, `name`, `subtitle`, `price`, `image_path`, `type` FROM `product` ORDER BY `id` DESC LIMIT {$limit}";
         $result = mysqli_query($this->mysqli, $sql);
@@ -103,14 +99,9 @@ class ProductRepository
         return $products;
     }
 
-    public function findFirstNByType(int $type, ?int $limit = null): array
+    public function findLatestByType(int $type, int $limit): array
     {
         $type = (int) $type;
-
-        if ($limit === null) {
-            return $this->findByType($type);
-        }
-
         $limit = max(0, $limit);
         $sql = "SELECT `id`, `name`, `subtitle`, `price`, `image_path`, `type` FROM `product` WHERE `type` = {$type} ORDER BY `id` DESC LIMIT {$limit}";
         $result = mysqli_query($this->mysqli, $sql);

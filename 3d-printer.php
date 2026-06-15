@@ -13,7 +13,7 @@ $printers = [];
 
 try {
   $productService = new ProductService();
-  $products = $productService->getProducts(0);
+  $products = $productService->getProductsByType(0);
 } catch (Throwable $e) {
   $products = [];
 }

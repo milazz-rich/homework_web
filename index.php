@@ -18,11 +18,11 @@ $materials = [];
 
 try {
   $productService = new ProductService();
-  $products = $productService->getProducts(0);
-  $filaments = $productService->getProducts(1);
-  $accessories = $productService->getProducts(2);
-  $makersupply = $productService->getProducts(3);
-  $materials = $productService->getProducts(4);
+  $products = $productService->getProductsByType(0);
+  $filaments = $productService->getProductsByType(1);
+  $accessories = $productService->getProductsByType(2);
+  $makersupply = $productService->getProductsByType(3);
+  $materials = $productService->getProductsByType(4);
 } catch (Throwable $e) {
   $products = [];
   $filaments = [];

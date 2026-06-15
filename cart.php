@@ -16,10 +16,10 @@ $recommendedMaterials = [];
 
 try {
   $productService = new ProductService();
-  $recommendedPrinters = $productService->getProducts(0, 1);
-  $recommendedFilaments = $productService->getProducts(1, 1);
-  $recommendedAccessories = $productService->getProducts(2, 1);
-  $recommendedMaterials = $productService->getProducts(4, 1);
+  $recommendedPrinters = $productService->getLatestProductsByType(0, 1);
+  $recommendedFilaments = $productService->getLatestProductsByType(1, 1);
+  $recommendedAccessories = $productService->getLatestProductsByType(2, 1);
+  $recommendedMaterials = $productService->getLatestProductsByType(4, 1);
 } catch (Throwable $e) {
   $recommendedPrinters = [];
   $recommendedFilaments = [];

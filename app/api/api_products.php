@@ -35,7 +35,16 @@ if (isset($_GET['type']) && $_GET['type'] !== '') {
 
 try {
     $productService = new ProductService();
-    $products = $productService->getProducts($type, $limit);
+
+    if ($type !== null && $limit !== null) {
+        $products = $productService->getLatestProductsByType($type, $limit);
+    } elseif ($type !== null) {
+        $products = $productService->getProductsByType($type);
+    } elseif ($limit !== null) {
+        $products = $productService->getLatestProducts($limit);
+    } else {
+        $products = $productService->getAllProducts();
+    }
 
     echo json_encode(array_map(static fn (Product $product) => $product->toArray(), $products), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 } catch (Throwable $e) {

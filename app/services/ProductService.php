@@ -11,13 +11,23 @@ class ProductService
         $this->productRepository = $productRepository ?? new ProductRepository();
     }
 
-    /** @return Product[] */
-    public function getProducts(?int $type = null, ?int $limit = null): array
+    public function getAllProducts(): array
     {
-        if ($type === null) {
-            return $this->productRepository->findFirstN($limit);
-        }
+        return $this->productRepository->findAll();
+    }
 
-        return $this->productRepository->findFirstNByType($type, $limit);
+    public function getProductsByType(int $type): array
+    {
+        return $this->productRepository->findByType($type);
+    }
+
+    public function getLatestProducts(int $limit): array
+    {
+        return $this->productRepository->findLatest($limit);
+    }
+
+    public function getLatestProductsByType(int $type, int $limit): array
+    {
+        return $this->productRepository->findLatestByType($type, $limit);
     }
 }

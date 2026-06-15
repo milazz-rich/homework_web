@@ -13,12 +13,12 @@ $dropdownMakerSupply = [];
 
 try {
   $productService = new ProductService();
-  $dropdownPrinters = $productService->getProducts(0, 4);
-  $dropdownSaldiFeatured = $productService->getProducts(1, 1);
-  $dropdownAms = $productService->getProducts(5, 4);
-  $dropdownFilaments = $productService->getProducts(1, 4);
-  $dropdownAccessories = $productService->getProducts(2, 4);
-  $dropdownMakerSupply = $productService->getProducts(3, 8);
+  $dropdownPrinters = $productService->getLatestProductsByType(0, 4);
+  $dropdownSaldiFeatured = $productService->getLatestProductsByType(1, 1);
+  $dropdownAms = $productService->getLatestProductsByType(5, 4);
+  $dropdownFilaments = $productService->getLatestProductsByType(1, 4);
+  $dropdownAccessories = $productService->getLatestProductsByType(2, 4);
+  $dropdownMakerSupply = $productService->getLatestProductsByType(3, 8);
 } catch (Throwable $e) {
   $dropdownPrinters = [];
   $dropdownSaldiFeatured = [];

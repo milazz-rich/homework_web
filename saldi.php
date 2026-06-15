@@ -14,7 +14,7 @@ $products = [];
 
 try {
   $productService = new ProductService();
-  $products = $productService->getProducts();
+  $products = $productService->getAllProducts();
 } catch (Throwable $e) {
   $products = [];
 }
