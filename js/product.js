@@ -117,10 +117,10 @@ document.querySelector('.btn-add-cart')?.addEventListener('click', () => {
         window.refreshCartBadge();
       }
       btn.textContent = 'Aggiunto ✓';
-      btn.style.background = '#00993a';
+      btn.classList.add('is-added');
       setTimeout(() => {
         btn.textContent = original;
-        btn.style.background = '';
+        btn.classList.remove('is-added');
         btn.disabled = false;
       }, 1800);
     })
@@ -174,10 +174,10 @@ document.querySelectorAll('.bundle-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     if (btn.textContent === 'Aggiunto') {
       btn.textContent = 'Aggiungi';
-      btn.style.background = '';
+      btn.classList.remove('is-added');
     } else {
       btn.textContent = 'Aggiunto';
-      btn.style.background = '#00993a';
+      btn.classList.add('is-added');
     }
   });
 });

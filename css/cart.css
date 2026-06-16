@@ -50,6 +50,17 @@
   gap: 18px;
 }
 
+.cart-empty-state {
+  display: none;
+  padding: 24px 0;
+  color: #666;
+  text-align: center;
+}
+
+.cart-empty-state.is-visible {
+  display: block;
+}
+
 .cart-item {
   display: flex;
   align-items: center;
@@ -311,6 +322,11 @@
 
 .rec-card-btn:hover {
   background: #009938;
+}
+
+.rec-card-btn.is-in-cart {
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* FOOTER BAR */

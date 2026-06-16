@@ -49,7 +49,7 @@ $errorMessage = $_GET['error'] ?? '';
         <button type="button" class="btn-invia-codice" id="send-code-btn">Invia codice di verifica</button>
       </div>
 
-      <div class="form-error" id="verify-message" style="display:none;"></div>
+      <div class="form-error form-error--hidden" id="verify-message"></div>
 
       <div class="form-group password-wrapper">
         <input type="password" name="password" id="password" placeholder="password*" required>

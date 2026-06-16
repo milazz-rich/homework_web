@@ -38,30 +38,30 @@ class EmailService
             $total += $amount;
 
             $rows .= '<tr>'
-                . '<td style="padding:10px;border-bottom:1px solid #e5e5e5;">' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</td>'
-                . '<td style="padding:10px;border-bottom:1px solid #e5e5e5;text-align:center;">' . $quantity . '</td>'
-                . '<td style="padding:10px;border-bottom:1px solid #e5e5e5;text-align:right;">' . htmlspecialchars($this->formatStripeAmount($amount, $currency), ENT_QUOTES, 'UTF-8') . '</td>'
+                . '<td>' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</td>'
+                . '<td>' . $quantity . '</td>'
+                . '<td>' . htmlspecialchars($this->formatStripeAmount($amount, $currency), ENT_QUOTES, 'UTF-8') . '</td>'
                 . '</tr>';
         }
 
         if ($rows === '') {
-            $rows = '<tr><td colspan="3" style="padding:10px;border-bottom:1px solid #e5e5e5;">Ordine completato</td></tr>';
+            $rows = '<tr><td colspan="3">Ordine completato</td></tr>';
         }
 
-        $html = '<div style="font-family:Arial,sans-serif;color:#171717;line-height:1.5;">'
-            . '<h1 style="margin:0 0 12px;">Grazie per il tuo ordine</h1>'
+        $html = '<div>'
+            . '<h1>Grazie per il tuo ordine</h1>'
             . '<p>Il pagamento e&#39; stato completato correttamente. Qui sotto trovi il riepilogo del tuo ordine.</p>'
-            . '<table style="width:100%;border-collapse:collapse;margin-top:18px;">'
+            . '<table>'
             . '<thead><tr>'
-            . '<th style="padding:10px;border-bottom:2px solid #171717;text-align:left;">Prodotto</th>'
-            . '<th style="padding:10px;border-bottom:2px solid #171717;text-align:center;">Quantita&#39;</th>'
-            . '<th style="padding:10px;border-bottom:2px solid #171717;text-align:right;">Totale</th>'
+            . '<th>Prodotto</th>'
+            . '<th>Quantita&#39;</th>'
+            . '<th>Totale</th>'
             . '</tr></thead>'
             . '<tbody>' . $rows . '</tbody>'
-            . '<tfoot><tr><td colspan="2" style="padding:14px 10px;text-align:right;font-weight:bold;">Totale ordine</td>'
-            . '<td style="padding:14px 10px;text-align:right;font-weight:bold;">' . htmlspecialchars($this->formatStripeAmount($total, $currency), ENT_QUOTES, 'UTF-8') . '</td></tr></tfoot>'
+            . '<tfoot><tr><td colspan="2">Totale ordine</td>'
+            . '<td>' . htmlspecialchars($this->formatStripeAmount($total, $currency), ENT_QUOTES, 'UTF-8') . '</td></tr></tfoot>'
             . '</table>'
-            . '<p style="margin-top:18px;color:#666;">ID sessione Stripe: ' . htmlspecialchars($sessionId, ENT_QUOTES, 'UTF-8') . '</p>'
+            . '<p>ID sessione Stripe: ' . htmlspecialchars($sessionId, ENT_QUOTES, 'UTF-8') . '</p>'
             . '</div>';
 
         $this->sendEmail($to, 'Riepilogo del tuo ordine', $html, 'Impossibile inviare il recap ordine');

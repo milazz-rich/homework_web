@@ -37,9 +37,19 @@ function syncRecommendedButtons(items) {
 
     button.textContent = inCart ? 'Nel carrello' : 'Aggiungi al carrello';
     button.disabled = inCart;
-    button.style.opacity = inCart ? '0.7' : '1';
-    button.style.cursor = inCart ? 'not-allowed' : 'pointer';
+    button.classList.toggle('is-in-cart', inCart);
   });
+}
+
+function showCartMessage(message) {
+  if (!cartEmptyState) return;
+
+  cartEmptyState.textContent = message;
+  cartEmptyState.classList.add('is-visible');
+}
+
+function hideCartMessage() {
+  cartEmptyState?.classList.remove('is-visible');
 }
 
 function renderCart(items) {
@@ -61,14 +71,11 @@ function renderCart(items) {
 
   if (!items.length) {
     cartItemsList.innerHTML = '';
-    if (cartEmptyState) {
-      cartEmptyState.textContent = 'Il carrello è vuoto.';
-      cartEmptyState.style.display = 'block';
-    }
+    showCartMessage('Il carrello è vuoto.');
     return;
   }
 
-  if (cartEmptyState) cartEmptyState.style.display = 'none';
+  hideCartMessage();
 
   cartItemsList.innerHTML = items.map((item) => {
     const product = item.product || {};
@@ -112,9 +119,7 @@ async function loadCart() {
 
     if (response.status === 401) {
       cartItemsList.innerHTML = '';
-      if (cartEmptyState) {
-        cartEmptyState.style.display = 'block';
-      }
+      cartEmptyState?.classList.add('is-visible');
       return;
     }
 
@@ -125,10 +130,7 @@ async function loadCart() {
     renderCart(Array.isArray(data) ? data : []);
   } catch (error) {
     cartItemsList.innerHTML = '';
-    if (cartEmptyState) {
-      cartEmptyState.textContent = error.message || 'Errore nel caricamento del carrello.';
-      cartEmptyState.style.display = 'block';
-    }
+    showCartMessage(error.message || 'Errore nel caricamento del carrello.');
   }
 }
 
@@ -230,10 +232,7 @@ cartItemsList?.addEventListener('click', async (event) => {
       await removeItem(cartId);
     }
   } catch (error) {
-    if (cartEmptyState) {
-      cartEmptyState.textContent = error.message || 'Errore aggiornamento carrello.';
-      cartEmptyState.style.display = 'block';
-    }
+    showCartMessage(error.message || 'Errore aggiornamento carrello.');
   }
 });
 
@@ -259,10 +258,7 @@ cartCheckoutBtn?.addEventListener('click', async () => {
 
     window.location.href = data.url;
   } catch (error) {
-    if (cartEmptyState) {
-      cartEmptyState.textContent = error.message || 'Errore durante il checkout.';
-      cartEmptyState.style.display = 'block';
-    }
+    showCartMessage(error.message || 'Errore durante il checkout.');
     if (cartCheckoutBtn) {
       cartCheckoutBtn.disabled = false;
       cartCheckoutBtn.textContent = 'Checkout';
@@ -281,10 +277,7 @@ recommendedButtons.forEach((button) => {
       button.textContent = 'Aggiunta...';
       await addRecommendedProduct(productId);
     } catch (error) {
-      if (cartEmptyState) {
-        cartEmptyState.textContent = error.message || 'Errore aggiunta al carrello.';
-        cartEmptyState.style.display = 'block';
-      }
+      showCartMessage(error.message || 'Errore aggiunta al carrello.');
       button.disabled = false;
       button.textContent = 'Aggiungi al carrello';
     }

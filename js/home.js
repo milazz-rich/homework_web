@@ -81,10 +81,6 @@ let caroselSubtitle = document.querySelector(".carosel-subtitle");
 if (!caroselSubtitle && caroselTitle) {
   caroselSubtitle = document.createElement("div");
   caroselSubtitle.className = "carosel-subtitle";
-  caroselSubtitle.style.marginTop = "12px";
-  caroselSubtitle.style.fontSize = "16px";
-  caroselSubtitle.style.lineHeight = "1.4";
-  caroselSubtitle.style.fontWeight = "400";
 
   caroselTitle.parentNode.appendChild(caroselSubtitle);
 }
@@ -113,7 +109,7 @@ caroselMedia?.append(caroselImgMobile, caroselImgDesktop);
 let caroselIndex = 0;
 
 function setVisible(el, visible) {
-  if (el) el.style.display = visible ? "block" : "none";
+  el?.classList.toggle("hidden", !visible);
 }
 
 function creaBottone({ text, href, type }) {
@@ -121,19 +117,8 @@ function creaBottone({ text, href, type }) {
   const arrowColor = isOutline ? "#ffffff" : "#333333";
 
   const link = document.createElement("a");
-  link.className = "carosel-button";
+  link.className = `carosel-button ${isOutline ? "carosel-button--outline" : "carosel-button--solid"}`;
   link.href = href;
-  if (isOutline) {
-    link.style.backgroundColor = "transparent";
-    link.style.borderColor = "#ffffff";
-    link.style.color = "#ffffff";
-    link.style.marginRight = "20px"
-  } else {
-    link.style.backgroundColor = "#ffffff";
-    link.style.borderColor = "transparent";
-    link.style.color = "rgb(51, 51, 51)";
-    link.style.marginRight = "20px"
-  }
 
   const span = document.createElement("span");
   span.textContent = text;
@@ -152,28 +137,25 @@ function aggiornaCarosel() {
   caroselImgMobile.src = slide.mobile;
   caroselImgDesktop.src = slide.desktop;
   caroselImgMobile.alt = caroselImgDesktop.alt = slide.title;
+  carosel?.classList.toggle("carosel--dark-text", slide.textColor !== "#ffffff");
 
   if (caroselEyebrow) {
     caroselEyebrow.textContent = slide.eyebrow;
-    caroselEyebrow.style.color = slide.textColor;
     setVisible(caroselEyebrow, slide.eyebrow !== "");
   }
 
   if (caroselTitle) {
     caroselTitle.textContent = slide.title;
-    caroselTitle.style.color = slide.textColor;
   }
 
   if (caroselSubtitle) {
     caroselSubtitle.textContent = slide.subtitle;
-    caroselSubtitle.style.color = slide.textColor;
     setVisible(caroselSubtitle, slide.subtitle !== "");
   }
 
   if (caroselButtonRow) {
     caroselButtonRow.innerHTML = "";
     slide.buttons.forEach(btn => caroselButtonRow.appendChild(creaBottone(btn)));
-    caroselButtonRow.style.justifyContent = window.innerWidth >= 1025 ? "flex-start" : "center";
   }
 }
 

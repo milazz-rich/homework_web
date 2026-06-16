@@ -27,10 +27,8 @@ const verifyMessage = document.getElementById('verify-message');
 if (emailInput && sendCodeBtn && verifyMessage) {
   function showVerifyMessage(message, isError = true) {
     verifyMessage.textContent = message;
-    verifyMessage.style.display = 'block';
-    verifyMessage.style.background = isError ? '#fff1f0' : '#f6ffed';
-    verifyMessage.style.borderColor = isError ? '#ffccc7' : '#b7eb8f';
-    verifyMessage.style.color = isError ? '#a8071a' : '#237804';
+    verifyMessage.classList.remove('form-error--hidden');
+    verifyMessage.classList.toggle('form-error--success', !isError);
   }
 
   sendCodeBtn.addEventListener('click', async () => {

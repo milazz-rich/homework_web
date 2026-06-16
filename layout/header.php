@@ -220,7 +220,7 @@ try {
         </button>
         <div class="dropdown-menu hidden" data-dropdown-menu="user">
           <?php if ($authUser !== null): ?>
-            <span style="display:block;padding:12px 16px;color:#666;font-size:13px;">Ciao, <?= htmlspecialchars($authUser->getNome() ?: 'Utente', ENT_QUOTES) ?></span>
+            <span class="dropdown-user-greeting">Ciao, <?= htmlspecialchars($authUser->getNome() ?: 'Utente', ENT_QUOTES) ?></span>
             <a href="app/api/api_logout.php">Logout</a>
           <?php else: ?>
             <a href="register.php">Registrati</a>

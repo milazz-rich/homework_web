@@ -46,12 +46,12 @@ if ($product === null) {
   include __DIR__ . '/layout/header.php';
   ?>
   <main class="product-page">
-    <section class="product-hero" style="justify-content:center; min-height: 50vh;">
-      <div class="product-panel" style="max-width: 720px; text-align:center;">
-        <h1 class="product-panel-price-main" style="font-size:32px;">Prodotto non trovato</h1>
+    <section class="product-hero product-hero--not-found">
+      <div class="product-panel product-panel--not-found">
+        <h1 class="product-panel-price-main product-panel-price-main--not-found">Prodotto non trovato</h1>
         <p class="product-panel-desc">L'id prodotto richiesto non esiste o non è valido.</p>
-        <div class="product-cta" style="justify-content:center;">
-          <a class="btn-add-cart" href="index.php" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Torna alla home</a>
+        <div class="product-cta product-cta--not-found">
+          <a class="btn-add-cart btn-add-cart--link" href="index.php">Torna alla home</a>
         </div>
       </div>
     </section>

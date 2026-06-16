@@ -58,11 +58,13 @@ if (currencyConverter.button) {
       .then((response) => response.json())
       .then((data) => {
         currencyConverter.result.textContent = data.message || 'Errore nel recupero del cambio valuta.';
-        currencyConverter.result.style.color = data.success ? '#1b7a35' : '#cc2b2b';
+        currencyConverter.result.classList.toggle('is-success', !!data.success);
+        currencyConverter.result.classList.toggle('is-error', !data.success);
       })
       .catch(() => {
         currencyConverter.result.textContent = 'Errore nel recupero del cambio valuta.';
-        currencyConverter.result.style.color = '#cc2b2b';
+        currencyConverter.result.classList.remove('is-success');
+        currencyConverter.result.classList.add('is-error');
       });
   });
 }

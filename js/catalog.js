@@ -81,11 +81,11 @@ function initCatalogPage(options) {
     const visibleCards = sortCards(cards.filter(matchesFilters));
 
     cards.forEach((card) => {
-      card.style.display = 'none';
+      card.classList.add('hidden');
     });
 
     visibleCards.forEach((card) => {
-      card.style.display = '';
+      card.classList.remove('hidden');
       grid.appendChild(card);
     });
 
@@ -122,20 +122,8 @@ function initCatalogPage(options) {
     const clearButton = document.createElement('button');
     clearButton.type = 'button';
     clearButton.textContent = 'X';
+    clearButton.className = 'catalog-clear-btn';
     clearButton.setAttribute('aria-label', 'Reset filtri');
-    clearButton.style.border = '0';
-    clearButton.style.background = 'transparent';
-    clearButton.style.cursor = 'pointer';
-    clearButton.style.fontWeight = '700';
-    clearButton.style.width = '28px';
-    clearButton.style.height = '28px';
-    clearButton.style.borderRadius = '50%';
-    clearButton.style.color = '#333';
-    clearButton.style.position = 'absolute';
-    clearButton.style.right = '42px';
-    clearButton.style.top = '50%';
-    clearButton.style.transform = 'translateY(-50%)';
-    clearButton.style.flex = '0 0 auto';
 
     clearButton.addEventListener('click', clearFilters);
     searchWrap.appendChild(clearButton);

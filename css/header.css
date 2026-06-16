@@ -220,6 +220,10 @@
   pointer-events: none;
 }
 
+.cart-badge.is-visible {
+  display: inline-flex;
+}
+
 .navbar-mobile-icon-button:hover {
   background: #f5f5f5;
 }
@@ -688,6 +692,13 @@ body.search-modal-open {
 
 .dropdown-menu--simple a:hover {
   background: #f5f5f5;
+}
+
+.dropdown-user-greeting {
+  display: block;
+  padding: 12px 16px;
+  color: #666;
+  font-size: 13px;
 }
 
 .dropdown-menu--full {

@@ -143,10 +143,10 @@ function updateCartBadge(count) {
 
     if (count > 0) {
       badge.textContent = count > 99 ? '99+' : String(count);
-      badge.style.display = 'inline-flex';
+      badge.classList.add('is-visible');
     } else {
       badge.textContent = '0';
-      badge.style.display = 'none';
+      badge.classList.remove('is-visible');
     }
   });
 }

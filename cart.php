@@ -49,7 +49,7 @@ include __DIR__ . '/layout/header.php';
     <!-- CART ITEMS -->
     <section class="cart-items-section">
       <div id="cart-items-list"></div>
-      <div id="cart-empty-state" style="display:none; text-align:center; color:#666; padding:24px 0;">
+      <div id="cart-empty-state" class="cart-empty-state">
         <?= $isAuthenticated ? 'Il carrello è vuoto.' : 'Accedi per vedere il tuo carrello.' ?>
       </div>
     </section>
