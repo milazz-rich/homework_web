@@ -58,6 +58,7 @@ class NewsletterService
   {
     try {
       $response = Http::timeout($this->timeout)
+        ->withoutVerifying()
         ->acceptJson()
         ->get($this->endpoint, [
           'access_key' => $this->accessKey,

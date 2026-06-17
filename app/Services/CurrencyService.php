@@ -48,6 +48,7 @@ class CurrencyService
   {
     try {
       $response = Http::timeout($this->timeout)
+        ->withoutVerifying()
         ->acceptJson()
         ->get($this->endpoint . '/' . urlencode($from));
     } catch (ConnectionException $e) {
