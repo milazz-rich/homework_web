@@ -28,6 +28,7 @@ const searchElements = {
 let searchProducts = [];
 let searchProductsLoaded = false;
 
+// Protegge testo dinamico nei risultati ricerca.
 function escapeSearchHtml(value) {
   return String(value || '')
     .replaceAll('&', '&amp;')
@@ -42,6 +43,7 @@ function closeDropdown(dropdown) {
   dropdown.container.classList.add('hidden');
 }
 
+// Apre un dropdown.
 function openDropdown(dropdown) {
   if (dropdown.closeTimer) {
     clearTimeout(dropdown.closeTimer);
@@ -51,10 +53,12 @@ function openDropdown(dropdown) {
   dropdown.container.classList.remove('hidden');
 }
 
+// Controlla se il mouse resta sui trigger.
 function isInsideAnyTrigger(dropdown, relatedTarget) {
   return dropdown.triggers.some((trigger) => trigger.contains(relatedTarget));
 }
 
+// Controlla se il mouse resta nel dropdown.
 function staysInsideDropdown(dropdown, relatedTarget) {
   return relatedTarget
     && (isInsideAnyTrigger(dropdown, relatedTarget) || dropdown.container.contains(relatedTarget));
@@ -102,6 +106,7 @@ function initFullDropdown(dropdown) {
   });
 }
 
+// Inizializza tutti i dropdown dell'header.
 function initDropdowns() {
   const dropdowns = Object.values(DROPDOWN_CONFIG);
 
@@ -137,6 +142,7 @@ function updateCartBadge(count) {
   }
 }
 
+// Gestisce la risposta del badge carrello.
 function onCartBadgeResponse(response) {
   if (response.status === 401 || !response.ok) {
     return null;
@@ -145,6 +151,7 @@ function onCartBadgeResponse(response) {
   return response.json();
 }
 
+// Calcola il totale prodotti per il badge.
 function onCartBadgeJson(items) {
   if (!Array.isArray(items)) {
     updateCartBadge(0);
@@ -159,11 +166,13 @@ function onCartBadgeJson(items) {
   updateCartBadge(count);
 }
 
+// Resetta il badge in caso di errore.
 function onCartBadgeError() {
   updateCartBadge(0);
   return null;
 }
 
+// Carica il badge carrello dall'API.
 function loadCartBadge() {
   if (!headerElements.cartBadges.length) return;
 
@@ -179,6 +188,7 @@ function updateSearchButtons(expanded) {
   }
 }
 
+// Gestisce la risposta dei prodotti ricerca.
 function onSearchProductsResponse(response) {
   if (!response.ok) {
     return null;
@@ -187,10 +197,12 @@ function onSearchProductsResponse(response) {
   return response.json();
 }
 
+// Gestisce errori nella ricerca prodotti.
 function onSearchProductsError() {
   return null;
 }
 
+// Salva i prodotti caricati per la ricerca.
 function onSearchProductsJson(data) {
   if (data === null) {
     if (searchElements.status) {
@@ -204,6 +216,7 @@ function onSearchProductsJson(data) {
   renderSearchResults();
 }
 
+// Carica i prodotti usati dalla ricerca.
 function loadSearchProducts() {
   if (searchProductsLoaded) {
     renderSearchResults();
@@ -219,6 +232,7 @@ function loadSearchProducts() {
   }).then(onSearchProductsResponse, onSearchProductsError).then(onSearchProductsJson);
 }
 
+// Filtra i prodotti in base alla query.
 function getSearchMatches(query) {
   return searchProducts
     .filter(function (product) {
@@ -230,6 +244,7 @@ function getSearchMatches(query) {
     .slice(0, 8);
 }
 
+// Crea il markup di un risultato ricerca.
 function renderSearchResult(product) {
   const image = product.image_path || 'img/stampanti3d.png';
   const price = Number(product.price || 0).toLocaleString('it-IT', {
@@ -251,6 +266,7 @@ function renderSearchResult(product) {
   `;
 }
 
+// Ridisegna i risultati della ricerca.
 function renderSearchResults() {
   if (!searchElements.input || !searchElements.results || !searchElements.status) return;
 
@@ -274,6 +290,7 @@ function renderSearchResults() {
   searchElements.results.innerHTML = matches.map(renderSearchResult).join('');
 }
 
+// Apre il modal di ricerca.
 function openSearchModal() {
   if (!headerElements.searchModal) return;
 
@@ -288,6 +305,7 @@ function openSearchModal() {
   loadSearchProducts();
 }
 
+// Chiude il modal di ricerca.
 function closeSearchModal() {
   if (!headerElements.searchModal) return;
 
@@ -296,6 +314,7 @@ function closeSearchModal() {
   updateSearchButtons(false);
 }
 
+// Inizializza il modal di ricerca.
 function initSearchModal() {
   for (const button of headerElements.searchOpenButtons) {
     button.addEventListener('click', openSearchModal);

@@ -12,6 +12,7 @@ let catalogViewMode = 'grid';
 let catalogTextFilters = {};
 let catalogLabelFilters = {};
 
+// Converte il prezzo testuale in numero.
 function parseCatalogPrice(text) {
   const match = String(text || '').match(/([\d\.]+),?(\d{0,2})/);
 
@@ -22,6 +23,7 @@ function parseCatalogPrice(text) {
   return Number.parseFloat(whole + '.' + decimals);
 }
 
+// Legge i testi principali di una card.
 function getCatalogCardText(card) {
   const name = card.querySelector('.catalog-card-name');
   const subtitle = card.querySelector('.catalog-card-subtitle');
@@ -36,6 +38,7 @@ function getCatalogCardText(card) {
   return text;
 }
 
+// Trova il filtro associato a un testo.
 function getCatalogFilterFromMap(text, filterMap) {
   const normalized = String(text || '').toLowerCase();
 
@@ -52,6 +55,7 @@ function getCatalogFilterFromMap(text, filterMap) {
   return '';
 }
 
+// Verifica se una card rispetta ricerca e filtro.
 function cardMatchesCatalogFilters(card) {
   const query = catalogSearchInput ? catalogSearchInput.value.trim().toLowerCase() : '';
   const text = getCatalogCardText(card);
@@ -65,6 +69,7 @@ function cardMatchesCatalogFilters(card) {
   return matchesQuery && matchesFilter;
 }
 
+// Ordina le card secondo la modalita selezionata.
 function sortCatalogCards(cards) {
   const sorted = [];
 
@@ -95,6 +100,7 @@ function sortCatalogCards(cards) {
   return sorted;
 }
 
+// Applica la vista griglia o lista.
 function applyCatalogViewMode() {
   if (!catalogGrid) return;
 
@@ -105,6 +111,7 @@ function applyCatalogViewMode() {
   }
 }
 
+// Ridisegna le card filtrate e ordinate.
 function renderCatalogCards() {
   if (!catalogGrid) return;
 
@@ -126,6 +133,7 @@ function renderCatalogCards() {
   applyCatalogViewMode();
 }
 
+// Aggiorna l'etichetta del pulsante ordine.
 function updateCatalogSortLabel() {
   const label = catalogSortButton ? catalogSortButton.querySelector('span') : null;
 
@@ -141,6 +149,7 @@ function updateCatalogSortLabel() {
   label.textContent = labels[catalogSortMode] || labels.default;
 }
 
+// Resetta ricerca, filtri e ordinamento.
 function clearCatalogFilters() {
   if (catalogSearchInput) catalogSearchInput.value = '';
 
@@ -155,6 +164,7 @@ function clearCatalogFilters() {
   renderCatalogCards();
 }
 
+// Gestisce il click sui filtri laterali.
 function onCatalogFilterClick(event) {
   event.preventDefault();
 
@@ -175,6 +185,7 @@ function onCatalogFilterClick(event) {
   renderCatalogCards();
 }
 
+// Cambia il criterio di ordinamento.
 function onCatalogSortClick() {
   if (catalogSortMode === 'default') catalogSortMode = 'price-asc';
   else if (catalogSortMode === 'price-asc') catalogSortMode = 'price-desc';
@@ -185,18 +196,21 @@ function onCatalogSortClick() {
   renderCatalogCards();
 }
 
+// Cambia la visualizzazione del catalogo.
 function onCatalogViewClick(event) {
   const button = event.currentTarget;
   catalogViewMode = button.dataset.view === 'list' ? 'list' : 'grid';
   renderCatalogCards();
 }
 
+// Gestisce Escape nel campo ricerca.
 function onCatalogSearchKeydown(event) {
   if (event.key === 'Escape') {
     clearCatalogFilters();
   }
 }
 
+// Aggiunge il pulsante per azzerare i filtri.
 function addCatalogClearButton() {
   const searchWrap = document.querySelector('.catalog-search-wrap');
 
@@ -211,6 +225,7 @@ function addCatalogClearButton() {
   searchWrap.appendChild(clearButton);
 }
 
+// Inizializza una pagina catalogo.
 function initCatalogPage(options = {}) {
   catalogSearchInput = document.querySelector('.catalog-search-input');
   catalogGrid = document.querySelector('.catalog-grid');

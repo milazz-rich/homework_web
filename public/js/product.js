@@ -40,10 +40,12 @@ productPurchaseForm?.addEventListener('submit', (event) => {
   event.preventDefault();
 });
 
+// Normalizza la quantità scelta.
 function normalizeQuantity(value) {
   return Math.min(99, Math.max(1, parseInt(value, 10) || 1));
 }
 
+// Aggiorna il prezzo in base alla quantità.
 function updatePrice() {
   if (!qtyInput || !priceDisplay) return;
 

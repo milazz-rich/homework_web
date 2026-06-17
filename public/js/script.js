@@ -1,5 +1,6 @@
 // Newsletter e convertitore valuta della homepage.
 
+// Recupera il token CSRF disponibile.
 function getCsrfToken() {
   const inputToken = document.querySelector('input[name="_token"]');
   const converterToken = document.querySelector('#fxCsrfToken');
@@ -11,6 +12,7 @@ function getCsrfToken() {
   return '';
 }
 
+// Normalizza le risposte JSON delle API.
 function onJsonResponse(response) {
   if (response.ok) {
     return response.json();
@@ -29,6 +31,7 @@ function onJsonResponse(response) {
   });
 }
 
+// Restituisce un errore standard di rete.
 function onNetworkError() {
   return {
     success: false,
@@ -36,6 +39,7 @@ function onNetworkError() {
   };
 }
 
+// Mostra il messaggio di un form.
 function setFormMessage(element, data, fallbackMessage) {
   if (!element) return;
 
@@ -44,6 +48,7 @@ function setFormMessage(element, data, fallbackMessage) {
   element.classList.toggle('is-error', data.success !== true);
 }
 
+// Gestisce lo stato loading di un pulsante.
 function setLoadingButton(button, isLoading, loadingText, originalText) {
   if (!button) return;
 
@@ -80,6 +85,7 @@ function onNewsletterSubmit(event) {
   });
 }
 
+// Prepara il body della richiesta valuta.
 function getCurrencyRequestBody() {
   const amountInput = document.querySelector('#fxAmount');
   const fromSelect = document.querySelector('#fxFrom');
@@ -129,6 +135,7 @@ function onCurrencyFieldKeydown(event) {
   }
 }
 
+// Inizializza il form newsletter.
 function initNewsletterSignup() {
   const form = document.querySelector('.newsletter-signup-form');
 
@@ -137,6 +144,7 @@ function initNewsletterSignup() {
   }
 }
 
+// Inizializza il convertitore valuta.
 function initCurrencyConverter() {
   const convertButton = document.querySelector('#fxConvertButton');
   const fields = [

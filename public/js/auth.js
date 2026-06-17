@@ -1,5 +1,6 @@
 // Login, registrazione e invio codice di verifica.
 
+// Recupera il token CSRF per l'autenticazione.
 function getAuthCsrfToken() {
   const metaToken = document.querySelector('meta[name="csrf-token"]');
   const inputToken = document.querySelector('input[name="_token"]');
@@ -9,6 +10,7 @@ function getAuthCsrfToken() {
   return '';
 }
 
+// Normalizza la risposta dei form auth.
 function onAuthResponse(response) {
   if (!response.ok) {
     return response.json().then(function (data) {
@@ -27,6 +29,7 @@ function onAuthResponse(response) {
   return response.json();
 }
 
+// Restituisce un errore auth di rete.
 function onAuthNetworkError() {
   return {
     success: false,
@@ -34,6 +37,7 @@ function onAuthNetworkError() {
   };
 }
 
+// Mostra un messaggio nei form auth.
 function showAuthMessage(message, isError) {
   const authMessage = document.querySelector('[data-auth-message]');
 
@@ -44,6 +48,7 @@ function showAuthMessage(message, isError) {
   authMessage.classList.toggle('form-error--success', isError === false);
 }
 
+// Gestisce lo stato loading dei pulsanti auth.
 function setButtonLoading(button, isLoading, loadingText, originalText) {
   if (!button) return;
 
@@ -51,6 +56,7 @@ function setButtonLoading(button, isLoading, loadingText, originalText) {
   button.textContent = isLoading ? loadingText : originalText;
 }
 
+// Aggiorna l'icona mostra/nascondi password.
 function setEyeIcon(icon, showPassword) {
   icon.innerHTML = showPassword
     ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
@@ -73,6 +79,7 @@ function onPasswordToggleClick(event) {
   setEyeIcon(icon, showPassword);
 }
 
+// Mostra il messaggio del codice verifica.
 function showVerifyMessage(message, isError) {
   const verifyMessage = document.querySelector('#verify-message');
 
@@ -153,6 +160,7 @@ function onAuthFormSubmit(event) {
   });
 }
 
+// Inizializza i pulsanti mostra password.
 function initPasswordToggles() {
   const buttons = document.querySelectorAll('.toggle-eye');
 
@@ -161,6 +169,7 @@ function initPasswordToggles() {
   }
 }
 
+// Inizializza l'invio codice verifica.
 function initVerificationCodeSender() {
   const sendCodeButton = document.querySelector('#send-code-btn');
 
@@ -169,6 +178,7 @@ function initVerificationCodeSender() {
   }
 }
 
+// Inizializza i form di autenticazione.
 function initAuthForms() {
   const forms = document.querySelectorAll('[data-auth-form]');
 

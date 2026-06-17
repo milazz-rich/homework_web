@@ -89,10 +89,12 @@ const featuredSlider = {
 
 let heroIndex = 0;
 
+// Mostra o nasconde un elemento.
 function setVisible(element, visible) {
   element?.classList.toggle('hidden', !visible);
 }
 
+// Crea il sottotitolo hero se manca.
 function ensureHeroSubtitle() {
   if (heroElements.subtitle || !heroElements.title) return;
 
@@ -101,6 +103,7 @@ function ensureHeroSubtitle() {
   heroElements.title.parentNode.appendChild(heroElements.subtitle);
 }
 
+// Crea un'immagine del carosello hero.
 function createHeroImage(className, alt) {
   const image = document.createElement('img');
   image.className = className;
@@ -109,6 +112,7 @@ function createHeroImage(className, alt) {
   return image;
 }
 
+// Prepara le immagini mobile e desktop hero.
 function setupHeroMedia() {
   if (!heroElements.root) return null;
 
@@ -129,6 +133,7 @@ function setupHeroMedia() {
   return { mobileImage, desktopImage };
 }
 
+// Crea un pulsante del carosello hero.
 function createHeroButton({ text, href, type }) {
   const isOutline = type === 'outline';
   const arrowColor = isOutline ? '#ffffff' : '#333333';
@@ -147,6 +152,7 @@ function createHeroButton({ text, href, type }) {
   return link;
 }
 
+// Mostra la slide hero corrente.
 function renderHeroSlide(heroImages) {
   const slide = HERO_SLIDES[heroIndex];
 
@@ -179,6 +185,7 @@ function renderHeroSlide(heroImages) {
   }
 }
 
+// Avanza alla prossima slide hero.
 function showNextHeroSlide(heroImages) {
   heroIndex = (heroIndex + 1) % HERO_SLIDES.length;
   renderHeroSlide(heroImages);
@@ -199,10 +206,12 @@ function initHeroCarousel() {
   window.addEventListener('resize', () => renderHeroSlide(heroImages));
 }
 
+// Calcola l'indice massimo dello slider prodotti.
 function getFeaturedMaxIndex() {
   return Math.max(0, featuredSlider.slides.length - 2);
 }
 
+// Aggiorna posizione dello slider prodotti.
 function updateFeaturedSlider() {
   const firstSlide = featuredSlider.slides[0];
 
@@ -217,6 +226,7 @@ function updateFeaturedSlider() {
   featuredSlider.track.style.transform = `translateX(-${featuredSlider.index * (slideWidth + featuredSlider.gap)}px)`;
 }
 
+// Avanza lo slider prodotti in evidenza.
 function showNextFeaturedSlide() {
   const maxIndex = getFeaturedMaxIndex();
   featuredSlider.index = featuredSlider.index >= maxIndex ? 0 : featuredSlider.index + 1;

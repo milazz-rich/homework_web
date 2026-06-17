@@ -13,10 +13,12 @@ const cartMoney = new Intl.NumberFormat('it-IT', {
 
 let cartItems = [];
 
+// Legge il token CSRF della pagina.
 function getCartCsrfToken() {
   return document.querySelector('meta[name="csrf-token"]')?.content || '';
 }
 
+// Protegge testo dinamico da HTML indesiderato.
 function escapeHtml(value) {
   return String(value || '')
     .replaceAll('&', '&amp;')
@@ -26,16 +28,19 @@ function escapeHtml(value) {
     .replaceAll("'", '&#039;');
 }
 
+// Formatta un valore in euro.
 function formatMoney(value) {
   return cartMoney.format(Number(value) || 0);
 }
 
+// Calcola il totale di una riga carrello.
 function getLineTotal(item) {
   const price = Number(item?.product?.price || 0);
   const quantity = Number(item?.quantity || 0);
   return price * quantity;
 }
 
+// Sincronizza i pulsanti dei prodotti consigliati.
 function syncRecommendedButtons(items) {
   const cartProductIds = new Set(items.map((item) => String(item?.product?.id || '')));
 
@@ -49,6 +54,7 @@ function syncRecommendedButtons(items) {
   });
 }
 
+// Mostra un messaggio nel carrello.
 function showCartMessage(message) {
   if (!cartEmptyState) return;
 
@@ -56,14 +62,17 @@ function showCartMessage(message) {
   cartEmptyState.classList.add('is-visible');
 }
 
+// Nasconde il messaggio del carrello.
 function hideCartMessage() {
   cartEmptyState?.classList.remove('is-visible');
 }
 
+// Trova una riga nella copia locale del carrello.
 function findLocalCartItem(cartId) {
   return cartItems.find((item) => String(item.id) === String(cartId));
 }
 
+// Aggiorna subito la quantità locale.
 function updateLocalCartItemQuantity(cartId, quantity) {
   const item = findLocalCartItem(cartId);
 
@@ -73,6 +82,7 @@ function updateLocalCartItemQuantity(cartId, quantity) {
   renderCart(cartItems);
 }
 
+// Rimuove subito una riga locale.
 function removeLocalCartItem(cartId) {
   cartItems = cartItems.filter((item) => String(item.id) !== String(cartId));
   renderCart(cartItems);
@@ -135,15 +145,18 @@ function renderCart(items) {
 }
 
 // Carica il carrello dal server.
-async function loadCart() {
+function loadCart() {
   if (!cartItemsList) return;
 
-  try {
-    const response = await fetch('/api/cart', {
-      headers: { Accept: 'application/json' },
+  return fetch('/api/cart', {
+    headers: { Accept: 'application/json' },
+  }).then(function (response) {
+    return response.json().then(function (data) {
+      return { response, data };
     });
-
-    const data = await response.json();
+  }).then(function (result) {
+    const response = result.response;
+    const data = result.data;
 
     if (response.status === 401) {
       cartItemsList.innerHTML = '';
@@ -157,90 +170,90 @@ async function loadCart() {
 
     cartItems = Array.isArray(data) ? data : [];
     renderCart(cartItems);
-  } catch (error) {
+  }).catch(function (error) {
     cartItemsList.innerHTML = '';
     showCartMessage(error.message || 'Errore nel caricamento del carrello.');
+  });
+}
+
+// Legge JSON e conserva la risposta originale.
+function readCartJson(response) {
+  return response.json().then(function (data) {
+    return { response, data };
+  });
+}
+
+// Aggiorna il badge header e ricarica il carrello.
+function refreshCartAfterChange() {
+  if (typeof window.refreshCartBadge === 'function') {
+    window.refreshCartBadge();
   }
+
+  return loadCart();
 }
 
 // Aggiunge un prodotto consigliato al carrello.
-async function addRecommendedProduct(printerId) {
+function addRecommendedProduct(printerId) {
   const formData = new FormData();
   formData.append('product_id', String(printerId));
   formData.append('quantity', '1');
   formData.append('_token', getCartCsrfToken());
 
-  const response = await fetch('/api/cart', {
+  return fetch('/api/cart', {
     method: 'POST',
     headers: { Accept: 'application/json' },
     body: formData,
+  }).then(readCartJson).then(function (result) {
+    if (!result.response.ok) {
+      throw new Error(result.data.message || 'Errore aggiunta al carrello.');
+    }
+
+    return refreshCartAfterChange();
   });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || 'Errore aggiunta al carrello.');
-  }
-
-  if (typeof window.refreshCartBadge === 'function') {
-    window.refreshCartBadge();
-  }
-
-  await loadCart();
 }
 
 // Aggiorna la quantità di una riga carrello.
-async function updateItemQuantity(cartId, quantity) {
+function updateItemQuantity(cartId, quantity) {
   const formData = new FormData();
   formData.append('cart_id', String(cartId));
   formData.append('quantity', String(quantity));
   formData.append('_token', getCartCsrfToken());
 
-  const response = await fetch('/api/cart', {
+  return fetch('/api/cart', {
     method: 'POST',
     headers: { Accept: 'application/json' },
     body: formData,
+  }).then(readCartJson).then(function (result) {
+    if (!result.response.ok) {
+      throw new Error(result.data.message || 'Errore aggiornamento carrello.');
+    }
+
+    return refreshCartAfterChange();
   });
-
-  if (!response.ok) {
-    const data = await response.json();
-    throw new Error(data.message || 'Errore aggiornamento carrello.');
-  }
-
-  if (typeof window.refreshCartBadge === 'function') {
-    window.refreshCartBadge();
-  }
-
-  return loadCart();
 }
 
 // Rimuove una riga carrello.
-async function removeItem(cartId) {
+function removeItem(cartId) {
   const body = new URLSearchParams({
     id: String(cartId),
     _token: getCartCsrfToken(),
   });
 
-  const response = await fetch('/api/cart', {
+  return fetch('/api/cart', {
     method: 'DELETE',
     headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
     body,
+  }).then(readCartJson).then(function (result) {
+    if (!result.response.ok) {
+      throw new Error(result.data.message || 'Errore rimozione elemento.');
+    }
+
+    return refreshCartAfterChange();
   });
-
-  if (!response.ok) {
-    const data = await response.json();
-    throw new Error(data.message || 'Errore rimozione elemento.');
-  }
-
-  if (typeof window.refreshCartBadge === 'function') {
-    window.refreshCartBadge();
-  }
-
-  return loadCart();
 }
 
 // Handler: click su +, -, rimuovi.
-cartItemsList?.addEventListener('click', async (event) => {
+cartItemsList?.addEventListener('click', function (event) {
   const target = event.target;
   const item = target.closest('.cart-item');
 
@@ -254,47 +267,49 @@ cartItemsList?.addEventListener('click', async (event) => {
   event.preventDefault();
 
   const currentQty = Number(item.querySelector('.qty-value')?.textContent || 1);
+  let request = null;
 
-  try {
-    if (action === 'increase') {
-      const nextQty = currentQty + 1;
-      updateLocalCartItemQuantity(cartId, nextQty);
-      await updateItemQuantity(cartId, nextQty);
-    }
+  if (action === 'increase') {
+    const nextQty = currentQty + 1;
+    updateLocalCartItemQuantity(cartId, nextQty);
+    request = updateItemQuantity(cartId, nextQty);
+  }
 
-    if (action === 'decrease') {
-      if (currentQty <= 1) {
-        removeLocalCartItem(cartId);
-        await removeItem(cartId);
-      } else {
-        const nextQty = currentQty - 1;
-        updateLocalCartItemQuantity(cartId, nextQty);
-        await updateItemQuantity(cartId, nextQty);
-      }
-    }
-
-    if (action === 'remove') {
+  if (action === 'decrease') {
+    if (currentQty <= 1) {
       removeLocalCartItem(cartId);
-      await removeItem(cartId);
+      request = removeItem(cartId);
+    } else {
+      const nextQty = currentQty - 1;
+      updateLocalCartItemQuantity(cartId, nextQty);
+      request = updateItemQuantity(cartId, nextQty);
     }
-  } catch (error) {
-    showCartMessage(error.message || 'Errore aggiornamento carrello.');
-    loadCart();
+  }
+
+  if (action === 'remove') {
+    removeLocalCartItem(cartId);
+    request = removeItem(cartId);
+  }
+
+  if (request) {
+    request.catch(function (error) {
+      showCartMessage(error.message || 'Errore aggiornamento carrello.');
+      loadCart();
+    });
   }
 });
 
 // Handler: checkout carrello completo.
-cartCheckoutBtn?.addEventListener('click', async () => {
-  try {
-    cartCheckoutBtn.disabled = true;
-    cartCheckoutBtn.textContent = 'Reindirizzamento...';
+cartCheckoutBtn?.addEventListener('click', function () {
+  cartCheckoutBtn.disabled = true;
+  cartCheckoutBtn.textContent = 'Reindirizzamento...';
 
-    const response = await fetch('/api/checkout', {
-      method: 'POST',
-      headers: { Accept: 'application/json', 'X-CSRF-TOKEN': getCartCsrfToken() },
-    });
-
-    const data = await response.json();
+  fetch('/api/checkout', {
+    method: 'POST',
+    headers: { Accept: 'application/json', 'X-CSRF-TOKEN': getCartCsrfToken() },
+  }).then(readCartJson).then(function (result) {
+    const response = result.response;
+    const data = result.data;
 
     if (!response.ok) {
       throw new Error(data.message || 'Errore durante il checkout.');
@@ -305,36 +320,35 @@ cartCheckoutBtn?.addEventListener('click', async () => {
     }
 
     window.location.href = data.url;
-  } catch (error) {
+  }).catch(function (error) {
     showCartMessage(error.message || 'Errore durante il checkout.');
     if (cartCheckoutBtn) {
       cartCheckoutBtn.disabled = false;
       cartCheckoutBtn.textContent = 'Checkout';
     }
-  }
+  });
 });
 
 // Handler: prodotti consigliati.
 recommendedButtons.forEach((button) => {
-  button.addEventListener('click', async () => {
+  button.addEventListener('click', function () {
     const productId = button.dataset.productId;
 
     if (!productId || button.disabled) return;
 
     const originalText = button.textContent;
 
-    try {
-      button.disabled = true;
-      button.textContent = 'Nel carrello';
-      button.classList.add('is-in-cart');
-      await addRecommendedProduct(productId);
-    } catch (error) {
+    button.disabled = true;
+    button.textContent = 'Nel carrello';
+    button.classList.add('is-in-cart');
+
+    addRecommendedProduct(productId).catch(function (error) {
       showCartMessage(error.message || 'Errore aggiunta al carrello.');
       button.disabled = false;
       button.textContent = originalText;
       button.classList.remove('is-in-cart');
       loadCart();
-    }
+    });
   });
 });
 
