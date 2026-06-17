@@ -8,6 +8,7 @@ use App\Services\ShopService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use InvalidArgumentException;
 use RuntimeException;
 use Throwable;
 
@@ -74,6 +75,13 @@ class ShopController extends Controller
       return response()->json([
         'message' => $e->getMessage(),
       ], $e->getStatusCode());
+    }
+
+    if ($e instanceof InvalidArgumentException) {
+      return response()->json([
+        'success' => false,
+        'message' => $e->getMessage(),
+      ], 400);
     }
 
     if ($e instanceof RuntimeException) {

@@ -50,11 +50,13 @@ class CartService
   }
 
   // Rimuove un singolo elemento del carrello.
-  public function removeItem(int $id): bool
+  public function removeItem(int $userId, int $id): bool
   {
+    $this->assertPositiveId($userId, 'User non valido.');
     $this->assertPositiveId($id, 'Elemento carrello non valido.');
 
     return Cart::query()
+      ->where('user_id', $userId)
       ->whereKey($id)
       ->delete() > 0;
   }
@@ -70,12 +72,16 @@ class CartService
   }
 
   // Aggiorna la quantità di un elemento già presente nel carrello.
-  public function updateQuantity(int $id, int $quantity): bool
+  public function updateQuantity(int $userId, int $id, int $quantity): bool
   {
+    $this->assertPositiveId($userId, 'User non valido.');
     $this->assertPositiveId($id, 'Elemento carrello non valido.');
     $this->assertPositiveQuantity($quantity);
 
-    $cart = Cart::query()->find($id);
+    $cart = Cart::query()
+      ->where('user_id', $userId)
+      ->whereKey($id)
+      ->first();
 
     if ($cart === null) {
       throw new RuntimeException('Elemento carrello non trovato.');

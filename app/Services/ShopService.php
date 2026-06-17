@@ -43,7 +43,7 @@ class ShopService
     $userId = (int) $user->id;
 
     if (isset($payload['cart_id'])) {
-      return $this->updateCartItemQuantity($payload);
+      return $this->updateCartItemQuantity($userId, $payload);
     }
 
     if (!isset($payload['product_id'])) {
@@ -78,7 +78,7 @@ class ShopService
 
     $cartId = $this->readRequiredInt($payload, 'id', 'Manca id valido.');
 
-    $this->cartService->removeItem($cartId);
+    $this->cartService->removeItem($userId, $cartId);
 
     return [
       'message' => 'Elemento rimosso dal carrello.',
@@ -107,7 +107,10 @@ class ShopService
       $lineItems,
       $baseUrl . '/payment-success?session_id={CHECKOUT_SESSION_ID}&clear_cart=1',
       $baseUrl . '/cart?checkout=cancel',
-      $user->email
+      $user->email,
+      [
+        'user_id' => (string) $user->id,
+      ]
     );
 
     return $this->formatStripeSession($session);
@@ -142,21 +145,24 @@ class ShopService
         $this->productToLineItem($product, $quantity, $baseUrl),
       ],
       $baseUrl . '/payment-success?session_id={CHECKOUT_SESSION_ID}',
-      $baseUrl . '/product/' . (int) $product->id . '?checkout=cancel',
-      $user->email
+      $baseUrl . '/product?id=' . (int) $product->id . '&checkout=cancel',
+      $user->email,
+      [
+        'user_id' => (string) $user->id,
+      ]
     );
 
     return $this->formatStripeSession($session);
   }
 
   // Aggiorna o rimuove un elemento carrello in base alla quantità ricevuta.
-  private function updateCartItemQuantity(array $payload): array
+  private function updateCartItemQuantity(int $userId, array $payload): array
   {
     $cartId = $this->readRequiredInt($payload, 'cart_id', 'cart_id non valido.');
     $quantity = $this->readRequiredInt($payload, 'quantity', 'quantity non valida.');
 
     if ($quantity <= 0) {
-      $this->cartService->removeItem($cartId);
+      $this->cartService->removeItem($userId, $cartId);
 
       return [
         'message' => 'Elemento rimosso dal carrello.',
@@ -164,7 +170,7 @@ class ShopService
     }
 
     return [
-      'success' => $this->cartService->updateQuantity($cartId, $quantity),
+      'success' => $this->cartService->updateQuantity($userId, $cartId, $quantity),
     ];
   }
 

@@ -32,7 +32,8 @@ class StripeService
     array $items,
     string $successUrl,
     string $cancelUrl,
-    ?string $customerEmail = null
+    ?string $customerEmail = null,
+    array $metadata = []
   ): array {
     $payload = [
       'mode' => 'payment',
@@ -42,6 +43,10 @@ class StripeService
 
     if ($customerEmail !== null && $customerEmail !== '') {
       $payload['customer_email'] = $customerEmail;
+    }
+
+    foreach ($metadata as $key => $value) {
+      $payload['metadata[' . $key . ']'] = (string) $value;
     }
 
     foreach ($items as $index => $item) {
@@ -83,6 +88,21 @@ class StripeService
   public function getWebhookSecret(): string
   {
     return $this->webhookSecret;
+  }
+
+  // Recupera i dettagli della sessione checkout per verificarne lo stato.
+  public function retrieveCheckoutSession(string $sessionId): array
+  {
+    $sessionId = trim($sessionId);
+
+    if ($sessionId === '') {
+      throw new InvalidArgumentException('Session id non valido.');
+    }
+
+    return $this->request(
+      'GET',
+      '/checkout/sessions/' . rawurlencode($sessionId)
+    );
   }
 
   // Converte un item interno nel formato form richiesto da Stripe.

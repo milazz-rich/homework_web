@@ -15,13 +15,21 @@
         </svg>
       </div>
 
-      <p class="payment-success-kicker">Pagamento riuscito</p>
-      <h1 class="payment-success-title">Grazie per il tuo ordine</h1>
-      <p class="payment-success-text">
-        Stripe ha confermato il pagamento. Riceverai gli aggiornamenti dell'ordine all'indirizzo e-mail usato durante il checkout.
-      </p>
+      @if ($paymentVerified)
+        <p class="payment-success-kicker">Pagamento riuscito</p>
+        <h1 class="payment-success-title">Grazie per il tuo ordine</h1>
+        <p class="payment-success-text">
+          Stripe ha confermato il pagamento. Riceverai gli aggiornamenti dell'ordine all'indirizzo e-mail usato durante il checkout.
+        </p>
+      @else
+        <p class="payment-success-kicker">Pagamento non verificato</p>
+        <h1 class="payment-success-title">Non possiamo confermare il pagamento</h1>
+        <p class="payment-success-text">
+          La sessione Stripe non risulta confermata oppure non appartiene al tuo account.
+        </p>
+      @endif
 
-      @if ($recapSent)
+      @if ($paymentVerified && $recapSent)
         <p class="payment-success-note">Ti abbiamo inviato una mail con il riepilogo dell'ordine.</p>
       @endif
 

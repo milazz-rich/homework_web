@@ -33,12 +33,12 @@ class AppServiceProvider extends ServiceProvider
 			} catch (\Throwable $e) {
 				Log::error($e->getMessage());
 
-				$dropdownPrinters = [];
-				$dropdownSaldiFeatured = [];
-				$dropdownAms = [];
-				$dropdownFilaments = [];
-				$dropdownAccessories = [];
-				$dropdownMakerSupply = [];
+				$dropdownPrinters = collect();
+				$dropdownSaldiFeatured = collect();
+				$dropdownAms = collect();
+				$dropdownFilaments = collect();
+				$dropdownAccessories = collect();
+				$dropdownMakerSupply = collect();
 			}
 
 			$view->with([
