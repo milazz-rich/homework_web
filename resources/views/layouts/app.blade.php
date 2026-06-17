@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('title', 'Bambu Store')</title>
 
   <link rel="icon" type="image/x-icon" href="https://eu.store.bambulab.com/favicon.ico">

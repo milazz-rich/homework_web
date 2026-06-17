@@ -793,7 +793,7 @@
           </div>
 
           <div class="newsletter-signup-form-wrap">
-            <form class="newsletter-signup-form" action="{{ url('/newsletter') }}" method="POST">
+            <form class="newsletter-signup-form" action="{{ url('/api/newsletter') }}" method="POST">
               @csrf
               <input type="email" name="email" placeholder="Inserire l'e-mail" aria-label="Inserire l'e-mail" required>
 
@@ -867,6 +867,7 @@
               </div>
             </div>
 
+            <input id="fxCsrfToken" type="hidden" value="{{ csrf_token() }}">
             <button id="fxConvertButton" type="button">Converti</button>
             <p id="fxResult" class="currency-converter-result"></p>
           </div>
