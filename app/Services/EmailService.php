@@ -60,22 +60,24 @@ class EmailService
   {
     $summary = $this->buildOrderRows($lineItems);
 
-    return '<div>'
-      . '<h1>Grazie per il tuo ordine</h1>'
+    return '<div style="font-family:Arial,sans-serif;color:#171717;line-height:1.5;">'
+      . '<h1 style="margin:0 0 12px;">Grazie per il tuo ordine</h1>'
       . '<p>Il pagamento è stato completato correttamente. Qui sotto trovi il riepilogo del tuo ordine.</p>'
-      . '<table>'
+      . '<table style="width:100%;border-collapse:collapse;margin-top:18px;">'
       . '<thead><tr>'
-      . '<th>Prodotto</th>'
-      . '<th>Quantità</th>'
-      . '<th>Totale</th>'
+      . '<th style="padding:10px;border-bottom:2px solid #171717;text-align:left;">Prodotto</th>'
+      . '<th style="padding:10px;border-bottom:2px solid #171717;text-align:center;">Quantità</th>'
+      . '<th style="padding:10px;border-bottom:2px solid #171717;text-align:right;">Totale</th>'
       . '</tr></thead>'
       . '<tbody>' . $summary['rows'] . '</tbody>'
       . '<tfoot><tr>'
-      . '<td colspan="2">Totale ordine</td>'
-      . '<td>' . e($this->formatStripeAmount($summary['total'], $summary['currency'])) . '</td>'
+      . '<td colspan="2" style="padding:14px 10px;text-align:right;font-weight:bold;">Totale ordine</td>'
+      . '<td style="padding:14px 10px;text-align:right;font-weight:bold;">'
+      . e($this->formatStripeAmount($summary['total'], $summary['currency']))
+      . '</td>'
       . '</tr></tfoot>'
       . '</table>'
-      . '<p>ID sessione Stripe: ' . e($sessionId) . '</p>'
+      . '<p style="margin-top:18px;color:#666;">ID sessione Stripe: ' . e($sessionId) . '</p>'
       . '</div>';
   }
 
