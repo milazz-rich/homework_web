@@ -1,3 +1,4 @@
+// Filtri specifici per il catalogo accessori.
 initCatalogPage({
   textFilters: {
     piastre: ['plate'],

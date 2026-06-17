@@ -1,34 +1,38 @@
-const newsletterForm = {
-  form: document.querySelector('.newsletter-signup-form'),
-  message: document.querySelector('.newsletter-signup-message'),
-};
+// Newsletter e convertitore valuta della homepage.
 
 function getCsrfToken() {
-  return document.querySelector('input[name="_token"]')?.value
-    || document.querySelector('#fxCsrfToken')?.value
-    || document.querySelector('meta[name="csrf-token"]')?.content
-    || '';
+  const inputToken = document.querySelector('input[name="_token"]');
+  const converterToken = document.querySelector('#fxCsrfToken');
+  const metaToken = document.querySelector('meta[name="csrf-token"]');
+
+  if (inputToken) return inputToken.value;
+  if (converterToken) return converterToken.value;
+  if (metaToken) return metaToken.content;
+  return '';
 }
 
-async function readJsonResponse(response, fallbackMessage) {
-  let data = null;
-
-  try {
-    data = await response.json();
-  } catch (_error) {
-    data = null;
+function onJsonResponse(response) {
+  if (response.ok) {
+    return response.json();
   }
 
-  if (!response.ok) {
+  return response.json().then(function (data) {
     return {
       success: false,
-      message: data?.message || fallbackMessage,
+      message: data.message || 'Errore di rete o server non raggiungibile.',
     };
-  }
+  }, function () {
+    return {
+      success: false,
+      message: 'Errore di rete o server non raggiungibile.',
+    };
+  });
+}
 
-  return data || {
+function onNetworkError() {
+  return {
     success: false,
-    message: fallbackMessage,
+    message: 'Errore di rete o server non raggiungibile.',
   };
 }
 
@@ -36,109 +40,121 @@ function setFormMessage(element, data, fallbackMessage) {
   if (!element) return;
 
   element.textContent = data.message || fallbackMessage;
-  element.classList.toggle('is-success', !!data.success);
-  element.classList.toggle('is-error', !data.success);
+  element.classList.toggle('is-success', data.success === true);
+  element.classList.toggle('is-error', data.success !== true);
 }
 
-if (newsletterForm.form) {
-  newsletterForm.form.addEventListener('submit', async (event) => {
+function setLoadingButton(button, isLoading, loadingText, originalText) {
+  if (!button) return;
+
+  button.disabled = isLoading;
+  button.textContent = isLoading ? loadingText : originalText;
+}
+
+// Handler: iscrizione newsletter.
+function onNewsletterSubmit(event) {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const message = document.querySelector('.newsletter-signup-message');
+  const submitButton = form.querySelector('button[type="submit"]');
+  const originalText = submitButton ? submitButton.textContent : '';
+
+  setLoadingButton(submitButton, true, 'Invio...', originalText);
+
+  fetch(form.action || '/api/newsletter', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'X-CSRF-TOKEN': getCsrfToken(),
+    },
+    body: new FormData(form),
+  }).then(onJsonResponse, onNetworkError).then(function (data) {
+    setFormMessage(message, data, 'Errore di rete o server non raggiungibile.');
+
+    if (data.success) {
+      form.reset();
+    }
+
+    setLoadingButton(submitButton, false, '', originalText);
+  });
+}
+
+function getCurrencyRequestBody() {
+  const amountInput = document.querySelector('#fxAmount');
+  const fromSelect = document.querySelector('#fxFrom');
+  const toSelect = document.querySelector('#fxTo');
+  const csrfToken = getCsrfToken();
+  const body = new URLSearchParams({
+    amount: amountInput ? amountInput.value : '',
+    from: fromSelect ? fromSelect.value : '',
+    to: toSelect ? toSelect.value : '',
+  });
+
+  if (csrfToken) {
+    body.append('_token', csrfToken);
+  }
+
+  return body;
+}
+
+// Handler: conversione valuta.
+function onCurrencyConvertClick() {
+  const convertButton = document.querySelector('#fxConvertButton');
+  const result = document.querySelector('#fxResult');
+  const originalText = convertButton ? convertButton.textContent : '';
+  const csrfToken = getCsrfToken();
+
+  setLoadingButton(convertButton, true, 'Conversione...', originalText);
+
+  fetch('/api/currency-converter', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-CSRF-TOKEN': csrfToken,
+    },
+    body: getCurrencyRequestBody(),
+  }).then(onJsonResponse, onNetworkError).then(function (data) {
+    setFormMessage(result, data, 'Errore nel recupero del cambio valuta.');
+    setLoadingButton(convertButton, false, '', originalText);
+  });
+}
+
+// Handler: invio con Enter nei campi del convertitore.
+function onCurrencyFieldKeydown(event) {
+  if (event.key === 'Enter') {
     event.preventDefault();
-
-    const submitButton = newsletterForm.form.querySelector('button[type="submit"]');
-    const originalText = submitButton?.textContent || '';
-
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = 'Invio...';
-    }
-
-    try {
-      const response = await fetch(newsletterForm.form.action || '/api/newsletter', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'X-CSRF-TOKEN': getCsrfToken(),
-        },
-        body: new FormData(newsletterForm.form),
-      });
-
-      const data = await readJsonResponse(response, 'Errore di rete o server non raggiungibile.');
-      setFormMessage(newsletterForm.message, data, 'Errore di rete o server non raggiungibile.');
-
-      if (data.success) {
-        newsletterForm.form.reset();
-      }
-    } catch (_error) {
-      setFormMessage(newsletterForm.message, {
-        success: false,
-        message: 'Errore di rete o server non raggiungibile.',
-      }, 'Errore di rete o server non raggiungibile.');
-    } finally {
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = originalText;
-      }
-    }
-  });
+    onCurrencyConvertClick();
+  }
 }
 
-const currencyConverter = {
-  amount: document.querySelector('#fxAmount'),
-  from: document.querySelector('#fxFrom'),
-  to: document.querySelector('#fxTo'),
-  button: document.querySelector('#fxConvertButton'),
-  result: document.querySelector('#fxResult')
-};
+function initNewsletterSignup() {
+  const form = document.querySelector('.newsletter-signup-form');
 
-if (currencyConverter.button) {
-  currencyConverter.button.addEventListener('click', async () => {
-    if (!currencyConverter.amount || !currencyConverter.from || !currencyConverter.to || !currencyConverter.result) return;
-
-    const originalText = currencyConverter.button.textContent;
-    currencyConverter.button.disabled = true;
-    currencyConverter.button.textContent = 'Conversione...';
-
-    const body = new URLSearchParams({
-      amount: currencyConverter.amount.value,
-      from: currencyConverter.from.value,
-      to: currencyConverter.to.value,
-    });
-
-    const csrfToken = getCsrfToken();
-    if (csrfToken) {
-      body.append('_token', csrfToken);
-    }
-
-    try {
-      const response = await fetch('/api/currency-converter', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-CSRF-TOKEN': csrfToken,
-        },
-        body,
-      });
-
-      const data = await readJsonResponse(response, 'Errore nel recupero del cambio valuta.');
-      setFormMessage(currencyConverter.result, data, 'Errore nel recupero del cambio valuta.');
-    } catch (_error) {
-      setFormMessage(currencyConverter.result, {
-        success: false,
-        message: 'Errore nel recupero del cambio valuta.',
-      }, 'Errore nel recupero del cambio valuta.');
-    } finally {
-      currencyConverter.button.disabled = false;
-      currencyConverter.button.textContent = originalText;
-    }
-  });
-
-  [currencyConverter.amount, currencyConverter.from, currencyConverter.to].forEach((field) => {
-    field?.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        currencyConverter.button.click();
-      }
-    });
-  });
+  if (form) {
+    form.addEventListener('submit', onNewsletterSubmit);
+  }
 }
+
+function initCurrencyConverter() {
+  const convertButton = document.querySelector('#fxConvertButton');
+  const fields = [
+    document.querySelector('#fxAmount'),
+    document.querySelector('#fxFrom'),
+    document.querySelector('#fxTo'),
+  ];
+
+  if (convertButton) {
+    convertButton.addEventListener('click', onCurrencyConvertClick);
+  }
+
+  for (const field of fields) {
+    if (field) {
+      field.addEventListener('keydown', onCurrencyFieldKeydown);
+    }
+  }
+}
+
+initNewsletterSignup();
+initCurrencyConverter();

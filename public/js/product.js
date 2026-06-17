@@ -1,4 +1,6 @@
-// Gallery thumbnails
+// Gestione pagina prodotto: immagini, accordion, quantità, carrello e checkout.
+
+// Gallery thumbnails.
 document.querySelectorAll('.product-gallery-thumbs .thumb').forEach(thumb => {
   thumb.addEventListener('click', () => {
     const mainImg = document.getElementById('mainImage');
@@ -14,7 +16,7 @@ document.querySelectorAll('.product-gallery-thumbs .thumb').forEach(thumb => {
   });
 });
 
-// Accordions
+// Accordion dettagli prodotto.
 document.querySelectorAll('.product-accordion-trigger').forEach(trigger => {
   trigger.addEventListener('click', () => {
     const expanded = trigger.getAttribute('aria-expanded') === 'true';
@@ -25,7 +27,7 @@ document.querySelectorAll('.product-accordion-trigger').forEach(trigger => {
   });
 });
 
-// Quantity
+// Quantità e prezzo dinamico.
 const productPurchaseForm = document.getElementById('productPurchaseForm');
 const qtyInput = document.getElementById('qtyInput');
 const priceDisplay = document.querySelector('.product-price-display');
@@ -38,27 +40,33 @@ productPurchaseForm?.addEventListener('submit', (event) => {
   event.preventDefault();
 });
 
+function normalizeQuantity(value) {
+  return Math.min(99, Math.max(1, parseInt(value, 10) || 1));
+}
+
 function updatePrice() {
   if (!qtyInput || !priceDisplay) return;
 
-  const qty = Math.max(1, parseInt(qtyInput.value) || 1);
+  const qty = normalizeQuantity(qtyInput.value);
   qtyInput.value = qty;
-  priceDisplay.textContent = '€' + (BASE_PRICE * qty).toLocaleString('it-IT', { minimumFractionDigits: 2 }) ;
+  priceDisplay.textContent = '€' + (BASE_PRICE * qty).toLocaleString('it-IT', { minimumFractionDigits: 2 });
 }
 
 document.getElementById('qtyMinus')?.addEventListener('click', () => {
   if (!qtyInput) return;
-  qtyInput.value = Math.max(1, parseInt(qtyInput.value) - 1);
+  qtyInput.value = normalizeQuantity(parseInt(qtyInput.value, 10) - 1);
   updatePrice();
 });
+
 document.getElementById('qtyPlus')?.addEventListener('click', () => {
   if (!qtyInput) return;
-  qtyInput.value = Math.min(99, parseInt(qtyInput.value) + 1);
+  qtyInput.value = normalizeQuantity(parseInt(qtyInput.value, 10) + 1);
   updatePrice();
 });
+
 qtyInput?.addEventListener('input', updatePrice);
 
-// Variant buttons
+// Toggle varianti visuali, se presenti.
 document.querySelectorAll('.variant-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
@@ -66,17 +74,16 @@ document.querySelectorAll('.variant-btn').forEach(btn => {
   });
 });
 
-// Color buttons
 document.querySelectorAll('.color-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const colorLabel = btn.closest('.product-color').querySelector('.product-variant-label strong');
+    const colorLabel = btn.closest('.product-color')?.querySelector('.product-variant-label strong');
     if (colorLabel) colorLabel.textContent = btn.dataset.color;
   });
 });
 
-// Upsell tabs
+// Tab upsell, se presenti.
 document.querySelectorAll('.product-upsell').forEach(upsell => {
   upsell.querySelectorAll('.upsell-tab').forEach(tab => {
     tab.addEventListener('click', () => {
@@ -86,11 +93,11 @@ document.querySelectorAll('.product-upsell').forEach(upsell => {
   });
 });
 
-// Add to cart button feedback
+// Aggiunta al carrello: logica ripristinata al comportamento precedente.
 document.querySelector('.btn-add-cart')?.addEventListener('click', () => {
   const btn = document.querySelector('.btn-add-cart');
   if (!btn) return;
-  const qty = Math.max(1, parseInt(qtyInput?.value || '1', 10) || 1);
+  const qty = normalizeQuantity(qtyInput?.value || '1');
 
   btn.disabled = true;
   const original = btn.textContent;
@@ -131,10 +138,11 @@ document.querySelector('.btn-add-cart')?.addEventListener('click', () => {
     });
 });
 
+// Checkout immediato: logica ripristinata al comportamento precedente.
 document.querySelector('.btn-buy-now')?.addEventListener('click', () => {
   const btn = document.querySelector('.btn-buy-now');
   if (!btn) return;
-  const qty = Math.max(1, parseInt(qtyInput?.value || '1', 10) || 1);
+  const qty = normalizeQuantity(qtyInput?.value || '1');
 
   btn.disabled = true;
   const original = btn.textContent;
@@ -169,7 +177,7 @@ document.querySelector('.btn-buy-now')?.addEventListener('click', () => {
     });
 });
 
-// Bundle add buttons
+// Pulsanti bundle dimostrativi, se presenti.
 document.querySelectorAll('.bundle-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     if (btn.textContent === 'Aggiunto') {

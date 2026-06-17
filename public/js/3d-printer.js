@@ -1,3 +1,4 @@
+// Filtri specifici per il catalogo stampanti 3D.
 initCatalogPage({
   textFilters: {
     h: ['h2'],

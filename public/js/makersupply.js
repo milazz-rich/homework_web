@@ -1,3 +1,4 @@
+// Filtri specifici per il catalogo Maker's Supply.
 initCatalogPage({
   textFilters: {
     makerlab: ['makerlab'],

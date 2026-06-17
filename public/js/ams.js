@@ -1,3 +1,4 @@
+// Filtri specifici per il catalogo AMS.
 initCatalogPage({
   textFilters: {
     'ams lite': ['lite'],

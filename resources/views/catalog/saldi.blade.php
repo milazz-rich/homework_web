@@ -37,8 +37,20 @@
       <aside class="catalog-sidebar"><div class="filter-group"><button class="filter-group-header"><span>Tipo</span><span class="filter-toggle-icon">&#8722;</span></button><ul class="filter-list"><li><a href="#">Stampanti</a></li><li><a href="#">Filamenti</a></li><li><a href="#">Accessori</a></li><li><a href="#">Maker's Supply</a></li><li><a href="#">Materiali</a></li><li><a href="#">AMS</a></li></ul></div></aside>
       <div class="catalog-grid">
         @foreach (($products ?? []) as $product)
-          @php $name = $product->name; $subtitle = $product->subtitle; $imagePath = $product->image_path !== '' ? $product->image_path : 'img/stampanti3d.png'; @endphp
-          <a href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}" class="catalog-card"><div class="catalog-card-img-wrap"><img src="{{ asset($imagePath) }}" alt="{{ $name }}"></div><div class="catalog-card-info"><p class="catalog-card-name">{{ $name }}</p><p class="catalog-card-price">Da <strong>{{ number_format((float) $product->price, 2, ',', '.') }} € EUR</strong></p>@if ($subtitle !== '')<div class="catalog-card-subtitle">{{ $subtitle }}</div>@endif</div></a>
+          @php
+            $name = $product->name;
+            $subtitle = $product->subtitle;
+            $imagePath = $product->image_path !== '' ? $product->image_path : 'img/stampanti3d.png';
+            $filter = match ((int) $product->type) {
+              1 => 'filamenti',
+              2 => 'accessori',
+              3 => 'makersupply',
+              4 => 'materiali',
+              5 => 'ams',
+              default => 'stampanti',
+            };
+          @endphp
+          <a href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}" class="catalog-card" data-filter="{{ $filter }}"><div class="catalog-card-img-wrap"><img src="{{ asset($imagePath) }}" alt="{{ $name }}"></div><div class="catalog-card-info"><p class="catalog-card-name">{{ $name }}</p><p class="catalog-card-price">Da <strong>{{ number_format((float) $product->price, 2, ',', '.') }} € EUR</strong></p>@if ($subtitle !== '')<div class="catalog-card-subtitle">{{ $subtitle }}</div>@endif</div></a>
         @endforeach
       </div>
     </div>

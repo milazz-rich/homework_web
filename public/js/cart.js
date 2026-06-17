@@ -1,3 +1,5 @@
+// Gestione pagina carrello: caricamento, quantità, rimozione e checkout.
+
 const cartItemsList = document.querySelector('#cart-items-list');
 const cartEmptyState = document.querySelector('#cart-empty-state');
 const cartTotalLabel = document.querySelector('#cart-total-label');
@@ -8,6 +10,8 @@ const cartMoney = new Intl.NumberFormat('it-IT', {
   style: 'currency',
   currency: 'EUR',
 });
+
+let cartItems = [];
 
 function getCartCsrfToken() {
   return document.querySelector('meta[name="csrf-token"]')?.content || '';
@@ -56,6 +60,25 @@ function hideCartMessage() {
   cartEmptyState?.classList.remove('is-visible');
 }
 
+function findLocalCartItem(cartId) {
+  return cartItems.find((item) => String(item.id) === String(cartId));
+}
+
+function updateLocalCartItemQuantity(cartId, quantity) {
+  const item = findLocalCartItem(cartId);
+
+  if (!item) return;
+
+  item.quantity = quantity;
+  renderCart(cartItems);
+}
+
+function removeLocalCartItem(cartId) {
+  cartItems = cartItems.filter((item) => String(item.id) !== String(cartId));
+  renderCart(cartItems);
+}
+
+// Disegna tutti gli elementi del carrello.
 function renderCart(items) {
   if (!cartItemsList) return;
 
@@ -111,6 +134,7 @@ function renderCart(items) {
   }).join('');
 }
 
+// Carica il carrello dal server.
 async function loadCart() {
   if (!cartItemsList) return;
 
@@ -131,13 +155,15 @@ async function loadCart() {
       throw new Error(data.message || 'Errore nel caricamento del carrello.');
     }
 
-    renderCart(Array.isArray(data) ? data : []);
+    cartItems = Array.isArray(data) ? data : [];
+    renderCart(cartItems);
   } catch (error) {
     cartItemsList.innerHTML = '';
     showCartMessage(error.message || 'Errore nel caricamento del carrello.');
   }
 }
 
+// Aggiunge un prodotto consigliato al carrello.
 async function addRecommendedProduct(printerId) {
   const formData = new FormData();
   formData.append('product_id', String(printerId));
@@ -163,6 +189,7 @@ async function addRecommendedProduct(printerId) {
   await loadCart();
 }
 
+// Aggiorna la quantità di una riga carrello.
 async function updateItemQuantity(cartId, quantity) {
   const formData = new FormData();
   formData.append('cart_id', String(cartId));
@@ -187,6 +214,7 @@ async function updateItemQuantity(cartId, quantity) {
   return loadCart();
 }
 
+// Rimuove una riga carrello.
 async function removeItem(cartId) {
   const body = new URLSearchParams({
     id: String(cartId),
@@ -211,6 +239,7 @@ async function removeItem(cartId) {
   return loadCart();
 }
 
+// Handler: click su +, -, rimuovi.
 cartItemsList?.addEventListener('click', async (event) => {
   const target = event.target;
   const item = target.closest('.cart-item');
@@ -228,25 +257,33 @@ cartItemsList?.addEventListener('click', async (event) => {
 
   try {
     if (action === 'increase') {
-      await updateItemQuantity(cartId, currentQty + 1);
+      const nextQty = currentQty + 1;
+      updateLocalCartItemQuantity(cartId, nextQty);
+      await updateItemQuantity(cartId, nextQty);
     }
 
     if (action === 'decrease') {
       if (currentQty <= 1) {
+        removeLocalCartItem(cartId);
         await removeItem(cartId);
       } else {
-        await updateItemQuantity(cartId, currentQty - 1);
+        const nextQty = currentQty - 1;
+        updateLocalCartItemQuantity(cartId, nextQty);
+        await updateItemQuantity(cartId, nextQty);
       }
     }
 
     if (action === 'remove') {
+      removeLocalCartItem(cartId);
       await removeItem(cartId);
     }
   } catch (error) {
     showCartMessage(error.message || 'Errore aggiornamento carrello.');
+    loadCart();
   }
 });
 
+// Handler: checkout carrello completo.
 cartCheckoutBtn?.addEventListener('click', async () => {
   try {
     cartCheckoutBtn.disabled = true;
@@ -277,20 +314,26 @@ cartCheckoutBtn?.addEventListener('click', async () => {
   }
 });
 
+// Handler: prodotti consigliati.
 recommendedButtons.forEach((button) => {
   button.addEventListener('click', async () => {
     const productId = button.dataset.productId;
 
     if (!productId || button.disabled) return;
 
+    const originalText = button.textContent;
+
     try {
       button.disabled = true;
-      button.textContent = 'Aggiunta...';
+      button.textContent = 'Nel carrello';
+      button.classList.add('is-in-cart');
       await addRecommendedProduct(productId);
     } catch (error) {
       showCartMessage(error.message || 'Errore aggiunta al carrello.');
       button.disabled = false;
-      button.textContent = 'Aggiungi al carrello';
+      button.textContent = originalText;
+      button.classList.remove('is-in-cart');
+      loadCart();
     }
   });
 });

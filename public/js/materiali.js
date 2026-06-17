@@ -1,3 +1,4 @@
+// Filtri specifici per il catalogo materiali.
 initCatalogPage({
   textFilters: {
     legno: ['compensato', 'tavola'],

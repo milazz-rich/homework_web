@@ -1,3 +1,4 @@
+// Filtri specifici per il catalogo saldi.
 initCatalogPage({
   textFilters: {
     stampanti: ['stampanti'],

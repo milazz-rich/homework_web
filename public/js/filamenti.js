@@ -1,3 +1,4 @@
+// Filtri specifici per il catalogo filamenti.
 initCatalogPage({
   textFilters: {
     pla: ['pla'],
