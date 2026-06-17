@@ -1,6 +1,16 @@
 <?php
 
+use App\Http\Controllers\CartPageController;
+use App\Http\Controllers\AccessoriController;
+use App\Http\Controllers\AmsController;
+use App\Http\Controllers\FilamentiController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MakerSupplyController;
+use App\Http\Controllers\MaterialiController;
+use App\Http\Controllers\PaymentSuccessController;
+use App\Http\Controllers\PrinterController;
+use App\Http\Controllers\ProductPageController;
+use App\Http\Controllers\SaldiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -8,14 +18,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', function () { return view('welcome'); });
 Route::get('/register', function () { return view('welcome'); });
 
-Route::get('/cart', function () { return view('welcome'); });
-Route::get('/product', function () { return view('welcome'); });
-Route::get('/payment-success', function () { return view('welcome'); });
+Route::get('/cart', [CartPageController::class, 'show']);
+Route::get('/product', [ProductPageController::class, 'show']);
+Route::get('/payment-success', [PaymentSuccessController::class, 'show']);
 
-Route::get('/saldi', function () { return view('welcome'); });
-Route::get('/3d-printer', function () { return view('welcome'); });
-Route::get('/ams', function () { return view('welcome'); });
-Route::get('/filamenti', function () { return view('welcome'); });
-Route::get('/accessori', function () { return view('welcome'); });
-Route::get('/materiali', function () { return view('welcome'); });
-Route::get('/makersupply', function () { return view('welcome'); });
+Route::get('/saldi', [SaldiController::class, 'index']);
+Route::get('/3d-printer', [PrinterController::class, 'index']);
+Route::get('/ams', [AmsController::class, 'index']);
+Route::get('/filamenti', [FilamentiController::class, 'index']);
+Route::get('/accessori', [AccessoriController::class, 'index']);
+Route::get('/materiali', [MaterialiController::class, 'index']);
+Route::get('/makersupply', [MakerSupplyController::class, 'index']);

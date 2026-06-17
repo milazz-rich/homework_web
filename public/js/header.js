@@ -155,7 +155,7 @@ async function loadCartBadge() {
   if (!cartBadges.length) return;
 
   try {
-    const response = await fetch('app/api/api_cart.php', {
+    const response = await fetch('/api/cart', {
       headers: { Accept: 'application/json' },
     });
 
@@ -213,7 +213,7 @@ async function loadSearchProducts() {
 
   if (searchStatus) searchStatus.textContent = 'Caricamento prodotti...';
 
-  const response = await fetch('app/api/api_products.php', {
+  const response = await fetch('/api/products', {
     headers: { Accept: 'application/json' },
   });
 
@@ -260,7 +260,7 @@ function renderSearchResults() {
     });
 
     return `
-      <a class="search-modal-result" href="product.php?id=${encodeURIComponent(product.id)}">
+      <a class="search-modal-result" href="/product?id=${encodeURIComponent(product.id)}">
         <span class="search-modal-result-image">
           <img src="${escapeSearchHtml(image)}" alt="${escapeSearchHtml(product.name || '')}">
         </span>

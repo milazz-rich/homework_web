@@ -25,6 +25,16 @@ class ProductService
       ->get();
   }
 
+  // Recupera un singolo prodotto per id.
+  public function findProductById(int $id): ?Product
+  {
+    if ($id <= 0) {
+      return null;
+    }
+
+    return Product::query()->find($id);
+  }
+
   // Restituisce gli ultimi prodotti inseriti.
   public function getLatestProducts(int $limit): Collection
   {

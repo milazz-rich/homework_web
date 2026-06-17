@@ -48,7 +48,7 @@
       </button>
     </div>
 
-    <a class="navbar-mobile-brand" href="index.php" aria-label="Bambu Lab">
+    <a class="navbar-mobile-brand" href="{{ url('/') }}" aria-label="Bambu Lab">
       <img class="navbar-mobile-logo"
         src="https://store.bblcdn.com/s2/default/febc4874843645f38149a05caa0f8a6d/logo.png" alt="Bambu Lab">
     </a>
@@ -66,7 +66,7 @@
         </svg>
       </button>
 
-      <a class="navbar-mobile-icon-button cart" href="pages/cart/cart.php" aria-label="Open cart" title="Go to cart"
+      <a class="navbar-mobile-icon-button cart" href="{{ url('/cart') }}" aria-label="Open cart" title="Go to cart"
         data-cart-fly-target="true">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path
@@ -98,13 +98,13 @@
 
     <nav class="navbar-menu no-scrollbar" aria-label="Navigazione principale">
       <ul>
-        <li><a href="saldi.php" data-dropdown-trigger="saldi">🔥Saldi</a></li>
-        <li><a href="3d-printer.php" data-dropdown-trigger="stampanti">Stampanti</a></li>
-        <li><a href="ams.php" data-dropdown-trigger="ams">AMS</a></li>
-        <li><a href="filamenti.php" data-dropdown-trigger="filamenti">Filamenti</a></li>
-        <li><a href="accessori.php" data-dropdown-trigger="accessori">Accessori</a></li>
-        <li><a href="materiali.php" data-dropdown-trigger="materiali">Materiale</a></li>
-        <li><a href="makersupply.php" data-dropdown-trigger="makersupply">Maker's Supply</a></li>
+        <li><a href="{{ url('/saldi') }}" data-dropdown-trigger="saldi">🔥Saldi</a></li>
+        <li><a href="{{ url('/3d-printer') }}" data-dropdown-trigger="stampanti">Stampanti</a></li>
+        <li><a href="{{ url('/ams') }}" data-dropdown-trigger="ams">AMS</a></li>
+        <li><a href="{{ url('/filamenti') }}" data-dropdown-trigger="filamenti">Filamenti</a></li>
+        <li><a href="{{ url('/accessori') }}" data-dropdown-trigger="accessori">Accessori</a></li>
+        <li><a href="{{ url('/materiali') }}" data-dropdown-trigger="materiali">Materiale</a></li>
+        <li><a href="{{ url('/makersupply') }}" data-dropdown-trigger="makersupply">Maker's Supply</a></li>
         <li>
           <a href="#" data-dropdown-trigger="supporto">Supporto</a>
           <div class="dropdown-menu hidden" data-dropdown-menu="supporto">
@@ -136,7 +136,7 @@
         </svg>
       </button>
 
-      <a class="cart" href="cart.php" aria-label="Open cart">
+      <a class="cart" href="{{ url('/cart') }}" aria-label="Open cart">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M9.3577 20.3593C10.2185 20.3593 10.9163 19.6616 10.9163 18.801C10.9163 17.9403 10.2185 17.2427 9.3577 17.2427C8.49693 17.2427 7.79913 17.9403 7.79913 18.801C7.79913 19.6616 8.49693 20.3593 9.3577 20.3593Z"
@@ -163,10 +163,10 @@
       <div class="dropdown-menu hidden" data-dropdown-menu="user">
         @if (($authUser ?? null) !== null)
           <span class="dropdown-user-greeting">Ciao, {{ $authUser->getNome() ?: 'Utente' }}</span>
-          <a href="app/api/api_logout.php">Logout</a>
+          <a href="{{ url('/api/logout') }}">Logout</a>
         @else
-          <a href="register.php">Registrati</a>
-          <a href="login.php">Login</a>
+          <a href="{{ url('/register') }}">Registrati</a>
+          <a href="{{ url('/login') }}">Login</a>
         @endif
       </div>
     </div>
@@ -176,10 +176,10 @@
   <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="saldi">
     <div class="dropdown-menu-full-inner">
       <div class="dropdown-menu-full-links">
-        <a href="filamenti.php">Vendita filamenti <span>›</span></a>
-        <a href="accessori.php">Vendita accessori <span>›</span></a>
-        <a href="makersupply.php">Maker's Supply Sale <span>›</span></a>
-        <a href="materiali.php">Material Sale <span>›</span></a>
+        <a href="{{ url('/filamenti') }}">Vendita filamenti <span>›</span></a>
+        <a href="{{ url('/accessori') }}">Vendita accessori <span>›</span></a>
+        <a href="{{ url('/makersupply') }}">Maker's Supply Sale <span>›</span></a>
+        <a href="{{ url('/materiali') }}">Material Sale <span>›</span></a>
       </div>
 
       <div class="dropdown-menu-full-products dropdown-menu-full-products--single">
@@ -190,7 +190,7 @@
             $productImage = $product->image_path !== '' ? $product->image_path : 'img/filamenti.png';
           @endphp
           <a class="dropdown-menu-full-product is-featured"
-            href="product.php?id={{ urlencode((string) $product->id) }}">
+            href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}">
             <img src="{{ asset($productImage) }}" alt="{{ $productName }}">
             <div class="dropdown-menu-product-text">
               <strong>Vendita all'ingrosso di filamenti base</strong>
@@ -206,13 +206,13 @@
   <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="stampanti">
     <div class="dropdown-menu-full-inner">
       <div class="dropdown-menu-full-links">
-        <a href="3d-printer.php">Serie H <span>›</span></a>
-        <a href="3d-printer.php">Serie X <span>›</span></a>
-        <a href="3d-printer.php">Serie P <span>›</span></a>
-        <a href="3d-printer.php">Serie A <span>›</span></a>
-        <a href="3d-printer.php">Per Professionisti <span>›</span></a>
-        <a href="3d-printer.php">Tutte Le Stampanti 3D <span>›</span></a>
-        <a href="3d-printer.php">Come scegliere? <span>›</span></a>
+        <a href="{{ url('/3d-printer') }}">Serie H <span>›</span></a>
+        <a href="{{ url('/3d-printer') }}">Serie X <span>›</span></a>
+        <a href="{{ url('/3d-printer') }}">Serie P <span>›</span></a>
+        <a href="{{ url('/3d-printer') }}">Serie A <span>›</span></a>
+        <a href="{{ url('/3d-printer') }}">Per Professionisti <span>›</span></a>
+        <a href="{{ url('/3d-printer') }}">Tutte Le Stampanti 3D <span>›</span></a>
+        <a href="{{ url('/3d-printer') }}">Come scegliere? <span>›</span></a>
       </div>
 
       <div class="dropdown-menu-full-products">
@@ -223,7 +223,7 @@
             $productImage = $product->image_path !== '' ? $product->image_path : 'img/stampanti3d.png';
           @endphp
           <a class="dropdown-menu-full-product{{ $index === 0 ? ' is-featured' : '' }}"
-            href="product.php?id={{ urlencode((string) $product->id) }}">
+            href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}">
             @if ($index === 0)
               <span class="dropdown-menu-product-badge">In evidenza</span>
             @endif
@@ -242,8 +242,8 @@
   <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="ams">
     <div class="dropdown-menu-full-inner">
       <div class="dropdown-menu-full-links">
-        <a href="ams.php">Automatic Material System <span>›</span></a>
-        <a href="ams.php#comparison">Confronto prodotti <span>›</span></a>
+        <a href="{{ url('/ams') }}">Automatic Material System <span>›</span></a>
+        <a href="{{ url('/ams') }}#comparison">Confronto prodotti <span>›</span></a>
       </div>
 
       <div class="dropdown-menu-full-products">
@@ -253,7 +253,7 @@
             $productSubtitle = $product->subtitle;
             $productImage = $product->image_path !== '' ? $product->image_path : 'img/ams2pro.png';
           @endphp
-          <a class="dropdown-menu-full-product" href="product.php?id={{ urlencode((string) $product->id) }}">
+          <a class="dropdown-menu-full-product" href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}">
             <img src="{{ asset($productImage) }}" alt="{{ $productName }}">
             <div class="dropdown-menu-product-text">
               <strong>{{ $productName }}</strong>
@@ -269,13 +269,13 @@
   <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="filamenti">
     <div class="dropdown-menu-full-inner dropdown-menu-full-inner--filaments">
       <div class="dropdown-menu-full-links dropdown-menu-full-links--filaments">
-        <a href="filamenti.php">Speciali <span>›</span></a>
-        <a href="filamenti.php">PLA <span>›</span></a>
-        <a href="filamenti.php">PETG <span>›</span></a>
-        <a href="filamenti.php">ABS/ASA <span>›</span></a>
-        <a href="filamenti.php">TPU <span>›</span></a>
-        <a href="filamenti.php">PC/TPU <span>›</span></a>
-        <a href="filamenti.php">PA/PET <span>›</span></a>
+        <a href="{{ url('/filamenti') }}">Speciali <span>›</span></a>
+        <a href="{{ url('/filamenti') }}">PLA <span>›</span></a>
+        <a href="{{ url('/filamenti') }}">PETG <span>›</span></a>
+        <a href="{{ url('/filamenti') }}">ABS/ASA <span>›</span></a>
+        <a href="{{ url('/filamenti') }}">TPU <span>›</span></a>
+        <a href="{{ url('/filamenti') }}">PC/TPU <span>›</span></a>
+        <a href="{{ url('/filamenti') }}">PA/PET <span>›</span></a>
       </div>
 
       <div class="dropdown-menu-filaments-content">
@@ -290,7 +290,7 @@
                 $badge = $index === 0 ? 'In evidenza' : 'Novità';
                 $badgeClass = $index === 0 ? 'badge-hot' : 'badge-new';
               @endphp
-              <a class="dropdown-menu-filaments-card" href="product.php?id={{ urlencode((string) $product->id) }}">
+              <a class="dropdown-menu-filaments-card" href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}">
                 <span class="dropdown-menu-filaments-badge {{ $badgeClass }}">{{ $badge }}</span>
                 <img src="{{ asset($productImage) }}" alt="{{ $productName }}">
                 <div class="dropdown-menu-filaments-text">
@@ -313,7 +313,7 @@
                 $productSubtitle = $product->subtitle;
                 $productImage = $product->image_path !== '' ? $product->image_path : 'img/filamenti.png';
               @endphp
-              <a class="dropdown-menu-filaments-card" href="product.php?id={{ urlencode((string) $product->id) }}">
+              <a class="dropdown-menu-filaments-card" href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}">
                 <img src="{{ asset($productImage) }}" alt="{{ $productName }}">
                 <div class="dropdown-menu-filaments-text">
                   <strong>{{ $productName }}</strong>
@@ -331,10 +331,10 @@
   <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="accessori">
     <div class="dropdown-menu-full-inner dropdown-menu-full-inner--accessories">
       <div class="dropdown-menu-full-links dropdown-menu-full-links--accessories">
-        <a href="accessori.php">Piastre <span>›</span></a>
-        <a href="accessori.php">Encoder <span>›</span></a>
-        <a href="accessori.php">Purificatore <span>›</span></a>
-        <a href="accessori.php">Laser <span>›</span></a>
+        <a href="{{ url('/accessori') }}">Piastre <span>›</span></a>
+        <a href="{{ url('/accessori') }}">Encoder <span>›</span></a>
+        <a href="{{ url('/accessori') }}">Purificatore <span>›</span></a>
+        <a href="{{ url('/accessori') }}">Laser <span>›</span></a>
       </div>
 
       <div class="dropdown-menu-full-products dropdown-menu-full-products--accessories">
@@ -344,7 +344,7 @@
             $productSubtitle = $product->subtitle;
             $productImage = $product->image_path !== '' ? $product->image_path : 'img/accessori.png';
           @endphp
-          <a class="dropdown-menu-full-product" href="product.php?id={{ urlencode((string) $product->id) }}">
+          <a class="dropdown-menu-full-product" href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}">
             <img src="{{ asset($productImage) }}" alt="{{ $productName }}">
             <div class="dropdown-menu-product-text">
               <strong>{{ $productName }}</strong>
@@ -360,15 +360,15 @@
   <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="materiali">
     <div class="dropdown-menu-full-inner dropdown-menu-full-inner--materials">
       <div class="dropdown-menu-full-links dropdown-menu-full-links--materials">
-        <a href="materiali.php">Bulk Sale <span>›</span></a>
-        <a href="materiali.php">New Arrival <span>›</span></a>
-        <a href="materiali.php">Bundle <span>›</span></a>
-        <a href="materiali.php">Laser Material <span>›</span></a>
-        <a href="materiali.php">Blade Cutting Material <span>›</span></a>
-        <a href="materiali.php">Materiali Ausiliari <span>›</span></a>
+        <a href="{{ url('/materiali') }}">Bulk Sale <span>›</span></a>
+        <a href="{{ url('/materiali') }}">New Arrival <span>›</span></a>
+        <a href="{{ url('/materiali') }}">Bundle <span>›</span></a>
+        <a href="{{ url('/materiali') }}">Laser Material <span>›</span></a>
+        <a href="{{ url('/materiali') }}">Blade Cutting Material <span>›</span></a>
+        <a href="{{ url('/materiali') }}">Materiali Ausiliari <span>›</span></a>
       </div>
 
-      <a class="dropdown-menu-materials-card" href="materiali.php">
+      <a class="dropdown-menu-materials-card" href="{{ url('/materiali') }}">
         <img src="{{ asset('img/materiale2.png') }}" alt="Materiali per taglio e creazione">
         <div class="dropdown-menu-materials-text">
           <strong>Vendita in massa di materiale laser</strong>
@@ -382,13 +382,13 @@
   <div class="dropdown-menu dropdown-menu--full hidden" data-dropdown-menu="makersupply">
     <div class="dropdown-menu-full-inner dropdown-menu-full-inner--makersupply">
       <div class="dropdown-menu-full-links dropdown-menu-full-links--makersupply">
-        <a href="makersupply.php">Nuovi prodotti <span>›</span></a>
-        <a href="makersupply.php">Kit modello <span>›</span></a>
-        <a href="makersupply.php">CyberBrick <span>›</span></a>
-        <a href="makersupply.php">Maker Tools <span>›</span></a>
-        <a href="makersupply.php">Parti e componenti <span>›</span></a>
-        <a href="makersupply.php">Accessori MakerLab <span>›</span></a>
-        <a href="makersupply.php">Premium Models <span>›</span></a>
+        <a href="{{ url('/makersupply') }}">Nuovi prodotti <span>›</span></a>
+        <a href="{{ url('/makersupply') }}">Kit modello <span>›</span></a>
+        <a href="{{ url('/makersupply') }}">CyberBrick <span>›</span></a>
+        <a href="{{ url('/makersupply') }}">Maker Tools <span>›</span></a>
+        <a href="{{ url('/makersupply') }}">Parti e componenti <span>›</span></a>
+        <a href="{{ url('/makersupply') }}">Accessori MakerLab <span>›</span></a>
+        <a href="{{ url('/makersupply') }}">Premium Models <span>›</span></a>
       </div>
 
       <div class="dropdown-menu-full-products dropdown-menu-full-products--makersupply">
@@ -398,7 +398,7 @@
             $productSubtitle = $product->subtitle;
             $productImage = $product->image_path !== '' ? $product->image_path : 'img/makersuppy1.png';
           @endphp
-          <a class="dropdown-menu-makersupply-card" href="product.php?id={{ urlencode((string) $product->id) }}">
+          <a class="dropdown-menu-makersupply-card" href="{{ url('/product') }}?id={{ urlencode((string) $product->id) }}">
             <span class="dropdown-menu-makersupply-badge">Novità</span>
             <img src="{{ asset($productImage) }}" alt="{{ $productName }}">
             <div class="dropdown-menu-makersupply-text">

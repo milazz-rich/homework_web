@@ -9,6 +9,10 @@ const cartMoney = new Intl.NumberFormat('it-IT', {
   currency: 'EUR',
 });
 
+function getCartCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]')?.content || '';
+}
+
 function escapeHtml(value) {
   return String(value || '')
     .replaceAll('&', '&amp;')
@@ -80,7 +84,7 @@ function renderCart(items) {
   cartItemsList.innerHTML = items.map((item) => {
     const product = item.product || {};
     const price = getLineTotal(item);
-    const productUrl = product.id ? `product.php?id=${encodeURIComponent(product.id)}` : '#';
+    const productUrl = product.id ? `/product?id=${encodeURIComponent(product.id)}` : '#';
 
     return `
       <div class="cart-item" data-cart-id="${item.id}">
@@ -111,7 +115,7 @@ async function loadCart() {
   if (!cartItemsList) return;
 
   try {
-    const response = await fetch('app/api/api_cart.php', {
+    const response = await fetch('/api/cart', {
       headers: { Accept: 'application/json' },
     });
 
@@ -138,8 +142,9 @@ async function addRecommendedProduct(printerId) {
   const formData = new FormData();
   formData.append('product_id', String(printerId));
   formData.append('quantity', '1');
+  formData.append('_token', getCartCsrfToken());
 
-  const response = await fetch('app/api/api_cart.php', {
+  const response = await fetch('/api/cart', {
     method: 'POST',
     headers: { Accept: 'application/json' },
     body: formData,
@@ -162,8 +167,9 @@ async function updateItemQuantity(cartId, quantity) {
   const formData = new FormData();
   formData.append('cart_id', String(cartId));
   formData.append('quantity', String(quantity));
+  formData.append('_token', getCartCsrfToken());
 
-  const response = await fetch('app/api/api_cart.php', {
+  const response = await fetch('/api/cart', {
     method: 'POST',
     headers: { Accept: 'application/json' },
     body: formData,
@@ -182,10 +188,15 @@ async function updateItemQuantity(cartId, quantity) {
 }
 
 async function removeItem(cartId) {
-  const response = await fetch('app/api/api_cart.php', {
+  const body = new URLSearchParams({
+    id: String(cartId),
+    _token: getCartCsrfToken(),
+  });
+
+  const response = await fetch('/api/cart', {
     method: 'DELETE',
     headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: `id=${encodeURIComponent(cartId)}`,
+    body,
   });
 
   if (!response.ok) {
@@ -241,9 +252,9 @@ cartCheckoutBtn?.addEventListener('click', async () => {
     cartCheckoutBtn.disabled = true;
     cartCheckoutBtn.textContent = 'Reindirizzamento...';
 
-    const response = await fetch('app/api/api_checkout.php', {
+    const response = await fetch('/api/checkout', {
       method: 'POST',
-      headers: { Accept: 'application/json' },
+      headers: { Accept: 'application/json', 'X-CSRF-TOKEN': getCartCsrfToken() },
     });
 
     const data = await response.json();

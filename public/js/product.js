@@ -31,8 +31,8 @@ const qtyInput = document.getElementById('qtyInput');
 const priceDisplay = document.querySelector('.product-price-display');
 const purchaseFormData = productPurchaseForm ? new FormData(productPurchaseForm) : new FormData();
 const BASE_PRICE = Number(purchaseFormData.get('unit_price') || 0);
-const ADD_TO_CART_URL = 'app/api/api_cart.php';
-const BUY_NOW_URL = 'app/api/api_buy_now.php';
+const ADD_TO_CART_URL = '/api/cart';
+const BUY_NOW_URL = '/api/checkout/buy-now';
 
 productPurchaseForm?.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -107,7 +107,7 @@ document.querySelector('.btn-add-cart')?.addEventListener('click', () => {
     .then(async (response) => {
       const data = await response.json();
       if (response.status === 401) {
-        window.location.href = 'login.php';
+        window.location.href = '/login';
         return;
       }
       if (!response.ok) {
@@ -151,7 +151,7 @@ document.querySelector('.btn-buy-now')?.addEventListener('click', () => {
     .then(async (response) => {
       const data = await response.json();
       if (response.status === 401) {
-        window.location.href = 'login.php';
+        window.location.href = '/login';
         return;
       }
       if (!response.ok) {
