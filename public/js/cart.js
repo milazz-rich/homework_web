@@ -40,6 +40,17 @@ function getLineTotal(item) {
   return price * quantity;
 }
 
+// Aggiorna il badge carrello dalla copia locale.
+function updateLocalCartBadge() {
+  const totalQuantity = cartItems.reduce((sum, item) => sum + Number(item.quantity || 0), 0);
+  const badges = document.querySelectorAll('.cart-badge');
+
+  badges.forEach((badge) => {
+    badge.textContent = totalQuantity > 99 ? '99+' : String(totalQuantity);
+    badge.classList.toggle('is-visible', totalQuantity > 0);
+  });
+}
+
 // Sincronizza i pulsanti dei prodotti consigliati.
 function syncRecommendedButtons(items) {
   const cartProductIds = new Set(items.map((item) => String(item?.product?.id || '')));
@@ -88,6 +99,19 @@ function removeLocalCartItem(cartId) {
   renderCart(cartItems);
 }
 
+// Inserisce o sostituisce una riga nella copia locale.
+function upsertLocalCartItem(cartItem) {
+  const index = cartItems.findIndex((item) => String(item.id) === String(cartItem.id));
+
+  if (index === -1) {
+    cartItems.push(cartItem);
+  } else {
+    cartItems[index] = cartItem;
+  }
+
+  renderCart(cartItems);
+}
+
 // Disegna tutti gli elementi del carrello.
 function renderCart(items) {
   if (!cartItemsList) return;
@@ -104,6 +128,7 @@ function renderCart(items) {
     cartCheckoutBtn.disabled = items.length === 0;
   }
 
+  updateLocalCartBadge();
   syncRecommendedButtons(items);
 
   if (!items.length) {
@@ -183,13 +208,9 @@ function readCartJson(response) {
   });
 }
 
-// Aggiorna il badge header e ricarica il carrello.
+// Conferma una modifica gia applicata localmente.
 function refreshCartAfterChange() {
-  if (typeof window.refreshCartBadge === 'function') {
-    window.refreshCartBadge();
-  }
-
-  return loadCart();
+  updateLocalCartBadge();
 }
 
 // Aggiunge un prodotto consigliato al carrello.
@@ -208,6 +229,7 @@ function addRecommendedProduct(printerId) {
       throw new Error(result.data.message || 'Errore aggiunta al carrello.');
     }
 
+    upsertLocalCartItem(result.data);
     return refreshCartAfterChange();
   });
 }
