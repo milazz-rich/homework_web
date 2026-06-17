@@ -122,6 +122,7 @@ class StripeService
 
     try {
       $client = Http::timeout($this->timeout)
+        ->withoutVerifying()
         ->withToken($this->secretKey)
         ->acceptJson();
 
