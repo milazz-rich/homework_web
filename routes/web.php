@@ -1,13 +1,14 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CurrencyController;
+use App\Http\Controllers\Api\NewsletterController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ShopController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/login', function () { return view('welcome'); });
 Route::get('/register', function () { return view('welcome'); });
@@ -38,6 +39,9 @@ Route::prefix('api')->group(function (): void {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::match(['get', 'post'], '/logout', [AuthController::class, 'logout']);
+
+    Route::post('/currency-converter', [CurrencyController::class, 'convert']);
+    Route::post('/newsletter', [NewsletterController::class, 'signup']);
 });
 
 Route::post('/checkout/buy-now', [ShopController::class, 'createBuyNowCheckoutSession']);
