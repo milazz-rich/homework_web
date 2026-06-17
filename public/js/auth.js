@@ -20,6 +20,22 @@ document.querySelectorAll('.toggle-eye').forEach((button) => {
   });
 });
 
+function getAuthCsrfToken() {
+  return document.querySelector('meta[name="csrf-token"]')?.content
+    || document.querySelector('input[name="_token"]')?.value
+    || '';
+}
+
+function showAuthMessage(message, isError = true) {
+  const authMessage = document.querySelector('[data-auth-message]');
+
+  if (!authMessage) return;
+
+  authMessage.textContent = message;
+  authMessage.classList.remove('form-error--hidden');
+  authMessage.classList.toggle('form-error--success', !isError);
+}
+
 const emailInput = document.querySelector('input[name="email"]');
 const sendCodeBtn = document.getElementById('send-code-btn');
 const verifyMessage = document.getElementById('verify-message');
@@ -43,10 +59,14 @@ if (emailInput && sendCodeBtn && verifyMessage) {
     sendCodeBtn.textContent = 'Invio in corso...';
 
     try {
-      const response = await fetch('app/api/api_send_verification_code.php', {
+      const response = await fetch('/api/send-verification-code', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ email }),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRF-TOKEN': getAuthCsrfToken(),
+        },
+        body: new URLSearchParams({ email, _token: getAuthCsrfToken() }),
       });
 
       const data = await response.json();
@@ -64,3 +84,48 @@ if (emailInput && sendCodeBtn && verifyMessage) {
     }
   });
 }
+
+document.querySelectorAll('[data-auth-form]').forEach((form) => {
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton?.textContent || '';
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Invio in corso...';
+    }
+
+    try {
+      const formData = new FormData(form);
+      if (!formData.has('_token')) {
+        formData.append('_token', getAuthCsrfToken());
+      }
+
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': getAuthCsrfToken(),
+        },
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Operazione fallita.');
+      }
+
+      window.location.href = '/';
+    } catch (error) {
+      showAuthMessage(error.message || 'Operazione fallita.');
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+      }
+    }
+  });
+});

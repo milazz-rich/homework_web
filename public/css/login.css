@@ -77,6 +77,16 @@ h1 {
   font-size: 13px;
 }
 
+.form-error--hidden {
+  display: none;
+}
+
+.form-error--success {
+  background: #f6ffed;
+  border-color: #b7eb8f;
+  color: #237804;
+}
+
 .password-wrapper {
   position: relative;
 }

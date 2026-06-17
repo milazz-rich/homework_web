@@ -162,8 +162,8 @@
       </button>
       <div class="dropdown-menu hidden" data-dropdown-menu="user">
         @if (($authUser ?? null) !== null)
-          <span class="dropdown-user-greeting">Ciao, {{ $authUser->getNome() ?: 'Utente' }}</span>
-          <a href="{{ url('/api/logout') }}">Logout</a>
+          <span class="dropdown-user-greeting">Ciao, {{ $authUser->nome ?: 'Utente' }}</span>
+          <a href="{{ url('/logout') }}">Logout</a>
         @else
           <a href="{{ url('/register') }}">Registrati</a>
           <a href="{{ url('/login') }}">Login</a>

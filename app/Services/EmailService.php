@@ -126,6 +126,7 @@ class EmailService
 
     try {
       $response = Http::timeout($this->timeout)
+        ->withoutVerifying()
         ->withToken($this->apiKey)
         ->acceptJson()
         ->asJson()
