@@ -3,32 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class Product extends Model
 {
     use HasFactory;
-    use Notifiable;
 
-    protected $table = 'user';
+    protected $table = 'products';
 
     public $timestamps = false;
 
     protected $fillable = [
-        'nome',
-        'cognome',
-        'email',
-        'password',
-    ];
-
-    protected $hidden = [
-        'password',
+        'name',
+        'subtitle',
+        'price',
+        'image_path',
+        'type',
     ];
 
     protected $casts = [
-        'password' => 'hashed',
+        'price' => 'decimal:2',
+        'type' => 'integer',
     ];
 
     public function carts(): HasMany
